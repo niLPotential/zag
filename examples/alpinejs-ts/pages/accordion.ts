@@ -12,7 +12,7 @@ Alpine.data("accordion", () => {
   })
   return {
     get api() {
-      return accordion.connect(service, normalizeProps)
+      return accordion.alpinejs(service, normalizeProps)
     },
     init() {
       service.init()
