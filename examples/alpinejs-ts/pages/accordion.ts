@@ -1,6 +1,6 @@
 import Alpine from "alpinejs"
 import * as accordion from "@zag-js/accordion"
-import { useMachine, normalizeProps } from "@zag-js/alpinejs"
+import { useMachine } from "@zag-js/alpinejs"
 
 // @ts-ignore
 window.Alpine = Alpine
@@ -12,7 +12,7 @@ Alpine.data("accordion", () => {
   })
   return {
     get api() {
-      return accordion.alpinejs(service, normalizeProps)
+      return accordion.alpinejs(service)
     },
     init() {
       service.init()
