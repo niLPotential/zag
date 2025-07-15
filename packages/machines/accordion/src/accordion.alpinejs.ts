@@ -1,5 +1,5 @@
 import { dataAttr, getEventKey, isSafari } from "@zag-js/dom-query"
-import type { EventKeyMap, NormalizeProps, PropTypes } from "@zag-js/types"
+import type { EventKeyMap, PropTypes } from "@zag-js/types"
 import type { Service } from "@zag-js/core"
 import { parts } from "./accordion.anatomy"
 import * as dom from "./accordion.dom"
