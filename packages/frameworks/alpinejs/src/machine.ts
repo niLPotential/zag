@@ -17,6 +17,7 @@ import { compact, ensure, identity, isFunction, isString, toArray, warn } from "
 import Alpine from "alpinejs"
 import { bindable } from "./bindable"
 import { useRefs } from "./refs"
+import { useTrack } from "./track"
 
 export function useMachine<T extends MachineSchema>(
   machine: Machine<T>,
@@ -108,7 +109,7 @@ export function useMachine<T extends MachineSchema>(
     send,
     action,
     guard,
-    track,
+    track: useTrack,
     refs,
     computed,
     flush,
