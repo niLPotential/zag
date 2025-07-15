@@ -113,14 +113,14 @@ export function alpinejs<T extends PropTypes>(service: Service<AccordionSchema>)
           if (getDisabled(props)) return
           send({ type: "TRIGGER.BLUR" })
         },
-        "@click"(event) {
+        "@click"(event: any) {
           if (getDisabled(props)) return
           if (isSafari()) {
             event.currentTarget.focus()
           }
           send({ type: "TRIGGER.CLICK", value })
         },
-        "@keydown"(event) {
+        "@keydown"(event: any) {
           if (event.defaultPrevented) return
           if (getDisabled(props)) return
 
