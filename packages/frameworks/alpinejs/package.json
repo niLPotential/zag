@@ -31,6 +31,7 @@
     "@zag-js/utils": "workspace:*"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
     "alpinejs": "3.14.9",
     "clean-package": "2.2.0"
   },
