@@ -85,6 +85,7 @@
     "@zag-js/tour": "workspace:*",
     "@zag-js/tree-view": "workspace:*",
     "@zag-js/types": "workspace:*",
-    "@zag-js/utils": "workspace:*"
+    "@zag-js/utils": "workspace:*",
+    "alpinejs": "3.14.9"
   }
 }
