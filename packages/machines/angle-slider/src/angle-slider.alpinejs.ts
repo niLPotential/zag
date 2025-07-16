@@ -32,10 +32,10 @@ export function alpinejs<T extends PropTypes>(service: AngleSliderService): Angl
         ":data-disabled": () => dataAttr(disabled),
         ":data-invalid": () => dataAttr(invalid),
         ":data-readonly": () => dataAttr(readOnly),
-        style: {
+        ":style": () => ({
           "--value": getValue(),
           "--angle": getValueAsDegree(),
-        },
+        }),
       }
     },
 
@@ -78,11 +78,11 @@ export function alpinejs<T extends PropTypes>(service: AngleSliderService): Angl
           send({ type: "CONTROL.POINTER_DOWN", point })
           event.stopPropagation()
         },
-        style: {
+        ":style": () => ({
           touchAction: "none",
           userSelect: "none",
           WebkitUserSelect: "none",
-        },
+        }),
       }
     },
 
@@ -132,9 +132,9 @@ export function alpinejs<T extends PropTypes>(service: AngleSliderService): Angl
               break
           }
         },
-        style: {
+        ":style": () => ({
           rotate: `var(--angle)`,
-        },
+        }),
       }
     },
 
@@ -152,25 +152,25 @@ export function alpinejs<T extends PropTypes>(service: AngleSliderService): Angl
     },
 
     getMarkerProps(props) {
-      let markerState: "under-value" | "over-value" | "at-value"
-
-      if (props.value < getValue()) {
-        markerState = "under-value"
-      } else if (props.value > getValue()) {
-        markerState = "over-value"
-      } else {
-        markerState = "at-value"
+      function getMarkerState() {
+        if (props.value < getValue()) {
+          return "under-value"
+        } else if (props.value > getValue()) {
+          return "over-value"
+        } else {
+          return "at-value"
+        }
       }
 
       return {
         ...parts.marker.attrs,
         ":data-value": () => props.value,
-        ":data-state": () => markerState,
+        ":data-state": getMarkerState,
         ":data-disabled": () => dataAttr(disabled),
-        style: {
+        ":style": () => ({
           "--marker-value": props.value,
           rotate: `calc(var(--marker-value) * 1deg)`,
-        },
+        }),
       }
     },
   }
