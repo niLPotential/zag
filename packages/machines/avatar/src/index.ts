@@ -1,3 +1,4 @@
+export { alpinejs } from "./avatar.alpinejs"
 export { anatomy } from "./avatar.anatomy"
 export { connect } from "./avatar.connect"
 export { machine } from "./avatar.machine"

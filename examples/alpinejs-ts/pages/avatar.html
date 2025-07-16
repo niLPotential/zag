@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./avatar.css" />
+    <title>Vite + TS</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Avatar</h1>
+
+    <div x-data="avatar" x-bind="api.getRootProps()">
+      <span x-bind="api.getFallbackProps()">PA</span>
+      <img
+        x-data="{src: 'https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/300?cb=20210223094656'}"
+        alt="PA"
+        :src="() => src"
+        x-bind="api.getImageProps()"
+      />
+    </div>
+
+    <script type="module" src="./avatar.ts"></script>
+  </body>
+</html>
