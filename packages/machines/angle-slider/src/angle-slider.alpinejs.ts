@@ -4,7 +4,7 @@ import { parts } from "./angle-slider.anatomy"
 import * as dom from "./angle-slider.dom"
 import type { AngleSliderService, AngleSliderApi } from "./angle-slider.types"
 
-export function connect<T extends PropTypes>(service: AngleSliderService): AngleSliderApi<T> {
+export function alpinejs<T extends PropTypes>(service: AngleSliderService): AngleSliderApi<T> {
   const { state, send, context, prop, computed, scope } = service
 
   const getDragging = () => state.matches("dragging")

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite + TS</title>
+</head>
+<body style="padding: 40px">
+    <h1>Accordion</h1>
+
+    <div x-data="angleSlider" x-bind="api.getRootProps()">
+    <label x-bind="api.getLabelProps()">
+      Angle Slider:
+      <div x-bind="api.getValueTextProps()" x-text="api.valueAsDegree"></div>
+    </label>
+    <div x-bind="api.getControlProps()">
+      <div x-bind="api.getThumbProps()"></div>
+      <div x-bind="api.getMarkerGroupProps()">
+        <template
+          x-for="value in [0, 45, 90, 135, 180, 225, 270, 315]">
+          <div    key="value"
+          x-bind="api.getMarkerProps({ value })"
+          ></div>
+        </template>
+      </div>
+    </div>
+    <input x-bind="api.getHiddenInputProps()" />
+  </div>
+
+  
+    <script type="module" src="./angle-slider.ts"></script>
+</body>
+</html>

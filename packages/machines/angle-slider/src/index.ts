@@ -1,6 +1,7 @@
 export { anatomy } from "./angle-slider.anatomy"
 export { connect } from "./angle-slider.connect"
 export { machine } from "./angle-slider.machine"
+export { alpinejs } from "./angle-slider.alpinejs"
 export * from "./angle-slider.props"
 export type {
   AngleSliderApi as Api,
