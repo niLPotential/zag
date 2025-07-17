@@ -11,31 +11,39 @@ export function connect<T extends PropTypes>(
 ): AccordionApi<T> {
   const { send, context, prop, scope, computed } = service
 
-  const focusedValue = context.get("focusedValue")
-  const value = context.get("value")
-  const multiple = prop("multiple")
+  const getFocusedValue = () => context.get("focusedValue")
+  const getValue = () => context.get("value")
+  const getMultiple = () => prop("multiple")
 
   function setValue(value: string[]) {
     let nextValue = value
-    if (!multiple && nextValue.length > 1) {
+    if (!getMultiple() && nextValue.length > 1) {
       nextValue = [nextValue[0]]
     }
     send({ type: "VALUE.SET", value: nextValue })
   }
 
-  function getItemState(props: ItemProps): ItemState {
-    return {
-      expanded: value.includes(props.value),
-      focused: focusedValue === props.value,
-      disabled: Boolean(props.disabled ?? prop("disabled")),
-    }
+  function getExpanded(props: ItemProps) {
+    return getValue().includes(props.value)
+  }
+  function getFocused(props: ItemProps) {
+    return getFocusedValue() === props.value
+  }
+  function getDisabled(props: ItemProps) {
+    return Boolean(props.disabled ?? prop("disabled"))
   }
 
   return {
-    focusedValue,
-    value,
+    focusedValue: getFocusedValue(),
+    value: getValue(),
     setValue,
-    getItemState,
+    getItemState(props: ItemProps) {
+      return {
+        expanded: getExpanded(props),
+        focused: getFocused(props),
+        disabled: getDisabled(props),
+      }
+    },
 
     getRootProps() {
       return normalize.element({
@@ -47,50 +55,46 @@ export function connect<T extends PropTypes>(
     },
 
     getItemProps(props) {
-      const itemState = getItemState(props)
       return normalize.element({
         ...parts.item.attrs,
         dir: prop("dir"),
         id: dom.getItemId(scope, props.value),
-        "data-state": itemState.expanded ? "open" : "closed",
-        "data-focus": dataAttr(itemState.focused),
-        "data-disabled": dataAttr(itemState.disabled),
+        "data-state": getExpanded(props) ? "open" : "closed",
+        "data-focus": dataAttr(getFocused(props)),
+        "data-disabled": dataAttr(getDisabled(props)),
         "data-orientation": prop("orientation"),
       })
     },
 
     getItemContentProps(props) {
-      const itemState = getItemState(props)
       return normalize.element({
         ...parts.itemContent.attrs,
         dir: prop("dir"),
         role: "region",
         id: dom.getItemContentId(scope, props.value),
         "aria-labelledby": dom.getItemTriggerId(scope, props.value),
-        hidden: !itemState.expanded,
-        "data-state": itemState.expanded ? "open" : "closed",
-        "data-disabled": dataAttr(itemState.disabled),
-        "data-focus": dataAttr(itemState.focused),
+        hidden: !getExpanded(props),
+        "data-state": getExpanded(props) ? "open" : "closed",
+        "data-disabled": dataAttr(getDisabled(props)),
+        "data-focus": dataAttr(getFocused(props)),
         "data-orientation": prop("orientation"),
       })
     },
 
     getItemIndicatorProps(props) {
-      const itemState = getItemState(props)
       return normalize.element({
         ...parts.itemIndicator.attrs,
         dir: prop("dir"),
         "aria-hidden": true,
-        "data-state": itemState.expanded ? "open" : "closed",
-        "data-disabled": dataAttr(itemState.disabled),
-        "data-focus": dataAttr(itemState.focused),
+        "data-state": getExpanded(props) ? "open" : "closed",
+        "data-disabled": dataAttr(getDisabled(props)),
+        "data-focus": dataAttr(getFocused(props)),
         "data-orientation": prop("orientation"),
       })
     },
 
     getItemTriggerProps(props) {
       const { value } = props
-      const itemState = getItemState(props)
 
       return normalize.button({
         ...parts.itemTrigger.attrs,
@@ -98,22 +102,22 @@ export function connect<T extends PropTypes>(
         dir: prop("dir"),
         id: dom.getItemTriggerId(scope, value),
         "aria-controls": dom.getItemContentId(scope, value),
-        "aria-expanded": itemState.expanded,
-        disabled: itemState.disabled,
+        "aria-expanded": getExpanded(props),
+        disabled: getDisabled(props),
         "data-orientation": prop("orientation"),
-        "aria-disabled": itemState.disabled,
-        "data-state": itemState.expanded ? "open" : "closed",
+        "aria-disabled": getDisabled(props),
+        "data-state": getExpanded(props) ? "open" : "closed",
         "data-ownedby": dom.getRootId(scope),
         onFocus() {
-          if (itemState.disabled) return
+          if (getDisabled(props)) return
           send({ type: "TRIGGER.FOCUS", value })
         },
         onBlur() {
-          if (itemState.disabled) return
+          if (getDisabled(props)) return
           send({ type: "TRIGGER.BLUR" })
         },
         onClick(event) {
-          if (itemState.disabled) return
+          if (getDisabled(props)) return
           if (isSafari()) {
             event.currentTarget.focus()
           }
@@ -121,7 +125,7 @@ export function connect<T extends PropTypes>(
         },
         onKeyDown(event) {
           if (event.defaultPrevented) return
-          if (itemState.disabled) return
+          if (getDisabled(props)) return
 
           const keyMap: EventKeyMap = {
             ArrowDown() {
