@@ -1,7 +1,7 @@
+export { alpine } from "./accordion.alpine"
 export { anatomy } from "./accordion.anatomy"
 export { connect } from "./accordion.connect"
 export { machine } from "./accordion.machine"
-export { alpinejs } from "./accordion.alpinejs"
 export * from "./accordion.props"
 export type {
   AccordionApi as Api,

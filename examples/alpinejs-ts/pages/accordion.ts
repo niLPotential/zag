@@ -12,7 +12,7 @@ Alpine.data("accordion", () => {
   })
   return {
     get api() {
-      return accordion.alpinejs(service)
+      return accordion.alpine(service)
     },
     init() {
       service.init()

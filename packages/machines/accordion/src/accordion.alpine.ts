@@ -5,7 +5,7 @@ import { parts } from "./accordion.anatomy"
 import * as dom from "./accordion.dom"
 import type { AccordionApi, AccordionSchema, ItemProps } from "./accordion.types"
 
-export function alpinejs<T extends PropTypes>(service: Service<AccordionSchema>): AccordionApi<T> {
+export function alpine<T extends PropTypes>(service: Service<AccordionSchema>): AccordionApi<T> {
   const { send, context, prop, scope, computed } = service
 
   const getFocusedValue = () => context.get("focusedValue")

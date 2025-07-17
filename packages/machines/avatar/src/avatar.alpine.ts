@@ -4,7 +4,7 @@ import { parts } from "./avatar.anatomy"
 import * as dom from "./avatar.dom"
 import type { AvatarApi, AvatarSchema } from "./avatar.types"
 
-export function alpinejs<T extends PropTypes>(service: Service<AvatarSchema>): AvatarApi<T> {
+export function alpine<T extends PropTypes>(service: Service<AvatarSchema>): AvatarApi<T> {
   const { state, send, prop, scope } = service
   const getLoaded = () => state.matches("loaded")
   return {
