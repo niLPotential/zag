@@ -1,6 +1,6 @@
 import type { Alpine } from "alpinejs"
 import * as accordion from "@zag-js/accordion"
-import { AlpineMachine, normalizeProps } from "@zag-js/alpine"
+import { AlpineMachine, normalizeProps } from "./lib"
 
 export default function (Alpine: Alpine) {
   Alpine.directive("accordion", (el, { expression, value }, { evaluateLater }) => {
