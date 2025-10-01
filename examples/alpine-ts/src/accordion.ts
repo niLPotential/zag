@@ -17,7 +17,15 @@ export default function (Alpine: Alpine) {
         },
       })
     } else if (value === "root") {
-      Alpine.bind(el, {})
+      Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getRootProps)
+    } else if (value === "item") {
+      Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getItemProps)
+    } else if (value === "item-content") {
+      Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getItemContentProps)
+    } else if (value === "item-indicator") {
+      Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getItemIndicatorProps)
+    } else if (value === "trigger") {
+      Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getItemTriggerProps)
     }
   })
 }
