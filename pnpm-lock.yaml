@@ -132,6 +132,28 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.25.1)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
 
+  examples/alpine-ts:
+    dependencies:
+      '@zag-js/accordion':
+        specifier: workspace:*
+        version: link:../../packages/machines/accordion
+      '@zag-js/alpine':
+        specifier: workspace:*
+        version: link:../../packages/frameworks/alpine
+      alpinejs:
+        specifier: ^3.15.0
+        version: 3.15.0
+    devDependencies:
+      '@types/alpinejs':
+        specifier: ^3.13.11
+        version: 3.13.11
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      vite:
+        specifier: ^7.1.7
+        version: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.25.1)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+
   examples/next-ts:
     dependencies:
       '@internationalized/date':
