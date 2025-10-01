@@ -1,0 +1,12 @@
+{
+  "name": "@zag-js/alpine",
+  "dependencies": {
+    "@zag-js/core": "workspace:*",
+    "@zag-js/types": "workspace:*",
+    "@zag-js/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.15.0"
+  }
+}
