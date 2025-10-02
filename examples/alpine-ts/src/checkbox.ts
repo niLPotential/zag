@@ -1,8 +1,10 @@
-import type { Alpine } from "alpinejs"
+import type { Alpine, ElementWithXAttributes } from "alpinejs"
 import * as checkbox from "@zag-js/checkbox"
 import { AlpineMachine, normalizeProps } from "./lib"
 
 export default function (Alpine: Alpine) {
+  const elementBindings: [ElementWithXAttributes, keyof checkbox.Api, any][] = []
+
   Alpine.directive("checkbox", (el, { expression, value }, { evaluateLater }) => {
     if (!value) {
       const service = new AlpineMachine(checkbox.machine, evaluateLater(expression))
@@ -12,7 +14,10 @@ export default function (Alpine: Alpine) {
             api: checkbox.connect(service, normalizeProps),
             init() {
               Alpine.effect(() => {
-                this.$data.api = checkbox.connect(service, normalizeProps)
+                this.api = checkbox.connect(service, normalizeProps)
+                for (const [element, getProps, props] of elementBindings) {
+                  Alpine.bind(element, (this.api[getProps] as any)(props))
+                }
               })
               service.init()
             },
@@ -20,15 +25,15 @@ export default function (Alpine: Alpine) {
         },
       })
     } else if (value === "root") {
-      Alpine.bind(el, (Alpine.$data(el).api as checkbox.Api).getRootProps)
+      elementBindings.push([el, "getRootProps", null])
     } else if (value === "label") {
-      Alpine.bind(el, (Alpine.$data(el).api as checkbox.Api).getLabelProps)
+      elementBindings.push([el, "getLabelProps", null])
     } else if (value === "control") {
-      Alpine.bind(el, (Alpine.$data(el).api as checkbox.Api).getControlProps)
+      elementBindings.push([el, "getControlProps", null])
     } else if (value === "indicator") {
-      Alpine.bind(el, (Alpine.$data(el).api as checkbox.Api).getIndicatorProps)
+      elementBindings.push([el, "getIndicatorProps", null])
     } else if (value === "hidden-input") {
-      Alpine.bind(el, (Alpine.$data(el).api as checkbox.Api).getHiddenInputProps)
+      elementBindings.push([el, "getHiddenInputProps", null])
     }
   }).before("bind")
 
@@ -54,22 +59,6 @@ export default function (Alpine: Alpine) {
 
       setChecked: api.setChecked,
       toggleChecked: api.toggleChecked,
-
-      get rootProps() {
-        return api.getRootProps()
-      },
-      get labelProps() {
-        return api.getLabelProps()
-      },
-      get controlProps() {
-        return api.getControlProps()
-      },
-      get indicatorProps() {
-        return api.getIndicatorProps()
-      },
-      get hiddenInputProps() {
-        return api.getHiddenInputProps()
-      },
     }
   })
 }
