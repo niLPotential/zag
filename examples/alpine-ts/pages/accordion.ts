@@ -3,4 +3,4 @@ import Accordion from "../src/accordion"
 
 Alpine.plugin(Accordion)
 window.Alpine = Alpine
-Alpine.start()
+window.Alpine.start()
