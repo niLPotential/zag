@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@zag-js/accordion": "workspace:*",
+    "@zag-js/checkbox": "workspace:*",
     "@zag-js/core": "workspace:*",
+    "@zag-js/shared": "workspace:*",
     "@zag-js/types": "workspace:*",
     "@zag-js/utils": "workspace:*",
     "alpinejs": "^3.15.0"
