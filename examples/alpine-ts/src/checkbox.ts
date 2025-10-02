@@ -11,12 +11,12 @@ export default function (Alpine: Alpine) {
       Alpine.bind(el, {
         "x-data"() {
           return {
-            api: checkbox.connect(service, normalizeProps),
+            __api: checkbox.connect(service, normalizeProps),
             init() {
               Alpine.effect(() => {
-                this.api = checkbox.connect(service, normalizeProps)
+                this.__api = checkbox.connect(service, normalizeProps)
                 for (const [element, getProps, props] of elementBindings) {
-                  Alpine.bind(element, (this.api[getProps] as any)(props))
+                  Alpine.bind(element, (this.__api[getProps] as any)(props))
                 }
               })
               service.init()
@@ -38,27 +38,27 @@ export default function (Alpine: Alpine) {
   }).before("bind")
 
   Alpine.magic("checkbox", (el) => {
-    const { api } = Alpine.$data(el) as { api: checkbox.Api }
+    const { __api } = Alpine.$data(el) as { __api: checkbox.Api }
 
     return {
       get checked() {
-        return api.checked
+        return __api.checked
       },
       get disabled() {
-        return api.disabled
+        return __api.disabled
       },
       get indeterminate() {
-        return api.indeterminate
+        return __api.indeterminate
       },
       get focused() {
-        return api.focused
+        return __api.focused
       },
       get checkedState() {
-        return api.checked
+        return __api.checked
       },
 
-      setChecked: api.setChecked,
-      toggleChecked: api.toggleChecked,
+      setChecked: __api.setChecked,
+      toggleChecked: __api.toggleChecked,
     }
   })
 }
