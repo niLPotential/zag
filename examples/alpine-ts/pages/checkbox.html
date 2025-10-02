@@ -16,8 +16,8 @@
         <label for="disabled">disabled</label>
       </div>
       <label x-id="['checkbox']" x-checkbox="{disabled, id: $id('checkbox')}" x-checkbox:root>
-        <span x-checkbox:label x-text="'Input is ' + (api.checked ? 'checked' : 'unchecked')"></span>
         <div x-checkbox:control></div>
+        <span x-checkbox:label x-text="'Input is ' + ($checkbox.checked ? 'checked' : 'unchecked')"></span>
         <input x-checkbox:hidden-input />
       </label>
     </div>
