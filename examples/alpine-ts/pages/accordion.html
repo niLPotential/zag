@@ -11,6 +11,10 @@
     <h1>Accordion</h1>
 
     <div x-data="{disabled: false}">
+      <div>
+        <input type="checkbox" name="disabled" id="disabled" x-model="disabled" />
+        <label for="disabled">disabled</label>
+      </div>
       <div x-id="['accordion']" x-accordion="{disabled, id: $id('accordion')}" x-accordion:root>
         <template x-for="value in ['First', 'Second', 'Third']" :key="value">
           <div x-accordion:item="{value}">
