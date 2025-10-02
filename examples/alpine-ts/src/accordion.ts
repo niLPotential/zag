@@ -15,6 +15,9 @@ export default function (Alpine: Alpine) {
             },
           }
         },
+        "x-effect"() {
+          this.$data.api = accordion.connect(service, normalizeProps)
+        },
       })
     } else if (value === "root") {
       Alpine.bind(el, (Alpine.$data(el).api as accordion.Api).getRootProps)
