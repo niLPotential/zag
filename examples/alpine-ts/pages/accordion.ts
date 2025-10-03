@@ -1,3 +1,5 @@
+import "@zag-js/shared/src/style.css"
+
 import Alpine from "alpinejs"
 import * as accordion from "@zag-js/accordion"
 import { createZagPlugin } from "../src/plugin"
