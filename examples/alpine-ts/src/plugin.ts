@@ -26,7 +26,7 @@ export function createZagPlugin<T extends MachineSchema>(
               __api: component.connect(service, normalizeProps),
               init() {
                 // wait a tick for Alpine to track all bindings
-                Alpine.nextTick(() => {
+                queueMicrotask(() => {
                   Alpine.effect(() => {
                     this.__api = component.connect(service, normalizeProps)
                     for (const [element, getProps, evaluateProps] of elementBindings) {
