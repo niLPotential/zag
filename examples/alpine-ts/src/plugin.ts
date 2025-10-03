@@ -25,13 +25,16 @@ export function createZagPlugin<T extends MachineSchema>(
             return {
               __api: component.connect(service, normalizeProps),
               init() {
-                Alpine.effect(() => {
-                  this.__api = component.connect(service, normalizeProps)
-                  for (const [element, getProps, evaluateProps] of elementBindings) {
-                    let props
-                    evaluateProps?.((p) => (props = p))
-                    Alpine.bind(element, this.__api[getProps](props))
-                  }
+                // wait a tick for Alpine to track all bindings
+                Alpine.nextTick(() => {
+                  Alpine.effect(() => {
+                    this.__api = component.connect(service, normalizeProps)
+                    for (const [element, getProps, evaluateProps] of elementBindings) {
+                      let props
+                      evaluateProps?.((p) => (props = p))
+                      Alpine.bind(element, this.__api[getProps](props))
+                    }
+                  })
                 })
                 service.init()
               },
