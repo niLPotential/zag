@@ -1,6 +1,9 @@
 import Alpine from "alpinejs"
-import Accordion from "../src/accordion"
+import * as accordion from "@zag-js/accordion"
+import { createZagPlugin } from "../src/plugin"
 
-Alpine.plugin(Accordion)
+Alpine.plugin(createZagPlugin("accordion", accordion))
+// @ts-ignore
 window.Alpine = Alpine
+// @ts-ignore
 window.Alpine.start()

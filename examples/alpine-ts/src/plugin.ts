@@ -3,10 +3,13 @@ import type { Machine, MachineSchema, Service } from "@zag-js/core"
 import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import { AlpineMachine, normalizeProps } from "./lib"
 
-export function createPlugin<T extends MachineSchema>(component: {
-  machine: Machine<T>
-  connect: (service: Service<T>, normalizeProps: NormalizeProps<PropTypes>) => any
-}) {
+export function createZagPlugin<T extends MachineSchema>(
+  name: string,
+  component: {
+    machine: Machine<T>
+    connect: (service: Service<T>, normalizeProps: NormalizeProps<PropTypes>) => any
+  },
+) {
   return function (Alpine: Alpine) {
     const elementBindings: [
       ElementWithXAttributes,
@@ -14,7 +17,7 @@ export function createPlugin<T extends MachineSchema>(component: {
       ((callback: (prpos: Partial<T["props"]>) => void) => void) | undefined,
     ][] = []
 
-    Alpine.directive("checkbox", (el, { expression, value }, { evaluateLater }) => {
+    Alpine.directive(name, (el, { expression, value }, { evaluateLater }) => {
       if (!value) {
         const service = new AlpineMachine(component.machine, evaluateLater(expression))
         Alpine.bind(el, {
@@ -47,7 +50,7 @@ export function createPlugin<T extends MachineSchema>(component: {
       }
     }).before("bind")
 
-    Alpine.magic("checkbox", (el) => {
+    Alpine.magic(name, (el) => {
       const { __api } = Alpine.$data(el) as { __api: any }
 
       return __api
