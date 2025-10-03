@@ -53,10 +53,16 @@ export function createZagPlugin<T extends MachineSchema>(
       }
     }).before("bind")
 
-    Alpine.magic(name, (el) => {
-      const { __api } = Alpine.$data(el) as { __api: any }
+    Alpine.magic(
+      name
+        .split("-")
+        .map((str, i) => (i === 0 ? str : str.at(0)?.toUpperCase() + str.substring(1).toLowerCase()))
+        .join(""),
+      (el) => {
+        const { __api } = Alpine.$data(el) as { __api: any }
 
-      return __api
-    })
+        return __api
+      },
+    )
   }
 }
