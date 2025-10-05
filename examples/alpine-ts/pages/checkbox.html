@@ -25,6 +25,12 @@
         <span x-checkbox:label x-text="'Input is ' + ($checkbox.checked ? 'checked' : 'unchecked')"></span>
         <input x-checkbox:hidden-input />
       </label>
+
+      <label x-id="['checkbox']" x-checkbox="{disabled, invalid, id: $id('checkbox')}" x-checkbox:root>
+        <div x-checkbox:control></div>
+        <span x-checkbox:label x-text="'Input is ' + ($checkbox.checked ? 'checked' : 'unchecked')"></span>
+        <input x-checkbox:hidden-input />
+      </label>
     </div>
   </body>
 </html>
