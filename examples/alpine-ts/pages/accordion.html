@@ -10,17 +10,17 @@
   <body style="padding: 40px">
     <h1>Accordion</h1>
 
-    <div x-data="{collapsible: true, disabled: false}">
+    <div x-data="{collapsible: true, multiple: false}">
       <div>
         <input type="checkbox" name="collapsible" id="collapsible" x-model="collapsible" />
         <label for="collapsible">collapsible</label>
       </div>
       <div>
-        <input type="checkbox" name="disabled" id="disabled" x-model="disabled" />
-        <label for="disabled">disabled</label>
+        <input type="checkbox" name="multiple" id="multiple" x-model="multiple" />
+        <label for="multiple">multiple</label>
       </div>
 
-      <div x-id="['accordion']" x-accordion="{collapsible, disabled, id: $id('accordion')}" x-accordion:root>
+      <div x-id="['accordion']" x-accordion="{collapsible, multiple, id: $id('accordion')}" x-accordion:root>
         <template x-for="value in ['First', 'Second', 'Third']" :key="value">
           <div x-accordion:item="{value}">
             <h3>
