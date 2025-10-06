@@ -27,7 +27,7 @@ export function createZagPlugin<T extends MachineSchema>(
               [bindings]: [] as {
                 el: ElementWithXAttributes
                 getProps: string
-                evaluateProps: ((callback: (value: any) => void) => void) | null
+                props: any | null
                 cleanup: (() => void) | null
               }[],
               init() {
@@ -38,13 +38,7 @@ export function createZagPlugin<T extends MachineSchema>(
                     for (const binding of this[bindings]) {
                       // 'spread props' by cleaning up and re-binding
                       binding.cleanup?.()
-                      if (binding.evaluateProps) {
-                        binding.evaluateProps((props: any) => {
-                          binding.cleanup = Alpine.bind(binding.el, this[api][binding.getProps](props))
-                        })
-                      } else {
-                        binding.cleanup = Alpine.bind(binding.el, this[api][binding.getProps])
-                      }
+                      binding.cleanup = Alpine.bind(binding.el, this[api][binding.getProps](binding.props))
                     }
                   })
                 })
@@ -76,7 +70,9 @@ export function createZagPlugin<T extends MachineSchema>(
             .split("-")
             .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
             .join("")}Props`,
-          evaluateProps: expression ? evaluateLater(expression) : null,
+          get props() {
+            return expression ? evaluate(expression) : null
+          },
           cleanup: null,
         })
       }
