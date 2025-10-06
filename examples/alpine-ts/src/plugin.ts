@@ -27,8 +27,8 @@ export function createZagPlugin<T extends MachineSchema>(
               [bindings]: [] as {
                 el: ElementWithXAttributes
                 getProps: string
-                props: any | null
-                cleanup: (() => void) | null
+                props: any
+                cleanup: () => void
               }[],
               init() {
                 queueMicrotask(() => {
@@ -37,7 +37,7 @@ export function createZagPlugin<T extends MachineSchema>(
 
                     for (const binding of this[bindings]) {
                       // 'spread props' by cleaning up and re-binding
-                      binding.cleanup?.()
+                      binding.cleanup()
                       binding.cleanup = Alpine.bind(binding.el, this[api][binding.getProps](binding.props))
                     }
                   })
@@ -46,7 +46,7 @@ export function createZagPlugin<T extends MachineSchema>(
               },
               destroy() {
                 for (const binding of this[bindings]) {
-                  binding.cleanup?.()
+                  binding.cleanup()
                 }
                 service.destroy()
               },
@@ -71,9 +71,9 @@ export function createZagPlugin<T extends MachineSchema>(
             .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
             .join("")}Props`,
           get props() {
-            return expression ? evaluate(expression) : null
+            return expression ? evaluate(expression) : {}
           },
-          cleanup: null,
+          cleanup: () => {},
         })
       }
     }).before("bind")
