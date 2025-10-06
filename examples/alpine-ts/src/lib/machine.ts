@@ -273,7 +273,7 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
     this.status = MachineStatus.Started
     this.debug("initializing...")
     this.state.invoke(this.state.initial, INIT_STATE)
-    // this.machine.watch?.(this.getParams());
+    this.machine.watch?.(this.getParams())
   }
 
   destroy() {

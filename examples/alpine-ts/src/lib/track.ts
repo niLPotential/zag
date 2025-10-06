@@ -17,7 +17,7 @@ export const track = (deps: any[], effect: VoidFunction) => {
     }
     let changed = false
     for (let i = 0; i < deps.length; i++) {
-      if (!isEqual(prevDeps[i], deps[i])) {
+      if (!isEqual(prevDeps[i], access(deps[i]))) {
         changed = true
         break
       }
