@@ -29,11 +29,11 @@
         x-combobox:collection="{items: options}"
         x-combobox="{disabled, readOnly, loopFocus, id: $id('combobox'), collection,
             onOpenChange() {
-                options = data
+                options = data;
             },
             onInputValueChange({inputValue}) {
-                const filtered = data.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
-                options = filtered.length > 0 ? filtered : data
+                const filtered = data.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()));
+                options = filtered.length > 0 ? filtered : data;
             }}"
       >
         <div x-combobox:root>
