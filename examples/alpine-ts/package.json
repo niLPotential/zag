@@ -21,6 +21,7 @@
     "@zag-js/collection": "workspace:*",
     "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
+    "@zag-js/popover": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/types": "workspace:*",
     "@zag-js/utils": "workspace:*",
