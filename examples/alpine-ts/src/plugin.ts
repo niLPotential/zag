@@ -33,6 +33,7 @@ export function createZagPlugin<T extends MachineSchema>(
                     this[api] = component.connect(service, normalizeProps)
 
                     for (const binding of this[bindings]) {
+                      // 'spread props' by cleaning up and re-binding
                       binding.cleanup?.()
                       if (binding.evaluateProps) {
                         binding.evaluateProps((props: any) => {
@@ -45,6 +46,12 @@ export function createZagPlugin<T extends MachineSchema>(
                   })
                 })
                 service.init()
+              },
+              destroy() {
+                for (const binding of this[bindings]) {
+                  binding.cleanup?.()
+                }
+                service.destroy()
               },
             }
           },
