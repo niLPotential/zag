@@ -18,6 +18,8 @@
     "@zag-js/angle-slider": "workspace:*",
     "@zag-js/avatar": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
+    "@zag-js/collection": "workspace:*",
+    "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/types": "workspace:*",

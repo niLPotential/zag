@@ -1,6 +1,7 @@
 import type { Alpine, ElementWithXAttributes } from "alpinejs"
 import type { Machine, MachineSchema, Service } from "@zag-js/core"
 import type { NormalizeProps, PropTypes } from "@zag-js/types"
+import type { ListCollection, CollectionItem, CollectionOptions } from "@zag-js/collection"
 import { AlpineMachine, normalizeProps } from "./lib"
 
 export function createZagPlugin<T extends MachineSchema>(
@@ -8,13 +9,15 @@ export function createZagPlugin<T extends MachineSchema>(
   component: {
     machine: Machine<T>
     connect: (service: Service<T>, normalizeProps: NormalizeProps<PropTypes>) => any
+    collection?: <T extends CollectionItem>(options: CollectionOptions<T>) => ListCollection<T>
   },
 ) {
-  const api = `_${name.replaceAll("-", "_")}_api`
-  const bindings = `_${name.replaceAll("-", "_")}_bindings`
+  const underScore = name.replaceAll("-", "_")
+  const api = `_${underScore}_api`
+  const bindings = `_${underScore}_bindings`
 
   return function (Alpine: Alpine) {
-    Alpine.directive(name, (el, { expression, value }, { evaluateLater }) => {
+    Alpine.directive(name, (el, { expression, value }, { evaluateLater, evaluate }) => {
       if (!value) {
         const service = new AlpineMachine(component.machine, evaluateLater(expression))
         Alpine.bind(el, {
@@ -52,6 +55,16 @@ export function createZagPlugin<T extends MachineSchema>(
                   binding.cleanup?.()
                 }
                 service.destroy()
+              },
+            }
+          },
+        })
+      } else if (value === "collection") {
+        Alpine.bind(el, {
+          "x-data"() {
+            return {
+              get collection() {
+                return component.collection?.(evaluate(expression) as any)
               },
             }
           },
