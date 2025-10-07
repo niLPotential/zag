@@ -173,6 +173,9 @@ importers:
       alpinejs:
         specifier: ^3.15.0
         version: 3.15.0
+      ovr:
+        specifier: ^4.6.0
+        version: 4.6.0
     devDependencies:
       '@types/alpinejs':
         specifier: ^3.13.11
@@ -9864,6 +9867,9 @@ packages:
 
   outdent@0.8.0:
     resolution: {integrity: sha512-KiOAIsdpUTcAXuykya5fnVVT+/5uS0Q1mrkRHcF89tpieSmY33O/tmc54CqwA+bfhbtEfZUNLHaPUiB9X3jt1A==}
+
+  ovr@4.6.0:
+    resolution: {integrity: sha512-emgYtl0scux0X4SRan0KvX+X5nRArA75HI4rPNrfOFltf1rb1heEPqWifVTSJ639tMtsRXUHeiBy0Kgyqifz1g==}
 
   own-keys@1.0.1:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
@@ -19753,6 +19759,8 @@ snapshots:
   outdent@0.5.0: {}
 
   outdent@0.8.0: {}
+
+  ovr@4.6.0: {}
 
   own-keys@1.0.1:
     dependencies:
