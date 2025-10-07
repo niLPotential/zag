@@ -2,7 +2,7 @@ import "@zag-js/shared/src/style.css"
 
 import Alpine from "alpinejs"
 import * as angleSlider from "@zag-js/angle-slider"
-import { createZagPlugin } from "../src/plugin"
+import { createZagPlugin } from "../../lib"
 
 Alpine.plugin(createZagPlugin("angle-slider", angleSlider))
 // @ts-ignore

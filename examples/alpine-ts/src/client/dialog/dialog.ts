@@ -1,10 +1,10 @@
 import "@zag-js/shared/src/style.css"
 
 import Alpine from "alpinejs"
-import * as avatar from "@zag-js/avatar"
-import { createZagPlugin } from "../src/plugin"
+import * as dialog from "@zag-js/dialog"
+import { createZagPlugin } from "../../lib"
 
-Alpine.plugin(createZagPlugin("avatar", avatar))
+Alpine.plugin(createZagPlugin("dialog", dialog))
 // @ts-ignore
 window.Alpine = Alpine
 // @ts-ignore

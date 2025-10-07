@@ -2,7 +2,8 @@ import type { Alpine, ElementWithXAttributes } from "alpinejs"
 import type { Machine, MachineSchema, Service } from "@zag-js/core"
 import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import type { ListCollection, CollectionItem, CollectionOptions } from "@zag-js/collection"
-import { AlpineMachine, normalizeProps } from "./lib"
+import { AlpineMachine } from "./machine"
+import { normalizeProps } from "./normalize-props"
 
 export function createZagPlugin<T extends MachineSchema>(
   name: string,
