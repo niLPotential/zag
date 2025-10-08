@@ -3,7 +3,7 @@ import { Toolbar } from "../components/toolbar"
 import { Controls } from "../components/controls"
 import { StateVisualizer } from "../components/state-visualizer"
 
-export default function Accordion() {
+export function Accordion() {
   const state = getControlDefaults(accordionControls)
 
   return (

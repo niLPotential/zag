@@ -2,7 +2,7 @@ import { App } from "ovr"
 
 // import Layout from "../components/layout"
 
-import Accordion from "../pages/accordion"
+import { Accordion } from "../pages/accordion"
 import { src as accordionSrc } from "client:script/accordion"
 
 const app = new App()
