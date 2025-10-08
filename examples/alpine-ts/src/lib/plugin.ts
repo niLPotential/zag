@@ -5,6 +5,9 @@ import type { ListCollection, CollectionItem, CollectionOptions } from "@zag-js/
 import { AlpineMachine } from "./machine"
 import { normalizeProps } from "./normalize-props"
 
+// Dev only
+import { highlightState } from "@zag-js/stringify-state"
+
 export function createZagPlugin<T extends MachineSchema>(
   name: string,
   component: {
@@ -24,6 +27,7 @@ export function createZagPlugin<T extends MachineSchema>(
         Alpine.bind(el, {
           "x-data"() {
             return {
+              service, // dev only
               [api]: component.connect(service, normalizeProps),
               [bindings]: [] as {
                 el: ElementWithXAttributes
@@ -86,5 +90,17 @@ export function createZagPlugin<T extends MachineSchema>(
         .join(""),
       (el) => (Alpine.$data(el) as any)[api],
     )
+
+    // Dev only
+    Alpine.magic("highlightState", (el) => {
+      const { service } = Alpine.$data(el) as any
+      const obj = {
+        state: service.state.get(),
+        event: service.event.current(),
+        previouseEvent: service.event.previous(),
+        context: undefined, // wip
+      }
+      return highlightState(obj)
+    })
   }
 }
