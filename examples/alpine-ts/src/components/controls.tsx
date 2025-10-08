@@ -1,9 +1,7 @@
-import type { ControlRecord } from "@zag-js/shared"
-import { deepGet, getControlDefaults } from "@zag-js/shared"
+import type { ControlRecord, ControlValue } from "@zag-js/shared"
+import { deepGet } from "@zag-js/shared"
 
-export function Controls({ controls }: { controls: ControlRecord }) {
-  const state = getControlDefaults(controls)
-
+export function Controls<T extends ControlRecord>({ controls, state }: { controls: T; state: ControlValue<T> }) {
   return (
     <div class="controls-container">
       {Object.keys(controls).map((key) => {

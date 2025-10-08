@@ -23,7 +23,7 @@ export default function Accordion() {
           </div>
         ))}
         <Toolbar>
-          <Controls controls={accordionControls} />
+          <Controls state={state} controls={accordionControls} />
           <StateVisualizer />
         </Toolbar>
       </div>
