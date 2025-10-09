@@ -15,6 +15,9 @@ import { src as angleSliderSrc } from "client:script/angle-slider"
 import { Avatar } from "../pages/avatar"
 import { src as avatarSrc } from "client:script/avatar"
 
+import { Checkbox } from "../pages/checkbox"
+import { src as checkboxSrc } from "client:script/checkbox"
+
 const app = new App()
 
 app.use((c, next) => {
@@ -55,6 +58,15 @@ app.get("/avatar", (c) => {
     <>
       <Nav pathname={c.url.pathname} />
       <Avatar />
+    </>,
+  )
+})
+app.get("/checkbox", (c) => {
+  c.head(<script type="module" src={checkboxSrc.module.at(0)}></script>)
+  c.page(
+    <>
+      <Nav pathname={c.url.pathname} />
+      <Checkbox />
     </>,
   )
 })
