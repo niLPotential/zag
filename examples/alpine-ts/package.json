@@ -23,6 +23,7 @@
     "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
     "@zag-js/dialog": "workspace:*",
+    "@zag-js/dom-query": "workspace:*",
     "@zag-js/popover": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
