@@ -21,7 +21,7 @@ export function Checkbox() {
             Check
           </button>
           <button type="button" x-bind:disabled="!$checkbox.checked" x-on:click="$checkbox.setChecked(false)">
-            Unheck
+            Uncheck
           </button>
           <button type="reset">Reset Form</button>
 
