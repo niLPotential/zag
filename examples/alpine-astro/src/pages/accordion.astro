@@ -8,10 +8,11 @@ const state = getControlDefaults(accordionControls)
 ---
 
 <script>
+  import Alpine from "alpinejs"
   import * as accordion from "@zag-js/accordion"
   import { createZagPlugin } from "../lib"
 
-  window.Alpine.plugin(createZagPlugin("accordion", accordion))
+  Alpine.plugin(createZagPlugin("accordion", accordion))
 </script>
 
 <main class="accordion" x-data={JSON.stringify(state)}>
