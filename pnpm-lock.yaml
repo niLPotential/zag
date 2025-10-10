@@ -134,6 +134,12 @@ importers:
 
   examples/alpine-astro:
     dependencies:
+      '@astrojs/alpinejs':
+        specifier: ^0.4.9
+        version: 0.4.9(@types/alpinejs@3.13.11)(alpinejs@3.15.0)
+      '@types/alpinejs':
+        specifier: ^3.13.11
+        version: 3.13.11
       '@zag-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -143,6 +149,9 @@ importers:
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
+      alpinejs:
+        specifier: ^3.15.0
+        version: 3.15.0
       astro:
         specifier: ^5.14.3
         version: 5.14.3(@types/node@24.7.0)(db0@0.3.4)(ioredis@5.8.1)(jiti@2.6.1)(lightningcss@1.25.1)(rollup@4.52.4)(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
@@ -3925,6 +3934,12 @@ packages:
 
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
+
+  '@astrojs/alpinejs@0.4.9':
+    resolution: {integrity: sha512-fvKBAugn7yIngEKfdk6vL3ZlcVKtQvFXCZznG28OikGanKN5W+PkRPIdKaW/0gThRU2FyCemgzyHgyFjsH8dTA==}
+    peerDependencies:
+      '@types/alpinejs': ^3.0.0
+      alpinejs: ^3.0.0
 
   '@astrojs/compiler@2.13.0':
     resolution: {integrity: sha512-mqVORhUJViA28fwHYaWmsXSzLO9osbdZ5ImUfxBarqsYdMlPbqAqGJCxsNzvppp1BEzc1mJNjOVvQqeDN8Vspw==}
@@ -12593,6 +12608,11 @@ snapshots:
       lru-cache: 11.2.2
 
   '@asamuzakjp/nwsapi@2.3.9': {}
+
+  '@astrojs/alpinejs@0.4.9(@types/alpinejs@3.13.11)(alpinejs@3.15.0)':
+    dependencies:
+      '@types/alpinejs': 3.13.11
+      alpinejs: 3.15.0
 
   '@astrojs/compiler@2.13.0': {}
 
