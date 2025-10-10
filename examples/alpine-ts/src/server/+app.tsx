@@ -24,6 +24,9 @@ import { src as comboboxSrc } from "client:script/combobox"
 import { Dialog } from "../pages/dialog"
 import { src as dialogSrc } from "client:script/dialog"
 
+import { Popover } from "../pages/popover"
+import { src as popoverSrc } from "client:script/popover"
+
 const app = new App()
 
 app.use((c, next) => {
@@ -94,4 +97,14 @@ app.get("/dialog", (c) => {
     </>,
   )
 })
+app.get("/popover", (c) => {
+  c.head(<script type="module" src={popoverSrc.module.at(0)}></script>)
+  c.page(
+    <>
+      <Nav pathname={c.url.pathname} />
+      <Popover />
+    </>,
+  )
+})
+
 export default { fetch: app.fetch }
