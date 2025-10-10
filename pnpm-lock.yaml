@@ -146,6 +146,9 @@ importers:
       '@zag-js/angle-slider':
         specifier: workspace:*
         version: link:../../packages/machines/angle-slider
+      '@zag-js/avatar':
+        specifier: workspace:*
+        version: link:../../packages/machines/avatar
       '@zag-js/collection':
         specifier: workspace:*
         version: link:../../packages/utilities/collection
