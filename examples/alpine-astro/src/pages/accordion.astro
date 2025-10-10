@@ -7,6 +7,13 @@ import StateVisualizer from "../components/StateVisualizer.astro"
 const state = getControlDefaults(accordionControls)
 ---
 
+<script>
+  import * as accordion from "@zag-js/accordion"
+  import { createZagPlugin } from "../lib"
+
+  window.Alpine.plugin(createZagPlugin("accordion", accordion))
+</script>
+
 <main class="accordion" x-data={JSON.stringify(state)}>
   <div x-id="['accordion']" x-accordion={`{${Object.keys(state)}, id: $id('accordion')}`} x-accordion:root>
     {

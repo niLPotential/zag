@@ -140,6 +140,9 @@ importers:
       '@types/alpinejs':
         specifier: ^3.13.11
         version: 3.13.11
+      '@zag-js/accordion':
+        specifier: workspace:*
+        version: link:../../packages/machines/accordion
       '@zag-js/collection':
         specifier: workspace:*
         version: link:../../packages/utilities/collection
