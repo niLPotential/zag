@@ -140,6 +140,9 @@ importers:
       '@types/alpinejs':
         specifier: ^3.13.11
         version: 3.13.11
+      '@zag-js/collection':
+        specifier: workspace:*
+        version: link:../../packages/utilities/collection
       '@zag-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -149,6 +152,15 @@ importers:
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@zag-js/stringify-state':
+        specifier: workspace:*
+        version: link:../../packages/utilities/stringify-state
+      '@zag-js/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@zag-js/utils':
+        specifier: workspace:*
+        version: link:../../packages/utilities/core
       alpinejs:
         specifier: ^3.15.0
         version: 3.15.0
