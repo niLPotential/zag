@@ -167,6 +167,9 @@ importers:
       '@zag-js/dom-query':
         specifier: workspace:*
         version: link:../../packages/utilities/dom-query
+      '@zag-js/popover':
+        specifier: workspace:*
+        version: link:../../packages/machines/popover
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
