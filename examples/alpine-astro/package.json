@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@zag-js/core": "workspace:*",
     "@zag-js/dom-query": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "astro": "^5.14.3"

@@ -134,6 +134,9 @@ importers:
 
   examples/alpine-astro:
     dependencies:
+      '@zag-js/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@zag-js/dom-query':
         specifier: workspace:*
         version: link:../../packages/utilities/dom-query
