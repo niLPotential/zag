@@ -20,6 +20,7 @@
     "@zag-js/clipboard": "workspace:*",
     "@zag-js/collapsible": "workspace:*",
     "@zag-js/collection": "workspace:*",
+    "@zag-js/color-picker": "workspace:*",
     "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
     "@zag-js/dialog": "workspace:*",

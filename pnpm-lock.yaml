@@ -167,6 +167,9 @@ importers:
       '@zag-js/collection':
         specifier: workspace:*
         version: link:../../packages/utilities/collection
+      '@zag-js/color-picker':
+        specifier: workspace:*
+        version: link:../../packages/machines/color-picker
       '@zag-js/combobox':
         specifier: workspace:*
         version: link:../../packages/machines/combobox
