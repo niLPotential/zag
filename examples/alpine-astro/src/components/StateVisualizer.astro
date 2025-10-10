@@ -1,8 +1,8 @@
 ---
-import type { MachineSchema, Service } from "@zag-js/core"
+import type { MachineSchema } from "@zag-js/core"
 
 interface Props<T extends MachineSchema> {
-  state: Service<T>
+  // state: Service<T>
   label?: string
   omit?: string[]
   context?: Array<keyof T["context"]>
