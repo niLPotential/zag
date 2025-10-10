@@ -35,8 +35,8 @@ export function getWebServer(): WebServer {
       reuseExistingServer: !CI,
     },
     alpine: {
-      cwd: "./examples/alpine-ts",
-      command: "pnpm vite --port 3005",
+      cwd: "./examples/alpine-astro",
+      command: "pnpm astro dev --port 3005",
       url: "http://localhost:3005",
       reuseExistingServer: !CI,
     },

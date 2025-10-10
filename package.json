@@ -19,7 +19,7 @@
     "vue": "pnpm --filter \"./examples/nuxt-ts\"",
     "solid": "pnpm --filter \"./examples/solid-ts\"",
     "svelte": "pnpm --filter \"./examples/svelte-ts\"",
-    "alpine": "pnpm --filter \"./examples/alpine-ts\"",
+    "alpine": "pnpm --filter \"./examples/alpine-astro\"",
     "start-react": "pnpm react dev",
     "start-vue": "pnpm vue dev",
     "start-solid": "pnpm solid dev",
