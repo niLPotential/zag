@@ -17,6 +17,7 @@ export default defineConfig({
     "**/bottom-sheet.e2e.ts",
     "**/carousel.e2e.ts",
     "**/checkbox.e2e.ts",
+    "**/clipboard.e2e.ts",
     "**/combobox.e2e.ts",
     "**/dialog.e2e.ts",
     "**/popover.e2e.ts",

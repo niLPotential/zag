@@ -17,6 +17,7 @@
     "@zag-js/bottom-sheet": "workspace:*",
     "@zag-js/carousel": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
+    "@zag-js/clipboard": "workspace:*",
     "@zag-js/collection": "workspace:*",
     "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
