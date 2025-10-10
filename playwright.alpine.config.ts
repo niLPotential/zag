@@ -14,6 +14,7 @@ export default defineConfig({
   testMatch: [
     "**/accordion.e2e.ts",
     "**/avatar.e2e.ts",
+    "**/carousel.e2e.ts",
     "**/checkbox.e2e.ts",
     "**/combobox.e2e.ts",
     "**/dialog.e2e.ts",
