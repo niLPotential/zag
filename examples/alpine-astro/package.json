@@ -16,6 +16,7 @@
     "@zag-js/avatar": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
     "@zag-js/collection": "workspace:*",
+    "@zag-js/combobox": "workspace:*",
     "@zag-js/core": "workspace:*",
     "@zag-js/dom-query": "workspace:*",
     "@zag-js/shared": "workspace:*",

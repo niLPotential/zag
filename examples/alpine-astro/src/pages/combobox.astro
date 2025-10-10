@@ -1,0 +1,58 @@
+---
+import { comboboxControls, comboboxData, getControlDefaults } from "@zag-js/shared"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+
+const state = getControlDefaults(comboboxControls)
+---
+
+<script>
+  import Alpine from "alpinejs"
+  import * as combobox from "@zag-js/combobox"
+  import { createZagPlugin } from "../lib"
+
+  Alpine.plugin(createZagPlugin("combobox", combobox))
+</script>
+
+<main class="combobox" x-data={JSON.stringify({ ...state, comboboxData, options: [] })}>
+  <div
+    x-id="['combobox']"
+    x-combobox={`{id: $id('combobox'), collection,
+      onOpenChange() {options = comboboxData},
+      onInputChange({inputValue}) {
+      const filtered = (comboboxData, inputValue, {keys: ['lable']});
+      options = filtered.length > 0 ? filtered : comboboxData;},
+      ${Object.keys(state)}}`}
+    x-combobox:collection={`{items: ${comboboxData}, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
+  >
+    <button x-on:click="$combobox.setValue(['TG']">Set to Togo</button>
+    <button data-testid="clear-value-button" x-on:click="$combobox.clearValue"> Clear Value </button>
+    <br />
+    <div x-combobox:root>
+      <label x-combobox:label>Select country</label>
+      <div x-combobox:control>
+        <input data-testid="input" x-combobox:input />
+        <button data-testid="trigger" x-combobox:trigger>▼</button>
+        <button x-combobox:clear-trigger>X</button>
+      </div>
+    </div>
+    <div x-combobox:positioner>
+      <template x-if="options.length > 0">
+        <ul data-testid="combobox-content" x-combobox:content>
+          <template x-for="item in options" x-bind:key="item.code">
+            <li x-bind:data-testid="item.code" x-combobox:item="{item}">
+              <span x-combobox:item-indicator="{item}">✅</span>
+              <span x-text="item.label"></span>
+            </li>
+          </template>
+        </ul>
+        <template x-for="item in options"></template>
+      </template>
+    </div>
+    <Toolbar>
+      <Controls state={state} config={comboboxControls} />
+      <StateVisualizer />
+    </Toolbar>
+  </div>
+</main>
