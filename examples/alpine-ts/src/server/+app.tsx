@@ -18,6 +18,9 @@ import { src as avatarSrc } from "client:script/avatar"
 import { Checkbox } from "../pages/checkbox"
 import { src as checkboxSrc } from "client:script/checkbox"
 
+import { Combobox } from "../pages/combobox"
+import { src as comboboxSrc } from "client:script/combobox"
+
 const app = new App()
 
 app.use((c, next) => {
@@ -67,6 +70,15 @@ app.get("/checkbox", (c) => {
     <>
       <Nav pathname={c.url.pathname} />
       <Checkbox />
+    </>,
+  )
+})
+app.get("/combobox", (c) => {
+  c.head(<script type="module" src={comboboxSrc.module.at(0)}></script>)
+  c.page(
+    <>
+      <Nav pathname={c.url.pathname} />
+      <Combobox />
     </>,
   )
 })
