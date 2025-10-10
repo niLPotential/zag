@@ -14,6 +14,7 @@
     "@zag-js/accordion": "workspace:*",
     "@zag-js/angle-slider": "workspace:*",
     "@zag-js/avatar": "workspace:*",
+    "@zag-js/carousel": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
     "@zag-js/collection": "workspace:*",
     "@zag-js/combobox": "workspace:*",
