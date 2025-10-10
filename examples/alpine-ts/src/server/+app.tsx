@@ -21,6 +21,9 @@ import { src as checkboxSrc } from "client:script/checkbox"
 import { Combobox } from "../pages/combobox"
 import { src as comboboxSrc } from "client:script/combobox"
 
+import { Dialog } from "../pages/dialog"
+import { src as dialogSrc } from "client:script/dialog"
+
 const app = new App()
 
 app.use((c, next) => {
@@ -82,5 +85,13 @@ app.get("/combobox", (c) => {
     </>,
   )
 })
-
+app.get("/dialog", (c) => {
+  c.head(<script type="module" src={dialogSrc.module.at(0)}></script>)
+  c.page(
+    <>
+      <Nav pathname={c.url.pathname} />
+      <Dialog />
+    </>,
+  )
+})
 export default { fetch: app.fetch }
