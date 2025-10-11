@@ -253,10 +253,12 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       return fn
     })
     const cleanups: VoidFunction[] = []
-    for (const fn of fns) {
-      const cleanup = fn?.(this.getParams())
-      if (cleanup) cleanups.push(cleanup)
-    }
+    queueMicrotask(() => {
+      for (const fn of fns) {
+        const cleanup = fn?.(this.getParams())
+        if (cleanup) cleanups.push(cleanup)
+      }
+    })
     return () => cleanups.forEach((fn) => fn?.())
   }
 
