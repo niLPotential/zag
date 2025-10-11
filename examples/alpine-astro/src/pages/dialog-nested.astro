@@ -17,11 +17,11 @@ import Layout from "../layouts/Layout.astro"
 
       <div style="min-height: 1200px;"></div>
 
-      <template x-if="$dialog.open">
-        <div>
+      <template x-teleport="body">
+        <div x-show="$dialog.open">
           <div x-dialog:backdrop></div>
-          <div x-dialog:content>
-            <div data-testid="positioner-1" x-dialog:positioner>
+          <div data-testid="positioner-1" x-dialog:positioner>
+            <div x-dialog:content>
               <h2 x-dialog:title>Edit profile</h2>
               <p x-dialog:description>Make changes to your profile here. Click save when you are done.</p>
               <button x-dialog:close-trigger data-testid="close-1">X</button>
@@ -31,13 +31,13 @@ import Layout from "../layouts/Layout.astro"
               <div x-id="['dialog']" x-dialog="{id: $id('dialog')}">
                 <button x-dialog:trigger data-testid="trigger-2"> Open Nested </button>
 
-                <template x-if="$dialog.open">
-                  <div>
+                <template x-teleport="body">
+                  <div x-show="$dialog.open">
                     <div x-dialog:backdrop></div>
                     <div data-testid="positioner-2" x-dialog:positioner>
                       <div x-dialog:content>
                         <h2 x-dialog:title>Nested</h2>
-                        <button x-dialog:close-trigger data-testid="close-2"> X </button>
+                        <button x-dialog:close-trigger data-testid="close-2">X</button>
                         <button x-on:click="$dialog.setOpen(false)" data-testid="special-close">
                           Close Dialog 1
                         </button>

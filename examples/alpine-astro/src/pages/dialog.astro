@@ -13,8 +13,8 @@ import Layout from "../layouts/Layout.astro"
 <Layout>
   <main x-data x-id="['dialog']" x-dialog="{id: $id('dialog')}">
     <button x-dialog:trigger> Click me</button>
-    <template x-if="$dialog.open">
-      <div>
+    <template x-teleport="body">
+      <div x-show="#dialog.open">
         <div x-dialog:backdrop></div>
         <div x-dialog:positioner>
           <div x-dialog:content>
