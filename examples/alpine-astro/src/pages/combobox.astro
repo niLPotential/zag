@@ -12,7 +12,9 @@ const state = getControlDefaults(comboboxControls)
   import Alpine from "alpinejs"
   import * as combobox from "@zag-js/combobox"
   import { createZagPlugin } from "../lib"
+  import { matchSorter } from "match-sorter"
 
+  Alpine.data("matchSorter", () => ({ matchSorter }))
   Alpine.plugin(createZagPlugin("combobox", combobox))
 </script>
 
@@ -20,17 +22,18 @@ const state = getControlDefaults(comboboxControls)
   <main class="combobox" x-data={JSON.stringify({ ...state, comboboxData, options: [] })}>
     <div
       x-id="['combobox']"
+      x-data="matchSorter"
       x-combobox={`{id: $id('combobox'), collection,
         onOpenChange() {options = comboboxData},
-        onInputChange({inputValue}) {
-          const filtered = (comboboxData, inputValue, {keys: ['lable']});
+        onInputValueChange({inputValue}) {
+          const filtered = matchSorter(comboboxData, inputValue, {keys: ['label']});
           options = filtered.length > 0 ? filtered : comboboxData;
         },
         ${Object.keys(state)}}`}
       x-combobox:collection={`{items: ${comboboxData}, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
     >
-      <button x-on:click="$combobox.setValue(['TG']">Set to Togo</button>
-      <button data-testid="clear-value-button" x-on:click="$combobox.clearValue"> Clear Value </button>
+      <button x-on:click="$combobox.setValue(['TG'])">Set to Togo</button>
+      <button data-testid="clear-value-button" x-on:click="$combobox.clearValue">Clear Value</button>
       <br />
       <div x-combobox:root>
         <label x-combobox:label>Select country</label>

@@ -203,6 +203,9 @@ importers:
       astro:
         specifier: ^5.14.3
         version: 5.14.3(@types/node@24.7.0)(db0@0.3.4)(ioredis@5.8.1)(jiti@2.6.1)(lightningcss@1.25.1)(rollup@4.52.4)(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
+      match-sorter:
+        specifier: 8.1.0
+        version: 8.1.0
     devDependencies:
       prettier-plugin-astro:
         specifier: 0.14.1

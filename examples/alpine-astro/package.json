@@ -31,7 +31,8 @@
     "@zag-js/types": "workspace:*",
     "@zag-js/utils": "workspace:*",
     "alpinejs": "^3.15.0",
-    "astro": "^5.14.3"
+    "astro": "^5.14.3",
+    "match-sorter": "8.1.0"
   },
   "devDependencies": {
     "prettier-plugin-astro": "0.14.1"
