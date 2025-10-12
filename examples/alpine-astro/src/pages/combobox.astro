@@ -23,6 +23,7 @@ const state = getControlDefaults(comboboxControls)
     <div
       x-id="['combobox']"
       x-data="matchSorter"
+      x-combobox:collection={`{items: ${JSON.stringify(comboboxData)}, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
       x-combobox={`{id: $id('combobox'), collection,
         onOpenChange() {options = comboboxData},
         onInputValueChange({inputValue}) {
@@ -30,7 +31,6 @@ const state = getControlDefaults(comboboxControls)
           options = filtered.length > 0 ? filtered : comboboxData;
         },
         ${Object.keys(state)}}`}
-      x-combobox:collection={`{items: ${comboboxData}, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
     >
       <button x-on:click="$combobox.setValue(['TG'])">Set to Togo</button>
       <button data-testid="clear-value-button" x-on:click="$combobox.clearValue">Clear Value</button>
