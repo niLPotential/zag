@@ -19,11 +19,11 @@ const state = getControlDefaults(comboboxControls)
 </script>
 
 <Layout>
-  <main class="combobox" x-data={JSON.stringify({ ...state, comboboxData, options: [] })}>
+  <main class="combobox" x-data={JSON.stringify({ ...state, comboboxData, options: comboboxData })}>
     <div
       x-id="['combobox']"
       x-data="matchSorter"
-      x-combobox:collection={`{items: ${JSON.stringify(comboboxData)}, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
+      x-combobox:collection={`{items: options, itemToValue: (item) => item.code, itemToString: (item) => item.label}`}
       x-combobox={`{id: $id('combobox'), collection,
         onOpenChange() {options = comboboxData},
         onInputValueChange({inputValue}) {
