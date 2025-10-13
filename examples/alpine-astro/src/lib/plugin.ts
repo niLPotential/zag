@@ -1,4 +1,4 @@
-import type { Alpine, ElementWithXAttributes } from "alpinejs"
+import type { Alpine } from "alpinejs"
 import type { Machine, MachineSchema, Service } from "@zag-js/core"
 import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import type { ListCollection, CollectionItem, CollectionOptions } from "@zag-js/collection"
@@ -18,7 +18,6 @@ export function createZagPlugin<T extends MachineSchema>(
 ) {
   const underScore = name.replaceAll("-", "_")
   const api = `_${underScore}_api`
-  const bindings = `_${underScore}_bindings`
 
   return function (Alpine: Alpine) {
     Alpine.directive(name, (el, { expression, value }, { evaluateLater, evaluate }) => {
@@ -29,30 +28,17 @@ export function createZagPlugin<T extends MachineSchema>(
             return {
               service, // dev only
               [api]: component.connect(service, normalizeProps),
-              [bindings]: [] as {
-                el: ElementWithXAttributes
-                getProps: string
-                props: any
-                cleanup: () => void
-              }[],
+
               init() {
                 queueMicrotask(() => {
                   Alpine.effect(() => {
                     this[api] = component.connect(service, normalizeProps)
-
-                    for (const binding of this[bindings]) {
-                      // 'spread props' by cleaning up and re-binding
-                      binding.cleanup()
-                      binding.cleanup = Alpine.bind(binding.el, this[api][binding.getProps](binding.props))
-                    }
+                    console.log(el._x_cleanups?.length)
                   })
                 })
                 service.init()
               },
               destroy() {
-                for (const binding of this[bindings]) {
-                  binding.cleanup()
-                }
                 service.destroy()
               },
             }
@@ -69,17 +55,13 @@ export function createZagPlugin<T extends MachineSchema>(
           },
         })
       } else {
-        ;(Alpine.$data(el) as any)[bindings].push({
-          el,
-          getProps: `get${value
-            .split("-")
-            .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
-            .join("")}Props`,
-          get props() {
-            return expression ? evaluate(expression) : {}
-          },
-          cleanup: () => {},
-        })
+        const getProps = `get${value
+          .split("-")
+          .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
+          .join("")}Props`
+        function evaluateProps() {
+          return (Alpine.$data(el) as any)[api][getProps](expression && evaluate(expression))
+        }
       }
     }).before("bind")
 
