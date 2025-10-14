@@ -83,24 +83,25 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
     private machine: Machine<T>,
     evaluateProps: (callback: (userProps: Partial<T["props"]>) => void) => void,
   ) {
-    // create scope
-    evaluateProps((userProps) => {
-      const { id, ids, getRootNode } = userProps as any
-      this.scope = createScope({ id, ids, getRootNode })
+    let userProps = {} as Partial<T["props"]>
+    Alpine.effect(() => {
+      evaluateProps((props) => {
+        userProps = props
+      })
     })
+
+    // create scope
+    const { id, ids, getRootNode } = userProps as any
+    this.scope = createScope({ id, ids, getRootNode })
 
     // create prop
     this.prop = (key) => {
-      let value
-      evaluateProps((userProps) => {
-        const props =
-          machine.props?.({
-            props: compact(userProps),
-            scope: this.scope,
-          }) ?? userProps
-        value = props[key]
-      })
-      return value as T["props"][typeof key]
+      const props =
+        machine.props?.({
+          props: compact(userProps),
+          scope: this.scope,
+        }) ?? userProps
+      return props[key] as T["props"][typeof key]
     }
 
     // create context
