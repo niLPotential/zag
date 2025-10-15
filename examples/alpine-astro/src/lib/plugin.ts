@@ -34,8 +34,6 @@ export function createZagPlugin<T extends MachineSchema>(
                 queueMicrotask(() => {
                   effect(() => {
                     evaluateProps((value: any) => (propsRef.value = value))
-                  })
-                  effect(() => {
                     this[api] = component.connect(service, normalizeProps)
                   })
                 })
