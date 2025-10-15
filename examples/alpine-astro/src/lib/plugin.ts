@@ -20,20 +20,23 @@ export function createZagPlugin<T extends MachineSchema>(
   const api = `_${underScore}_api`
 
   return function (Alpine: Alpine) {
-    Alpine.directive(name, (el, { expression, value }, { evaluateLater, evaluate }) => {
+    Alpine.directive(name, (el, { expression, value }, { effect, evaluateLater, cleanup }) => {
       if (!value) {
-        const service = new AlpineMachine(component.machine, evaluateLater(expression))
-        Alpine.bind(el, {
+        const evaluateProps = evaluateLater(expression)
+        const propsRef = { value: {} as T["props"] }
+        const service = new AlpineMachine(component.machine, propsRef)
+        const cleanupBinding = Alpine.bind(el, {
           "x-data"() {
             return {
               service, // dev only
               [api]: component.connect(service, normalizeProps),
-
               init() {
                 queueMicrotask(() => {
-                  Alpine.effect(() => {
+                  effect(() => {
+                    evaluateProps((value: any) => (propsRef.value = value))
+                  })
+                  effect(() => {
                     this[api] = component.connect(service, normalizeProps)
-                    console.log(el._x_cleanups?.length)
                   })
                 })
                 service.init()
@@ -44,24 +47,43 @@ export function createZagPlugin<T extends MachineSchema>(
             }
           },
         })
+        cleanup(() => {
+          cleanupBinding()
+        })
       } else if (value === "collection") {
-        Alpine.bind(el, {
+        const evaluateCollection = evaluateLater(expression)
+        const cleanupBinding = Alpine.bind(el, {
           "x-data"() {
             return {
               get collection() {
-                return component.collection?.(evaluate(expression) as any)
+                let options = {} as CollectionOptions<T>
+                evaluateCollection((value: any) => (options = value))
+                return component.collection?.(options)
               },
             }
           },
+        })
+        cleanup(() => {
+          cleanupBinding()
         })
       } else {
         const getProps = `get${value
           .split("-")
           .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
           .join("")}Props`
-        function evaluateProps() {
-          return (Alpine.$data(el) as any)[api][getProps](expression && evaluate(expression))
-        }
+        const evaluateProps = expression ? evaluateLater(expression) : null
+        let cleanupBinding = () => {}
+        effect(() => {
+          cleanupBinding()
+          cleanupBinding = Alpine.bind(el, () => {
+            let props = {}
+            evaluateProps && evaluateProps((value: any) => (props = value))
+            return (Alpine.$data(el) as any)[api][getProps](props)
+          })
+        })
+        cleanup(() => {
+          cleanupBinding()
+        })
       }
     }).before("bind")
 
