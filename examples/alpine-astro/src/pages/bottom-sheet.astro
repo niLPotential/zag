@@ -21,7 +21,7 @@ const state = getControlDefaults(bottomSheetControls)
     class="bottom-sheet"
     x-data={JSON.stringify(state)}
     x-id="['bottom-sheet']"
-    x-bottom-sheet={`{${Object.keys(state)}, id: $id('bottom-sheet')}`}
+    x-bottom-sheet={`{id: $id('bottom-sheet'), ${Object.keys(state)}}`}
   >
     <button x-bottom-sheet:trigger>Open</button>
     <div x-bottom-sheet:backdrop></div>
@@ -29,8 +29,8 @@ const state = getControlDefaults(bottomSheetControls)
       <div x-bottom-sheet:grabber>
         <div x-bottom-sheet:grabber-indicator></div>
       </div>
-      <div>Bottom Sheet</div>
-      <div data-no-drag="true">No drag area</div>
+      <div x-bottom-sheet:title>Bottom Sheet</div>
+      <div data-no-drag>No drag area</div>
       <div class="scrollable">
         <template x-for="(, index) in Array.from({length: 100})" x-bind:key="index">
           <div x-text="'Item ' + index"></div>
@@ -39,8 +39,8 @@ const state = getControlDefaults(bottomSheetControls)
     </div>
 
     <Toolbar>
-      <StateVisualizer />
       <Controls config={bottomSheetControls} {state} />
+      <StateVisualizer context={["dragOffset", "activeSnapPoint", "resolvedActiveSnapPoint"] as any} />
     </Toolbar>
   </main>
 </Layout>
