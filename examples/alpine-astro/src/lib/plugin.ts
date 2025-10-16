@@ -24,6 +24,7 @@ export function createZagPlugin<T extends MachineSchema>(
       if (!value) {
         const evaluateProps = evaluateLater(expression)
         const propsRef = { value: {} as T["props"] }
+        evaluateProps((value: any) => (propsRef.value = value))
         const service = new AlpineMachine(component.machine, propsRef)
         const cleanupBinding = Alpine.bind(el, {
           "x-data"() {
