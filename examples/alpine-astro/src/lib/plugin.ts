@@ -23,7 +23,7 @@ export function createZagPlugin<T extends MachineSchema>(
     Alpine.directive(name, (el, { expression, value }, { effect, evaluateLater, cleanup }) => {
       if (!value) {
         const evaluateProps = evaluateLater(expression)
-        const propsRef = { value: {} as T["props"] }
+        const propsRef = Alpine.reactive({ value: {} as T["props"] })
         evaluateProps((value: any) => (propsRef.value = value))
         const service = new AlpineMachine(component.machine, propsRef)
         const cleanupBinding = Alpine.bind(el, {
@@ -74,11 +74,9 @@ export function createZagPlugin<T extends MachineSchema>(
         let cleanupBinding = () => {}
         effect(() => {
           cleanupBinding()
-          cleanupBinding = Alpine.bind(el, () => {
-            let props = {}
-            evaluateProps && evaluateProps((value: any) => (props = value))
-            return (Alpine.$data(el) as any)[api][getProps](props)
-          })
+          let props = {}
+          evaluateProps && evaluateProps((value: any) => (props = value))
+          cleanupBinding = Alpine.bind(el, (Alpine.$data(el) as any)[api][getProps](props))
         })
         cleanup(() => {
           cleanupBinding()
