@@ -96,13 +96,16 @@ export function createZagPlugin<T extends MachineSchema>(
     // Dev only
     Alpine.magic("highlightState", (el) => {
       const { service } = Alpine.$data(el) as any
-      const obj = {
-        state: service.state.get(),
-        event: service.event.current(),
-        previouseEvent: service.event.previous(),
-        context: undefined, // wip
-      }
-      return highlightState(obj)
+      return ({ omit, context }: { omit?: string[]; context?: Array<keyof T["context"]> }) =>
+        highlightState(
+          {
+            state: service.state.get(),
+            event: service.event.current(),
+            previouseEvent: service.event.previous(),
+            context: context ? Object.fromEntries(context.map((key) => [key, service.context.get(key)])) : undefined,
+          },
+          omit,
+        )
     })
   }
 }
