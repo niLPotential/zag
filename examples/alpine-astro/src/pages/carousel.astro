@@ -17,8 +17,18 @@ const state = getControlDefaults(carouselControls)
 </script>
 
 <Layout>
-  <main class="carousel">
-    <div x-carousel:root>
+  <main class="carousel" x-data={JSON.stringify(state)}>
+    <div
+      x-id="['carousel']"
+      x-carousel={`{
+        id: $id('carousel'),
+        spacing: '20px',
+        slidesPerPage: 2,
+        slideCount: ${carouselData.length},
+        allowMouseDrag: true,
+        ${Object.keys(state)}}`}
+      x-carousel:root
+    >
       <button x-on:click="$carousel.scrollToIndex(4)">Scroll to 4</button>
       <div x-carousel:control>
         <button x-carousel:autoplay-trigger x-text="$carousel.isPlaying ? 'Stop' : 'Play'"></button>
@@ -30,8 +40,8 @@ const state = getControlDefaults(carouselControls)
       <div x-carousel:item-group>
         {
           carouselData.map((image, index) => (
-            <div x-carousel:item="{index}">
-              <img x-bind:src="image" alt="" />
+            <div x-carousel:item={JSON.stringify({ index })}>
+              <img src={image} alt="" width="188px" />
             </div>
           ))
         }
@@ -45,7 +55,7 @@ const state = getControlDefaults(carouselControls)
 
       <Toolbar>
         <Controls {state} config={carouselControls} />
-        <StateVisualizer />
+        <StateVisualizer omit={["translations"]} />
       </Toolbar>
     </div>
   </main>
