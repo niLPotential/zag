@@ -33,7 +33,7 @@ const state = getControlDefaults(comboboxControls)
         ${Object.keys(state)}}`}
     >
       <button x-on:click="$combobox.setValue(['TG'])">Set to Togo</button>
-      <button data-testid="clear-value-button" x-on:click="$combobox.clearValue">Clear Value</button>
+      <button data-testid="clear-value-button" x-on:click="$combobox.clearValue()">Clear Value</button>
       <br />
       <div x-combobox:root>
         <label x-combobox:label>Select country</label>
