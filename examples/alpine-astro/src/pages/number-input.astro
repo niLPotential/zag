@@ -24,7 +24,7 @@ const state = getControlDefaults(numberInputControls)
       x-number-input:root
     >
       <div data-testid="scrubber" x-number-input:scrubber></div>
-      <label data-testid="label" x-number-input:label> Enter number: </label>
+      <label data-testid="label" x-number-input:label>Enter number:</label>
       <div x-number-input:control>
         <button data-testid="dec-button" x-number-input:decrement-trigger>DEC</button>
         <input data-testid="input" x-number-input:input />
@@ -32,7 +32,7 @@ const state = getControlDefaults(numberInputControls)
       </div>
       <Toolbar>
         <Controls {state} config={numberInputControls} />
-        <StateVisualizer />
+        <StateVisualizer omit={["formatter", "parser"]} />
       </Toolbar>
     </div>
   </main>
