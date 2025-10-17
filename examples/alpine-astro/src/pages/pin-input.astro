@@ -23,7 +23,7 @@ const state = getControlDefaults(pinInputControls)
     x-id="['pin-input']"
     x-pin-input={`{name: 'test', id: $id('pin-input'), count: 3, ${Object.keys(state)}}`}
   >
-    <form>
+    <form x-on:submit="(e) => e.preventDefault()">
       <div x-pin-input:root>
         <label x-pin-input:label>Enter code:</label>
         <div x-pin-input:control>
