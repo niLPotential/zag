@@ -227,7 +227,9 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       return fn
     })
     for (const fn of fns) {
-      fn?.(this.getParams())
+      queueMicrotask(() => {
+        fn?.(this.getParams())
+      })
     }
   }
 
