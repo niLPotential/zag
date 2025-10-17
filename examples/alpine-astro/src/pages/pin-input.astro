@@ -10,10 +10,10 @@ const state = getControlDefaults(pinInputControls)
 
 <script>
   import Alpine from "alpinejs"
-  import * as menu from "@zag-js/accordion"
+  import * as pinInput from "@zag-js/pin-input"
   import { createZagPlugin } from "../lib"
 
-  Alpine.plugin(createZagPlugin("menu", menu))
+  Alpine.plugin(createZagPlugin("pin-input", pinInput))
 </script>
 
 <Layout>
