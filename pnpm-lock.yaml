@@ -209,6 +209,9 @@ importers:
       '@zag-js/pagination':
         specifier: workspace:*
         version: link:../../packages/machines/pagination
+      '@zag-js/password-input':
+        specifier: workspace:*
+        version: link:../../packages/machines/password-input
       '@zag-js/popover':
         specifier: workspace:*
         version: link:../../packages/machines/popover
