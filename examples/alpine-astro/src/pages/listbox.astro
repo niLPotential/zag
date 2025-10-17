@@ -8,6 +8,14 @@ import { getControlDefaults, listboxControls, selectData } from "@zag-js/shared"
 const state = getControlDefaults(listboxControls)
 ---
 
+<script>
+  import Alpine from "alpinejs"
+  import * as listbox from "@zag-js/listbox"
+  import { createZagPlugin } from "../lib"
+
+  Alpine.plugin(createZagPlugin("listbox", listbox))
+</script>
+
 <Layout>
   <main class="listbox">
     <div
