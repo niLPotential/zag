@@ -17,7 +17,7 @@ const state = getControlDefaults(menuControls)
 </script>
 
 <Layout>
-  <main>
+  <main x-data={JSON.stringify(state)}>
     <div x-id="['menu']" x-menu={`{id: $id('menu'), onSelect: console.log, ${Object.keys(state)}}`}>
       <button x-menu:trigger>
         Actions <span x-menu:indicator>▾</span>
