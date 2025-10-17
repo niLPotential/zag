@@ -1,0 +1,37 @@
+---
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+import Layout from "../layouts/Layout.astro"
+import { getControlDefaults, listboxControls, selectData } from "@zag-js/shared"
+
+const state = getControlDefaults(listboxControls)
+---
+
+<Layout>
+  <main class="listbox">
+    <div
+      x-id="['listbox']"
+      x-listbox:collection={JSON.stringify({ items: selectData })}
+      x-listbox={`{collection, id: $id('listbox'), ${Object.keys(state)}}`}
+      x-listbox:root
+    >
+      <label x-listbox:label>Label</label>
+      <ul x-listbox:content>
+        {
+          selectData.map((item) => (
+            <li x-listbox:item={JSON.stringify({ item })}>
+              <span x-listbox:item-text={JSON.stringify({ item })}>{item.label}</span>
+              <span x-listbox:item-indicator={JSON.stringify({ item })}>✓</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <Toolbar>
+        <Controls {state} config={listboxControls} />
+        <StateVisualizer context={["highlightedValue"] as any} />
+      </Toolbar>
+    </div>
+  </main>
+</Layout>
