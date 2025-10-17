@@ -15,8 +15,7 @@ import type {
   Service,
 } from "@zag-js/core"
 import { createScope, INIT_STATE, MachineStatus } from "@zag-js/core"
-import { compact, isFunction, isString, toArray, warn } from "@zag-js/utils"
-import Alpine from "alpinejs"
+import { compact, identity, isFunction, isString, toArray, warn } from "@zag-js/utils"
 import { bindable } from "./bindable"
 import { createRefs } from "./refs"
 import { track } from "./track"
@@ -296,15 +295,9 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       track,
       refs: this.refs,
       computed: this.computed,
-      flush,
+      flush: identity,
       scope: this.scope,
       choose: this.choose,
     }
   }
-}
-
-const flush = (fn: VoidFunction) => {
-  Alpine.nextTick(() => {
-    fn()
-  })
 }
