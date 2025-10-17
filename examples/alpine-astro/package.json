@@ -27,6 +27,7 @@
     "@zag-js/dialog": "workspace:*",
     "@zag-js/dom-query": "workspace:*",
     "@zag-js/editable": "workspace:*",
+    "@zag-js/file-upload": "workspace:*",
     "@zag-js/popover": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
