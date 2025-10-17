@@ -29,6 +29,7 @@
     "@zag-js/editable": "workspace:*",
     "@zag-js/file-upload": "workspace:*",
     "@zag-js/floating-panel": "workspace:*",
+    "@zag-js/hover-card": "workspace:*",
     "@zag-js/popover": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
