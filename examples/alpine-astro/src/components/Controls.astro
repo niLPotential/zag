@@ -5,6 +5,7 @@ import { deepGet } from "@zag-js/shared"
 interface Props<T extends ControlRecord> {
   config: T
   state: ControlValue<T>
+  viz?: boolean
 }
 
 const { config, state } = Astro.props
