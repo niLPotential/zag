@@ -206,6 +206,9 @@ importers:
       '@zag-js/number-input':
         specifier: workspace:*
         version: link:../../packages/machines/number-input
+      '@zag-js/pagination':
+        specifier: workspace:*
+        version: link:../../packages/machines/pagination
       '@zag-js/popover':
         specifier: workspace:*
         version: link:../../packages/machines/popover
