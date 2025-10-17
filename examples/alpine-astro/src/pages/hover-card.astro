@@ -21,6 +21,7 @@ const state = getControlDefaults(hoverCardControls)
     <div
       style="display: flex; gap: 50px;"
       x-id="['hover-card']"
+      x-data={JSON.stringify(state)}
       x-hover-card={`{id: $id('hover-card'), ${Object.keys(state)}}`}
     >
       <a href="https://twitter.com/zag_js" target="_blank" rel="noreferrer" x-hover-card:trigger>Twitter</a>
@@ -32,7 +33,7 @@ const state = getControlDefaults(hoverCardControls)
               <div x-hover-card:arrow-tip></div>
             </div>
             Twitter Preview
-            <a href="https://twitter.com/zag_js" target="_blank" rel="noreferrer"> Twitter </a>
+            <a href="https://twitter.com/zag_js" target="_blank" rel="noreferrer">Twitter</a>
           </div>
         </div>
       </template>

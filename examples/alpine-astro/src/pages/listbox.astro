@@ -20,6 +20,7 @@ const state = getControlDefaults(listboxControls)
   <main class="listbox">
     <div
       x-id="['listbox']"
+      x-data={JSON.stringify(state)}
       x-listbox:collection={JSON.stringify({ items: selectData })}
       x-listbox={`{collection, id: $id('listbox'), ${Object.keys(state)}}`}
       x-listbox:root
