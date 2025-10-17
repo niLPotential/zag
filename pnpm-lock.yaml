@@ -185,6 +185,9 @@ importers:
       '@zag-js/dom-query':
         specifier: workspace:*
         version: link:../../packages/utilities/dom-query
+      '@zag-js/editable':
+        specifier: workspace:*
+        version: link:../../packages/machines/editable
       '@zag-js/popover':
         specifier: workspace:*
         version: link:../../packages/machines/popover
