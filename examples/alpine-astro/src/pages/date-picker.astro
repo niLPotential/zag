@@ -89,7 +89,7 @@ const state = getControlDefaults(datePickerControls)
           </table>
 
           <div style="display: flex; gap: 40px">
-            <div x-bind:hidden="$datePicker.view !== month" style="width: 100%;">
+            <div x-bind:hidden="$datePicker.view !== 'month'" style="width: 100%;">
               <div x-date-picker:view-control="{view: 'month'}">
                 <button x-date-picker:prev-trigger="{view: 'month'}">Prev</button>
                 <button x-date-picker:view-trigger="{view: 'month'}" x-text="$datePicker.visibleRange.start.year"
