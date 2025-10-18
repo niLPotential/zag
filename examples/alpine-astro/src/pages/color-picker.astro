@@ -14,12 +14,26 @@ const state = getControlDefaults(colorPickerControls)
   import * as colorPicker from "@zag-js/color-picker"
   import { createZagPlugin } from "../lib"
 
+  Alpine.magic("parse", () => {
+    return (color: string) => colorPicker.parse(color)
+  })
   Alpine.plugin(createZagPlugin("color-picker", colorPicker))
 </script>
 
 <Layout>
-  <main class="color-picker" x-data={JSON.stringify(state)}>
-    <form x-id="['color-picker']" x-color-picker={`{${Object.keys(state)}, id: $id('color-picker')}`}>
+  <main
+    class="color-picker"
+    x-data={JSON.stringify(state)}
+    x-id="['color-picker']"
+    x-color-picker={`{
+      id: $id('color-picker'),
+      name: 'color',
+      foramt: 'hsla',
+      defaultValue: $parse('hsl(0, 100%, 50%)'),
+      ${Object.keys(state)}
+    }`}
+  >
+    <form>
       <input x-color-picker:hidden-input />
       <div x-color-picker:root>
         <label x-color-picker:label>
@@ -104,7 +118,7 @@ const state = getControlDefaults(colorPickerControls)
             <input x-color-picker:channel-input="{channel: 'hex'}" />
 
             <div x-color-picker:swatch-group style="display: flex; gap: 10px;">
-              <template x-for="preset in []" x-bind:key="preset">
+              <template x-for={`preset in ${JSON.stringify(presets)}`} x-bind:key="preset">
                 <button x-color-picker:swatch-trigger="{value: preset}">
                   <div style="position: relative;">
                     <div x-color-picker:transparency-grid="{size: '4px'}"></div>
@@ -119,10 +133,13 @@ const state = getControlDefaults(colorPickerControls)
         </div>
       </div>
 
-      <Toolbar>
-        <Controls config={colorPickerControls} {state} />
-        <StateVisualizer />
-      </Toolbar>
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
     </form>
+
+    <Toolbar>
+      <Controls config={colorPickerControls} {state} />
+      <StateVisualizer />
+    </Toolbar>
   </main>
 </Layout>

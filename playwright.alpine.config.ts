@@ -19,7 +19,7 @@ export default defineConfig({
     "**/checkbox.e2e.ts",
     "**/clipboard.e2e.ts",
     "**/collapsible.e2e.ts",
-    // "**/color-picker.e2e.ts",
+    "**/color-picker.e2e.ts",
     "**/combobox.e2e.ts",
     "**/context-menu.e2e.ts",
     // "**/date-picker.e2e.ts",
