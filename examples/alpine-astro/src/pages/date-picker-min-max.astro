@@ -9,7 +9,9 @@ import Layout from "../layouts/Layout.astro"
   import * as datePicker from "@zag-js/date-picker"
   import { createZagPlugin } from "../lib"
 
-  Alpine.data("parse", () => ({ parse: datePicker.parse }))
+  Alpine.magic("parse", () => {
+    return (date: string) => datePicker.parse(date)
+  })
   Alpine.plugin(createZagPlugin("date-picker", datePicker))
 </script>
 
@@ -22,8 +24,8 @@ import Layout from "../layouts/Layout.astro"
       id: $id('date-picker'),
       locale: 'en',
       selectionMode: 'single',
-      min: parse('2025-07-01'),
-      max: parse('2025-09-30'),
+      min: $parse('2025-07-01'),
+      max: $parse('2025-09-30'),
     }`}
   >
     <p x-text="'Visible range: ' + $datePicker.visibleRangeText.formatted"></p>
