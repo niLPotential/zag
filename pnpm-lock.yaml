@@ -241,7 +241,7 @@ importers:
         version: 8.1.0
     devDependencies:
       prettier-plugin-astro:
-        specifier: 0.14.1
+        specifier: ^0.14.1
         version: 0.14.1
 
   examples/alpine-ts:
