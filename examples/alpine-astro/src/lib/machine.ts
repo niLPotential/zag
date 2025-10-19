@@ -144,35 +144,36 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       defaultValue: machine.initialState({ prop: this.prop }),
       onChange: (nextState, prevState) => {
         // compute effects: exit -> transition -> enter
+        queueMicrotask(() => {
+          // exit effects
+          if (prevState) {
+            const exitEffects = this.effects.get(prevState)
+            exitEffects?.()
+            this.effects.delete(prevState)
+          }
 
-        // exit effects
-        if (prevState) {
-          const exitEffects = this.effects.get(prevState)
-          exitEffects?.()
-          this.effects.delete(prevState)
-        }
+          // exit actions
+          if (prevState) {
+            this.action(machine.states[prevState]?.exit)
+          }
 
-        // exit actions
-        if (prevState) {
-          this.action(machine.states[prevState]?.exit)
-        }
+          // transition actions
+          this.action(this.transition?.actions)
 
-        // transition actions
-        this.action(this.transition?.actions)
+          // enter effect
+          const cleanup = this.effect(machine.states[nextState]?.effects)
+          if (cleanup) this.effects.set(nextState as string, cleanup)
 
-        // enter effect
-        const cleanup = this.effect(machine.states[nextState]?.effects)
-        if (cleanup) this.effects.set(nextState as string, cleanup)
+          // root entry actions
+          if (prevState === INIT_STATE) {
+            this.action(machine.entry)
+            const cleanup = this.effect(machine.effects)
+            if (cleanup) this.effects.set(INIT_STATE, cleanup)
+          }
 
-        // root entry actions
-        if (prevState === INIT_STATE) {
-          this.action(machine.entry)
-          const cleanup = this.effect(machine.effects)
-          if (cleanup) this.effects.set(INIT_STATE, cleanup)
-        }
-
-        // enter actions
-        this.action(machine.states[nextState]?.entry)
+          // enter actions
+          this.action(machine.states[nextState]?.entry)
+        })
       },
     }))
   }
@@ -226,9 +227,7 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       return fn
     })
     for (const fn of fns) {
-      queueMicrotask(() => {
-        fn?.(this.getParams())
-      })
+      fn?.(this.getParams())
     }
   }
 
@@ -248,12 +247,10 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       return fn
     })
     const cleanups: VoidFunction[] = []
-    queueMicrotask(() => {
-      for (const fn of fns) {
-        const cleanup = fn?.(this.getParams())
-        if (cleanup) cleanups.push(cleanup)
-      }
-    })
+    for (const fn of fns) {
+      const cleanup = fn?.(this.getParams())
+      if (cleanup) cleanups.push(cleanup)
+    }
     return () => cleanups.forEach((fn) => fn?.())
   }
 
