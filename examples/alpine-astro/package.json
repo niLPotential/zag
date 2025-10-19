@@ -46,6 +46,6 @@
     "match-sorter": "8.1.0"
   },
   "devDependencies": {
-    "prettier-plugin-astro": "0.14.1"
+    "prettier-plugin-astro": "^0.14.1"
   }
 }
