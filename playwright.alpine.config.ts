@@ -22,7 +22,7 @@ export default defineConfig({
     "**/color-picker.e2e.ts",
     "**/combobox.e2e.ts",
     "**/context-menu.e2e.ts",
-    // "**/date-picker.e2e.ts",
+    "**/date-picker.e2e.ts",
     "**/dialog.e2e.ts",
     // "**/editable.e2e.ts",
     "**/file-upload.e2e.ts",
