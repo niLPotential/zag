@@ -20,13 +20,13 @@ import Layout from "../layouts/Layout.astro"
     class="date-picker"
     x-id="['date-picker']"
     x-data
-    x-date-picker={`{
+    x-date-picker="{
       id: $id('date-picker'),
       locale: 'en',
       selectionMode: 'single',
       min: $parse('2025-07-01'),
       max: $parse('2025-09-30'),
-    }`}
+    }"
   >
     <p x-text="'Visible range: ' + $datePicker.visibleRangeText.formatted"></p>
 
