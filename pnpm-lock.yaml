@@ -218,6 +218,9 @@ importers:
       '@zag-js/popover':
         specifier: workspace:*
         version: link:../../packages/machines/popover
+      '@zag-js/radio-group':
+        specifier: workspace:*
+        version: link:../../packages/machines/radio-group
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
