@@ -44,7 +44,7 @@ export default defineConfig({
     // "**/select.e2e.ts",
     "**/slider.e2e.ts",
     // "**/splitter.e2e.ts",
-    // "**/switch.e2e.ts",
+    "**/switch.e2e.ts",
     // "**/tabs.e2e.ts",
     // "**/tags-input.e2e.ts",
     // "**/toast.e2e.ts",
