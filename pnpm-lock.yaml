@@ -248,6 +248,12 @@ importers:
       '@zag-js/tags-input':
         specifier: workspace:*
         version: link:../../packages/machines/tags-input
+      '@zag-js/toast':
+        specifier: workspace:*
+        version: link:../../packages/machines/toast
+      '@zag-js/toggle-group':
+        specifier: workspace:*
+        version: link:../../packages/machines/toggle-group
       '@zag-js/types':
         specifier: workspace:*
         version: link:../../packages/types
