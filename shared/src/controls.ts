@@ -166,6 +166,7 @@ export const toastControls = defineControls({
 export const selectControls = defineControls({
   multiple: { type: "boolean", defaultValue: false },
   disabled: { type: "boolean", defaultValue: false },
+  required: { type: "boolean", defaultValue: false },
   loopFocus: { type: "boolean", defaultValue: true },
   readOnly: { type: "boolean", defaultValue: false },
   deselectable: { type: "boolean", defaultValue: false },
@@ -307,4 +308,15 @@ export const bottomSheetControls = defineControls({
 
 export const scrollAreaControls = defineControls({
   dir: { type: "select", options: ["ltr", "rtl"] as const, defaultValue: "ltr" },
+})
+
+export const imageCropperControls = defineControls({
+  aspectRatio: { type: "number" },
+  minWidth: { type: "number", defaultValue: 40 },
+  minHeight: { type: "number", defaultValue: 40 },
+  maxWidth: { type: "number" },
+  maxHeight: { type: "number" },
+  zoomStep: { type: "number", defaultValue: 0.1 },
+  minZoom: { type: "number", defaultValue: 1 },
+  maxZoom: { type: "number", defaultValue: 5 },
 })
