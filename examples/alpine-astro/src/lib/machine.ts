@@ -137,7 +137,7 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       }) ?? ({} as any)
 
     // create refs
-    this.refs = createRefs(machine.refs?.({ prop: this.prop, context: this.ctx }))
+    this.refs = createRefs(machine.refs?.({ prop: this.prop, context: this.ctx }) ?? {})
 
     // create state
     this._state = bindable(() => ({
