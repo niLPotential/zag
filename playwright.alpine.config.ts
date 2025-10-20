@@ -13,7 +13,7 @@ export default defineConfig({
 
   testMatch: [
     "**/accordion.e2e.ts",
-    // "**/angle-slider.e2e.ts",
+    "**/angle-slider.e2e.ts",
     "**/avatar.e2e.ts",
     "**/bottom-sheet.e2e.ts",
     "**/carousel.e2e.ts",
@@ -39,10 +39,10 @@ export default defineConfig({
     "**/password-input.e2e.ts",
     "**/pin-input.e2e.ts",
     "**/popover.e2e.ts",
-    // "**/radio-group.e2e.ts",
-    // "**/rating-group.e2e.ts",
+    "**/radio-group.e2e.ts",
+    "**/rating-group.e2e.ts",
     // "**/select.e2e.ts",
-    // "**/slider.e2e.ts",
+    "**/slider.e2e.ts",
     // "**/splitter.e2e.ts",
     // "**/switch.e2e.ts",
     // "**/tabs.e2e.ts",
