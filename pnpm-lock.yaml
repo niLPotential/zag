@@ -242,6 +242,9 @@ importers:
       '@zag-js/switch':
         specifier: workspace:*
         version: link:../../packages/machines/switch
+      '@zag-js/tabs':
+        specifier: workspace:*
+        version: link:../../packages/machines/tabs
       '@zag-js/types':
         specifier: workspace:*
         version: link:../../packages/types
