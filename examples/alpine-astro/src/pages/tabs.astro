@@ -19,7 +19,7 @@ const state = getControlDefaults(tabsControls)
 <Layout>
   <main
     class="tabs"
-    x-data={JSON.stringify(state)}
+    x-data={JSON.stringify({ ...state, tabsData })}
     x-id="['tabs']"
     x-tabs={`{id: $id('tabs'), defaultValue: 'nils', ${Object.keys(state)}}`}
   >
