@@ -13,6 +13,10 @@ const propMap: Record<string, string> = {
 
 export const normalizeProps = createNormalizer((props) => {
   return Object.entries(props).reduce<Record<string, any>>((acc, [key, value]) => {
+    if (key === "children") {
+      acc["x-html"] = () => value
+      return acc
+    }
     if (key in propMap) {
       key = propMap[key]
     }
