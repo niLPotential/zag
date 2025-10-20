@@ -230,6 +230,9 @@ importers:
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@zag-js/slider':
+        specifier: workspace:*
+        version: link:../../packages/machines/slider
       '@zag-js/stringify-state':
         specifier: workspace:*
         version: link:../../packages/utilities/stringify-state
@@ -252,6 +255,9 @@ importers:
         specifier: 8.1.0
         version: 8.1.0
     devDependencies:
+      '@types/form-serialize':
+        specifier: 0.7.4
+        version: 0.7.4
       prettier-plugin-astro:
         specifier: ^0.14.1
         version: 0.14.1

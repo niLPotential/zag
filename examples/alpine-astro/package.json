@@ -41,6 +41,7 @@
     "@zag-js/rating-group": "workspace:*",
     "@zag-js/select": "workspace:*",
     "@zag-js/shared": "workspace:*",
+    "@zag-js/slider": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
     "@zag-js/types": "workspace:*",
     "@zag-js/utils": "workspace:*",
@@ -50,6 +51,7 @@
     "match-sorter": "8.1.0"
   },
   "devDependencies": {
+    "@types/form-serialize": "0.7.4",
     "prettier-plugin-astro": "^0.14.1"
   }
 }
