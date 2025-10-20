@@ -17,12 +17,13 @@ const state = getControlDefaults(editableControls)
 </script>
 
 <Layout>
-  <main class="editable" x-data={JSON.stringify(state)}>
-    <div
-      x-id="['editable']"
-      x-editable={`id: $id('editable'), defaultValue: 'Hello World', ${Object.keys(state)}}`}
-      x-editable:root
-    >
+  <main
+    class="editable"
+    x-data={JSON.stringify(state)}
+    x-id="['editable']"
+    x-editable={`{id: $id('editable'), defaultValue: 'Hello World', ${Object.keys(state)}}`}
+  >
+    <div x-editable:root>
       <div x-editable:area>
         <input data-testid="input" x-editable:input />
         <span data-testid="preview" x-editable:preview></span>
@@ -38,10 +39,11 @@ const state = getControlDefaults(editableControls)
           </div>
         </template>
       </div>
-      <Toolbar>
-        <Controls {state} config={editableControls} />
-        <StateVisualizer />
-      </Toolbar>
     </div>
+
+    <Toolbar>
+      <Controls {state} config={editableControls} />
+      <StateVisualizer />
+    </Toolbar>
   </main>
 </Layout>
