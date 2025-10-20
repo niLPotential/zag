@@ -203,6 +203,9 @@ importers:
       '@zag-js/menu':
         specifier: workspace:*
         version: link:../../packages/machines/menu
+      '@zag-js/navigation-menu':
+        specifier: workspace:*
+        version: link:../../packages/machines/navigation-menu
       '@zag-js/number-input':
         specifier: workspace:*
         version: link:../../packages/machines/number-input
@@ -230,6 +233,9 @@ importers:
       '@zag-js/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@zag-js/signature-pad':
+        specifier: workspace:*
+        version: link:../../packages/machines/signature-pad
       '@zag-js/slider':
         specifier: workspace:*
         version: link:../../packages/machines/slider
@@ -248,12 +254,27 @@ importers:
       '@zag-js/tags-input':
         specifier: workspace:*
         version: link:../../packages/machines/tags-input
+      '@zag-js/timer':
+        specifier: workspace:*
+        version: link:../../packages/machines/timer
       '@zag-js/toast':
         specifier: workspace:*
         version: link:../../packages/machines/toast
+      '@zag-js/toggle':
+        specifier: workspace:*
+        version: link:../../packages/machines/toggle
       '@zag-js/toggle-group':
         specifier: workspace:*
         version: link:../../packages/machines/toggle-group
+      '@zag-js/tooltip':
+        specifier: workspace:*
+        version: link:../../packages/machines/tooltip
+      '@zag-js/tour':
+        specifier: workspace:*
+        version: link:../../packages/machines/tour
+      '@zag-js/tree-view':
+        specifier: workspace:*
+        version: link:../../packages/machines/tree-view
       '@zag-js/types':
         specifier: workspace:*
         version: link:../../packages/types
