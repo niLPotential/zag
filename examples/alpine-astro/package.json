@@ -38,6 +38,7 @@
     "@zag-js/pin-input": "workspace:*",
     "@zag-js/popover": "workspace:*",
     "@zag-js/radio-group": "workspace:*",
+    "@zag-js/rating-group": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
     "@zag-js/types": "workspace:*",
