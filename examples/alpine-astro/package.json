@@ -42,6 +42,7 @@
     "@zag-js/select": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/slider": "workspace:*",
+    "@zag-js/splitter": "workspace:*",
     "@zag-js/stringify-state": "workspace:*",
     "@zag-js/types": "workspace:*",
     "@zag-js/utils": "workspace:*",

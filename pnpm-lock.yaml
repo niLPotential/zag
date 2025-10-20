@@ -233,6 +233,9 @@ importers:
       '@zag-js/slider':
         specifier: workspace:*
         version: link:../../packages/machines/slider
+      '@zag-js/splitter':
+        specifier: workspace:*
+        version: link:../../packages/machines/splitter
       '@zag-js/stringify-state':
         specifier: workspace:*
         version: link:../../packages/utilities/stringify-state
