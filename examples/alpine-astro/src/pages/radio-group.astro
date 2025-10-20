@@ -30,12 +30,15 @@ const state = getControlDefaults(radioControls)
           <div x-radio-group:indicator></div>
           {
             radioData.map((opt) => (
-              <label data-testid={`radio-${opt.id}`} x-radio-group:item={{ value: opt.id }}>
-                <div data-testid={`control-${opt.id}`} x-radio-group:item-control={{ value: opt.id }} />
-                <span data-testid={`label-${opt.id}`} x-radio-group:item-text={{ value: opt.id }}>
+              <label data-testid={`radio-${opt.id}`} x-radio-group:item={JSON.stringify({ value: opt.id })}>
+                <div data-testid={`control-${opt.id}`} x-radio-group:item-control={JSON.stringify({ value: opt.id })} />
+                <span data-testid={`label-${opt.id}`} x-radio-group:item-text={JSON.stringify({ value: opt.id })}>
                   {opt.label}
                 </span>
-                <input data-testid={`input-${opt.id}`} x-radio-group:item-hidden-input={{ value: opt.id }} />
+                <input
+                  data-testid={`input-${opt.id}`}
+                  x-radio-group:item-hidden-input={JSON.stringify({ value: opt.id })}
+                />
               </label>
             ))
           }
