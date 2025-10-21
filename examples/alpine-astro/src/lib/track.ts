@@ -7,24 +7,18 @@ function access(value: any) {
 }
 
 export const track = (deps: any[], effect: VoidFunction) => {
-  let prevDeps: any[] = []
-  let isFirstRun = true
-  Alpine.effect(() => {
-    if (isFirstRun) {
-      prevDeps = deps.map((d) => access(d))
-      isFirstRun = false
-      return
-    }
-    let changed = false
-    for (let i = 0; i < deps.length; i++) {
-      if (!isEqual(prevDeps[i], access(deps[i]))) {
-        changed = true
-        break
+  // @ts-ignore @types/alpinejs is out of date
+  Alpine.watch(
+    () => deps.map((d) => access(d)),
+    (current: any[], previous: any[]) => {
+      let changed = false
+      for (let i = 0; i < current.length; i++) {
+        if (!isEqual(previous[i], access(current[i]))) {
+          changed = true
+          break
+        }
       }
-    }
-    if (changed) {
-      prevDeps = deps.map((d) => access(d))
-      effect()
-    }
-  })
+      if (changed) effect()
+    },
+  )
 }
