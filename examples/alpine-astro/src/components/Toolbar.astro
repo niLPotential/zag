@@ -1,3 +1,33 @@
-<div class="toolbar">
-  <slot />
+---
+interface Props {
+  viz?: boolean
+}
+
+const { viz } = Astro.props
+---
+
+<script>
+  import { dataAttr } from "@zag-js/dom-query"
+  import Alpine from "alpinejs"
+
+  Alpine.magic("dataAttr", () => {
+    return (guard: boolean) => dataAttr(guard)
+  })
+</script>
+
+<div class="toolbar" x-data={`{active: ${viz ? 1 : 0}}`}>
+  <nav>
+    <button x-bind:data-active="$dataAttr(active === 0)" x-on:click="active = 0">Controls</button>
+
+    <button x-bind:data-active="$dataAttr(active === 1)" x-on:click="active = 1">Visualizer</button>
+  </nav>
+  <div>
+    <div data-content x-bind:data-active="$dataAttr(active === 0)">
+      <slot name="controls" />
+    </div>
+
+    <div data-content x-bind:data-active="$dataAttr(active === 1)">
+      <slot />
+    </div>
+  </div>
 </div>
