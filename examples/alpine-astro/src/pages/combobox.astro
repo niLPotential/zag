@@ -56,7 +56,7 @@ const state = getControlDefaults(comboboxControls)
         </template>
       </div>
       <Toolbar>
-        <Controls state={state} config={comboboxControls} />
+        <Controls state={state} config={comboboxControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

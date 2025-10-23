@@ -47,7 +47,7 @@ const state = getControlDefaults(popoverControls)
       <span data-testid="plain-text">I am just text</span>
       <button data-testid="button-after">Button :after</button>
       <Toolbar>
-        <Controls state={state} config={popoverControls} />
+        <Controls state={state} config={popoverControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

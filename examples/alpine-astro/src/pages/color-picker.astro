@@ -137,8 +137,8 @@ const state = getControlDefaults(colorPickerControls)
       <button type="reset">Reset</button>
     </form>
 
-    <Toolbar>
-      <Controls config={colorPickerControls} {state} />
+    <Toolbar viz>
+      <Controls config={colorPickerControls} {state} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

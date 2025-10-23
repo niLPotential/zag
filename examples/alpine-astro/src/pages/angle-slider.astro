@@ -34,7 +34,7 @@ const state = getControlDefaults(angleSliderControls)
       </div>
       <input x-angle-slider:hidden-input />
       <Toolbar>
-        <Controls state={state} config={angleSliderControls} />
+        <Controls state={state} config={angleSliderControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

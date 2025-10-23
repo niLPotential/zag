@@ -79,7 +79,7 @@ const state = getControlDefaults(config)
       </div>
 
       <Toolbar>
-        <Controls {state} {config} />
+        <Controls {state} {config} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

@@ -40,7 +40,7 @@ const state = getControlDefaults(tabsControls)
       </template>
     </div>
     <Toolbar>
-      <Controls {state} config={tabsControls} />
+      <Controls {state} config={tabsControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

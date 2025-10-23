@@ -54,7 +54,7 @@ const state = getControlDefaults(carouselControls)
       </div>
 
       <Toolbar>
-        <Controls {state} config={carouselControls} />
+        <Controls {state} config={carouselControls} slot="controls" />
         <StateVisualizer omit={["translations"]} />
       </Toolbar>
     </div>

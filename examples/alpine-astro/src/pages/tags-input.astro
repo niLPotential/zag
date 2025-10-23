@@ -53,7 +53,7 @@ const state = getControlDefaults(tagsInputControls)
     </div>
 
     <Toolbar>
-      <Controls {state} config={tagsInputControls} />
+      <Controls {state} config={tagsInputControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

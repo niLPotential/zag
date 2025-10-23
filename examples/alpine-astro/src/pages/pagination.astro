@@ -72,7 +72,7 @@ const state = getControlDefaults(paginationControls)
     </template>
 
     <Toolbar>
-      <Controls {state} config={paginationControls} />
+      <Controls {state} config={paginationControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

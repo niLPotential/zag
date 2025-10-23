@@ -31,7 +31,7 @@ const state = getControlDefaults(numberInputControls)
         <button data-testid="inc-button" x-number-input:increment-trigger>INC</button>
       </div>
       <Toolbar>
-        <Controls {state} config={numberInputControls} />
+        <Controls {state} config={numberInputControls} slot="controls" />
         <StateVisualizer omit={["formatter", "parser"]} />
       </Toolbar>
     </div>

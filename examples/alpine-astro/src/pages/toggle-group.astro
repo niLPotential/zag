@@ -33,7 +33,7 @@ const state = getControlDefaults(toggleGroupControls)
     </div>
 
     <Toolbar>
-      <Controls {state} config={toggleGroupControls} />
+      <Controls {state} config={toggleGroupControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

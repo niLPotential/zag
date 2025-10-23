@@ -38,7 +38,7 @@ const state = getControlDefaults(pinInputControls)
     </form>
 
     <Toolbar>
-      <Controls {state} config={pinInputControls} />
+      <Controls {state} config={pinInputControls} slot="controls" />
       <StateVisualizer context={["value", "focusedIndex"] as any} />
     </Toolbar>
   </main>

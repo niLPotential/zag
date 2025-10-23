@@ -49,7 +49,7 @@ const state = getControlDefaults(floatingPanelControls)
       </div>
 
       <Toolbar>
-        <Controls {state} config={floatingPanelControls} />
+        <Controls {state} config={floatingPanelControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

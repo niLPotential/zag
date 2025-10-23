@@ -35,7 +35,7 @@ const state = getControlDefaults(accordionControls)
         ))
       }
       <Toolbar>
-        <Controls state={state} config={accordionControls} />
+        <Controls state={state} config={accordionControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

@@ -26,7 +26,7 @@ import Layout from "../layouts/Layout.astro"
       <img x-show="showImage" alt="" referrerpolicy="no-referrer" x-bind:src="src" x-avatar:image />
 
       <Toolbar>
-        <div class="controls">
+        <div class="controls" slot="controls">
           <button x-on:click="src = getRandomImage()">Change Image</button>
           <button x-on:click={`src = '${avatarData.broken}'`}>Broken Image</button>
           <button x-on:click="showImage = !showImage">Toggle Image</button>

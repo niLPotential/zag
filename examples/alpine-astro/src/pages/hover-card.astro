@@ -42,7 +42,7 @@ const state = getControlDefaults(hoverCardControls)
     </div>
 
     <Toolbar>
-      <Controls {state} config={hoverCardControls} />
+      <Controls {state} config={hoverCardControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

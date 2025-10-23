@@ -34,7 +34,7 @@ const state = getControlDefaults(menuControls)
       </template>
 
       <Toolbar>
-        <Controls {state} config={menuControls} />
+        <Controls {state} config={menuControls} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

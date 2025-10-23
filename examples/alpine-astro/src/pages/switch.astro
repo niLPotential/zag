@@ -32,7 +32,7 @@ const state = getControlDefaults(switchControls)
     </label>
 
     <Toolbar>
-      <Controls {state} config={switchControls} />
+      <Controls {state} config={switchControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

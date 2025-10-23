@@ -53,7 +53,7 @@ const state = getControlDefaults(sliderControls)
     </form>
 
     <Toolbar>
-      <Controls {state} config={sliderControls} />
+      <Controls {state} config={sliderControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

@@ -38,7 +38,7 @@ const state = getControlDefaults(listboxControls)
       </ul>
 
       <Toolbar>
-        <Controls {state} config={listboxControls} />
+        <Controls {state} config={listboxControls} slot="controls" />
         <StateVisualizer context={["highlightedValue"] as any} />
       </Toolbar>
     </div>

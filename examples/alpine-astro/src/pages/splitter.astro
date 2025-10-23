@@ -43,7 +43,7 @@ const state = getControlDefaults(splitterControls)
     </div>
 
     <Toolbar>
-      <Controls {state} config={splitterControls} />
+      <Controls {state} config={splitterControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

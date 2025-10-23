@@ -36,7 +36,7 @@ const state = getControlDefaults(checkboxControls)
         <button type="reset">Reset Form</button>
 
         <Toolbar>
-          <Controls state={state} config={checkboxControls} />
+          <Controls state={state} config={checkboxControls} slot="controls" />
           <StateVisualizer />
         </Toolbar>
       </fieldset>

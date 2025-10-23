@@ -45,7 +45,7 @@ const state = getControlDefaults(fileUploadControls)
       </ul>
     </div>
     <Toolbar>
-      <Controls {state} config={fileUploadControls} />
+      <Controls {state} config={fileUploadControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

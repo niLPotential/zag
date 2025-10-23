@@ -52,7 +52,7 @@ const state = getControlDefaults(radioControls)
     </form>
 
     <Toolbar>
-      <Controls {state} config={radioControls} />
+      <Controls {state} config={radioControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

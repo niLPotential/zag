@@ -46,7 +46,7 @@ const state = getControlDefaults(ratingControls)
     </form>
 
     <Toolbar>
-      <Controls {state} config={ratingControls} />
+      <Controls {state} config={ratingControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>

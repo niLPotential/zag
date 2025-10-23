@@ -31,7 +31,7 @@ const state = getControlDefaults(collapsibleControls)
       </div>
 
       <Toolbar>
-        <Controls config={collapsibleControls} {state} />
+        <Controls config={collapsibleControls} {state} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

@@ -144,7 +144,7 @@ const state = getControlDefaults(datePickerControls)
     </div>
 
     <Toolbar>
-      <Controls viz {state} config={datePickerControls} />
+      <Controls viz {state} config={datePickerControls} slot="controls" />
       <StateVisualizer omit={["weeks"]} />
     </Toolbar>
   </main>

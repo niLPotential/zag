@@ -31,7 +31,7 @@ const state = getControlDefaults(clipboardControls)
       <div x-clipboard:indicator="{copied: false}">Copy</div>
 
       <Toolbar>
-        <Controls config={clipboardControls} {state} />
+        <Controls config={clipboardControls} {state} slot="controls" />
         <StateVisualizer />
       </Toolbar>
     </div>

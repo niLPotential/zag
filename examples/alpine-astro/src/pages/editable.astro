@@ -42,7 +42,7 @@ const state = getControlDefaults(editableControls)
     </div>
 
     <Toolbar>
-      <Controls {state} config={editableControls} />
+      <Controls {state} config={editableControls} slot="controls" />
       <StateVisualizer />
     </Toolbar>
   </main>
