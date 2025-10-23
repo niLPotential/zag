@@ -19,6 +19,7 @@ import { compact, identity, isFunction, isString, toArray, warn } from "@zag-js/
 import { bindable } from "./bindable"
 import { createRefs } from "./refs"
 import { track } from "./track"
+import Alpine from "alpinejs"
 
 export class AlpineMachine<T extends MachineSchema> implements Service<T> {
   scope: Scope = null as any
@@ -144,36 +145,35 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
       defaultValue: machine.initialState({ prop: this.prop }),
       onChange: (nextState, prevState) => {
         // compute effects: exit -> transition -> enter
-        queueMicrotask(() => {
-          // exit effects
-          if (prevState) {
-            const exitEffects = this.effects.get(prevState)
-            exitEffects?.()
-            this.effects.delete(prevState)
-          }
 
-          // exit actions
-          if (prevState) {
-            this.action(machine.states[prevState]?.exit)
-          }
+        // exit effects
+        if (prevState) {
+          const exitEffects = this.effects.get(prevState)
+          exitEffects?.()
+          this.effects.delete(prevState)
+        }
 
-          // transition actions
-          this.action(this.transition?.actions)
+        // exit actions
+        if (prevState) {
+          this.action(machine.states[prevState]?.exit)
+        }
 
-          // enter effect
-          const cleanup = this.effect(machine.states[nextState]?.effects)
-          if (cleanup) this.effects.set(nextState as string, cleanup)
+        // transition actions
+        this.action(this.transition?.actions)
 
-          // root entry actions
-          if (prevState === INIT_STATE) {
-            this.action(machine.entry)
-            const cleanup = this.effect(machine.effects)
-            if (cleanup) this.effects.set(INIT_STATE, cleanup)
-          }
+        // enter effect
+        const cleanup = this.effect(machine.states[nextState]?.effects)
+        if (cleanup) this.effects.set(nextState as string, cleanup)
 
-          // enter actions
-          this.action(machine.states[nextState]?.entry)
-        })
+        // root entry actions
+        if (prevState === INIT_STATE) {
+          this.action(machine.entry)
+          const cleanup = this.effect(machine.effects)
+          if (cleanup) this.effects.set(INIT_STATE, cleanup)
+        }
+
+        // enter actions
+        this.action(machine.states[nextState]?.entry)
       },
     }))
   }
@@ -181,39 +181,41 @@ export class AlpineMachine<T extends MachineSchema> implements Service<T> {
   send = (event: any) => {
     if (this.status !== MachineStatus.Started) return
 
-    this.previousEvent = this._event
-    this._event = event
+    Alpine.nextTick().then(() => {
+      this.previousEvent = this._event
+      this._event = event
 
-    this.debug("send", event)
+      this.debug("send", event)
 
-    const currentState = this.state.get()
+      const currentState = this.state.get()
 
-    const transitions =
-      // @ts-ignore transition
-      this.machine.states[currentState].on?.[event.type] ??
-      // @ts-ignore transition
-      this.machine.on?.[event.type]
+      const transitions =
+        // @ts-ignore transition
+        this.machine.states[currentState].on?.[event.type] ??
+        // @ts-ignore transition
+        this.machine.on?.[event.type]
 
-    const transition = this.choose(transitions)
-    if (!transition) return
+      const transition = this.choose(transitions)
+      if (!transition) return
 
-    // save current transition
-    this.transition = transition
-    const target = transition.target ?? currentState
+      // save current transition
+      this.transition = transition
+      const target = transition.target ?? currentState
 
-    this.debug("transition", transition)
+      this.debug("transition", transition)
 
-    const changed = target !== currentState
-    if (changed) {
-      // state change is high priority
-      this.state.set(target)
-    } else if (transition.reenter && !changed) {
-      // reenter will re-invoke the current state
-      this.state.invoke(currentState, currentState)
-    } else {
-      // call transition actions
-      this.action(transition.actions)
-    }
+      const changed = target !== currentState
+      if (changed) {
+        // state change is high priority
+        this.state.set(target)
+      } else if (transition.reenter && !changed) {
+        // reenter will re-invoke the current state
+        this.state.invoke(currentState, currentState)
+      } else {
+        // call transition actions
+        this.action(transition.actions)
+      }
+    })
   }
 
   private action = (keys: ActionsOrFn<T> | undefined) => {
