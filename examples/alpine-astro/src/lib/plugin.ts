@@ -16,8 +16,10 @@ export function createZagPlugin<T extends MachineSchema>(
     collection?: <T extends CollectionItem>(options: CollectionOptions<T>) => ListCollection<T>
   },
 ) {
-  const underScore = name.replaceAll("-", "_")
-  const api = `_${underScore}_api`
+  const underScore = "_x_" + name.replaceAll("-", "_")
+  const api = underScore + "_api"
+  const binding = underScore + "_binding"
+  const bindingCleanup = underScore + "_cleanup"
 
   return function (Alpine: Alpine) {
     Alpine.directive(name, (el, { expression, value }, { effect, evaluateLater, cleanup }) => {
@@ -36,11 +38,13 @@ export function createZagPlugin<T extends MachineSchema>(
                   effect(() => {
                     evaluateProps((value: any) => (propsRef.value = value))
                     this[api] = component.connect(service, normalizeProps)
+                    Alpine.walk(el, (node) => (node as any)[binding]?.())
                   })
                 })
                 service.init()
               },
               destroy() {
+                Alpine.destroyTree(el)
                 service.destroy()
               },
             }
@@ -71,15 +75,15 @@ export function createZagPlugin<T extends MachineSchema>(
           .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
           .join("")}Props`
         const evaluateProps = expression ? evaluateLater(expression) : null
-        let cleanupBinding = () => {}
-        effect(() => {
-          cleanupBinding()
+        ;(el as any)[bindingCleanup] = () => {}
+        ;(el as any)[binding] = () => {
+          ;(el as any)[bindingCleanup]()
           let props = {}
           evaluateProps && evaluateProps((value: any) => (props = value))
-          cleanupBinding = Alpine.bind(el, (Alpine.$data(el) as any)[api][getProps](props))
-        })
+          ;(el as any)[bindingCleanup] = Alpine.bind(el, (Alpine.$data(el) as any)[api][getProps](props))
+        }
         cleanup(() => {
-          cleanupBinding()
+          ;(el as any)[bindingCleanup]()
         })
       }
     }).before("bind")
