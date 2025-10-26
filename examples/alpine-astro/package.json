@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^0.4.9",
     "@zag-js/core": "workspace:*",
     "@zag-js/utils": "workspace:*",
     "alpinejs": "^3.15.0",
