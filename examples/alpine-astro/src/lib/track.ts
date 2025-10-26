@@ -1,7 +1,7 @@
 import { isEqual } from "@zag-js/utils"
 import Alpine from "alpinejs"
 
-export const useTrack = (deps: any[], effect: VoidFunction) => {
+export const track = (deps: any[], effect: VoidFunction) => {
   // @ts-ignore @types/alpinejs is outdated
   Alpine.watch(
     () => [...deps.map((d) => d())],
