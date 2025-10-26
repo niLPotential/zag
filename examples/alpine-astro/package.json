@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
+    "@zag-js/carousel": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
     "@zag-js/core": "workspace:*",
     "@zag-js/dom-query": "workspace:*",

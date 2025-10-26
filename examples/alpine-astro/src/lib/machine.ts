@@ -178,34 +178,36 @@ export function useMachine<T extends MachineSchema>(
     onChange(nextState, prevState) {
       // compute effects: exit -> transition -> enter
 
-      // exit effects
-      if (prevState) {
-        const exitEffects = effects.get(prevState)
-        exitEffects?.()
-        effects.delete(prevState)
-      }
+      queueMicrotask(() => {
+        // exit effects
+        if (prevState) {
+          const exitEffects = effects.get(prevState)
+          exitEffects?.()
+          effects.delete(prevState)
+        }
 
-      // exit actions
-      if (prevState) {
-        action(machine.states[prevState]?.exit)
-      }
+        // exit actions
+        if (prevState) {
+          action(machine.states[prevState]?.exit)
+        }
 
-      // transition actions
-      action(transitionRef?.actions)
+        // transition actions
+        action(transitionRef?.actions)
 
-      // enter effect
-      const cleanup = effect(machine.states[nextState]?.effects)
-      if (cleanup) effects.set(nextState as string, cleanup)
+        // enter effect
+        const cleanup = effect(machine.states[nextState]?.effects)
+        if (cleanup) effects.set(nextState as string, cleanup)
 
-      // root entry actions
-      if (prevState === INIT_STATE) {
-        action(machine.entry)
-        const cleanup = effect(machine.effects)
-        if (cleanup) effects.set(INIT_STATE, cleanup)
-      }
+        // root entry actions
+        if (prevState === INIT_STATE) {
+          action(machine.entry)
+          const cleanup = effect(machine.effects)
+          if (cleanup) effects.set(INIT_STATE, cleanup)
+        }
 
-      // enter actions
-      action(machine.states[nextState]?.entry)
+        // enter actions
+        action(machine.states[nextState]?.entry)
+      })
     },
   }))
 
