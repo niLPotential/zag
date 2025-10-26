@@ -20,7 +20,7 @@ const state = getControlDefaults(checkboxControls)
   Alpine.directive("checkbox", (el, { expression, value }, { cleanup, effect, evaluateLater }) => {
     if (!value) {
       const evaluateProps = evaluateLater(expression)
-      const propsRef = { value: {} as any }
+      const propsRef = Alpine.reactive({ value: {} as any })
       evaluateProps((value) => (propsRef.value = value))
       const service = useMachine(checkbox.machine, propsRef)
       Alpine.bind(el, {

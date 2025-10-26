@@ -41,7 +41,7 @@ export function bindable<T>(props: () => BindableParams<T>): Bindable<T> {
       setFn(val)
     },
     invoke(nextValue: T, prevValue: T) {
-      props().onChange?.(nextValue, prevValue)
+      queueMicrotask(() => props().onChange?.(nextValue, prevValue))
     },
     hash(value: T) {
       return props().hash?.(value) ?? String(value)

@@ -19,10 +19,10 @@ import Alpine from "alpinejs"
 
 export function useMachine<T extends MachineSchema>(
   machine: Machine<T>,
-  userProps: Partial<T["props"]>,
+  userProps: { value: Partial<T["props"]> },
 ): Service<T> & { init: VoidFunction; destroy: VoidFunction } {
   // TODO: cache scope
-  const { id, ids, getRootNode } = userProps as any
+  const { id, ids, getRootNode } = userProps.value as any
   const scope = createScope({ id, ids, getRootNode })
 
   const debug = (...args: any[]) => {
@@ -30,7 +30,11 @@ export function useMachine<T extends MachineSchema>(
   }
 
   // TODO: handle props
-  const props: any = machine.props?.({ props: compact(userProps), scope }) ?? userProps
+  const props = {
+    get value() {
+      return machine.props?.({ props: compact(userProps.value), scope }) ?? (userProps.value as any)
+    },
+  }
   const prop = useProp(props)
 
   const context: any = machine.context?.({
@@ -275,9 +279,9 @@ export function useMachine<T extends MachineSchema>(
   }
 }
 
-function useProp<T>(value: T) {
+function useProp<T>(ref: { value: T }) {
   return function get<K extends keyof T>(key: K): T[K] {
-    return value[key]
+    return ref.value[key]
   }
 }
 
