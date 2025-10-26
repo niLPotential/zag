@@ -6,7 +6,7 @@ export function bindable<T>(props: () => BindableParams<T>): Bindable<T> {
   const initial = props().defaultValue ?? props().value
   const eq = props().isEqual ?? Object.is
 
-  const v = { value: initial }
+  const v = Alpine.reactive({ value: initial })
   const controlled = {
     get value() {
       return props().value !== undefined
@@ -23,14 +23,14 @@ export function bindable<T>(props: () => BindableParams<T>): Bindable<T> {
       console.log(`[bindable > ${props().debug}] setValue`, { next, prev })
     }
 
-    if (!controlled) v.value = next
+    if (!controlled.value) v.value = next
     if (!eq(next, prev)) {
       props().onChange?.(next, prev)
     }
   }
 
   function get(): T {
-    return (controlled ? props().value : v) as T
+    return (controlled.value ? props().value : v.value) as T
   }
 
   return {
