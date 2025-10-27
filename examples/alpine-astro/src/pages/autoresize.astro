@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<script>
+  import { autoresizeTextarea } from "@zag-js/auto-resize"
+  import Alpine from "alpinejs"
+
+  Alpine.directive("auto-resize", (el) => {
+    Alpine.effect(() => autoresizeTextarea(el as HTMLTextAreaElement))
+  })
+</script>
+
+<Layout>
+  <main>
+    <textarea
+      x-auto-resize
+      rows={4}
+      style={{
+        width: "100%",
+        resize: "none",
+        padding: 20,
+        scrollPaddingBlock: 20,
+        maxHeight: 180,
+      }}></textarea>
+  </main>
+</Layout>

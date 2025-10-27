@@ -1,0 +1,64 @@
+---
+import StateVisualizer from "../components/StateVisualizer.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Layout from "../layouts/Layout.astro"
+---
+
+<script>
+  import * as asyncList from "@zag-js/async-list"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("async-list", asyncList))
+</script>
+
+<Layout>
+  <div
+    x-async-list="{
+      autoReload: true,
+      async load({ signal, cursor, filterText }) {
+        if (cursor) cursor = cursor.replace(/^http:\/\//i, 'https://');
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        let res = await fetch(cursor || `https://swapi.py4e.com/api/people/?search=${filterText}`, { signal });
+        let json = await res.json();
+
+        return {
+          items: json.results,
+          cursor: json.next,
+        }
+      },
+      sort({ items, descriptor }) {
+        return {
+          items:
+            items.length > 0
+              ? items.slice().sort((a, b) => {
+                  if (descriptor.column != null) {
+                    let cmp = a[descriptor.column] < b[descriptor.column] ? -1 : 1;
+                    if (descriptor.direction === 'descending') {cmp *= -1};
+                    return cmp;
+                  } else {
+                    return 1;
+                  }})
+              : [],
+        }},}"
+  >
+    <main class="async-list">
+      <span x-text="$asyncList.items.length"></span>
+      <input type="text" x-on:change="(e) => $asyncList.setFilterText(e.target.value)" />
+      <div>
+        <template x-if="$asyncList.loading">
+          <p>Loading...</p>
+        </template>
+        <button x-on:click="$asyncList.reload()">Reload</button>
+        <button x-on:click="$asyncList.loadMore()">Load More</button>
+        <button x-on:click="$asyncList.sort({column: 'name', direction: 'ascending'})">Sort by name</button>
+        <pre x-text="JSON.stringify($asyncList.items, null, 2)"></pre>
+      </div>
+    </main>
+
+    <Toolbar>
+      <StateVisualizer context={["cursor", "filterText"]} omit={["items"]} />
+    </Toolbar>
+  </div>
+</Layout>

@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Toolbar from "../components/Toolbar.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+---
+
+<script>
+  import * as avatar from "@zag-js/avatar"
+  import { avatarData } from "@zag-js/shared"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.magic("images", () => avatarData.full)
+  Alpine.magic("$getRandomImage", () => {
+    return () => "$images[Math.floor(Math.random() * images.length)]"
+  })
+  Alpine.magic("broken", () => avatarData.broken)
+  Alpine.plugin(usePlugin("avatar", avatar))
+</script>
+
+<Layout>
+  <div x-data="{src: $images[0], showImage: true}" x-id="['avatar']" x-avatar="{id: $id('avatar')}">
+    <main class="avatar">
+      <div x-avatar:root>
+        <span x-avatar:fallback>PA</span>
+        <template x-if="showImage">
+          <img alt="" referrerpolicy="no-referrer" x-bind:src="src" x-avatar:image />
+        </template>
+      </div>
+
+      <div class="controls">
+        <button x-on:click="src = $getRandomImage()">Change Image</button>
+        <button x-on:click="src = $broken">Broken Image</button>
+        <button x-on:click="showImage = !showImage">Toggle Image</button>
+      </div>
+    </main>
+
+    <Toolbar>
+      <StateVisualizer />
+    </Toolbar>
+  </div>
+</Layout>
