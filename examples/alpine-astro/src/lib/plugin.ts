@@ -1,24 +1,34 @@
+import type { Machine, MachineSchema, Service } from "@zag-js/core"
+import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import type { Alpine } from "alpinejs"
 import { useMachine } from "./machine"
 import { normalizeProps } from "./normalize-props"
 
-export function usePlugin(name: string, component: any) {
+export function usePlugin<T extends MachineSchema>(
+  name: string,
+  component: {
+    machine: Machine<T>
+    connect: (service: Service<T>, normalizeProps: NormalizeProps<PropTypes>) => any
+  },
+) {
+  const api = `_x_${name.replaceAll("-", "_")}_api` as const
+
   return function (Alpine: Alpine) {
     Alpine.directive(name, (el, { expression, value }, { cleanup, effect, evaluateLater }) => {
       if (!value) {
         const evaluateProps = evaluateLater(expression)
-        const propsRef = Alpine.reactive({ value: {} as any })
-        evaluateProps((value) => (propsRef.value = value))
+        const propsRef = Alpine.reactive({ value: {} as T["props"] })
+        evaluateProps((value: any) => (propsRef.value = value))
         const service = useMachine(component.machine, propsRef)
         Alpine.bind(el, {
           "x-data"() {
             return {
-              api: component.connect(service, normalizeProps),
+              [api]: component.connect(service, normalizeProps),
               init() {
                 queueMicrotask(() => {
                   effect(() => {
                     evaluateProps((value: any) => (propsRef.value = value))
-                    this.api = component.connect(service, normalizeProps)
+                    this[api] = component.connect(service, normalizeProps)
                   })
                 })
                 service.init()
@@ -40,13 +50,19 @@ export function usePlugin(name: string, component: any) {
           cleanupBinding()
           let props = {}
           evaluateProps && evaluateProps((value: any) => (props = value))
-          cleanupBinding = Alpine.bind(el, (Alpine.$data(el) as any).api[getProps](props))
+          cleanupBinding = Alpine.bind(el, (Alpine.$data(el) as any)[api][getProps](props))
         })
         cleanup(() => {
           cleanupBinding()
         })
       }
     })
-    Alpine.magic(name, (el) => (Alpine.$data(el) as any).api)
+    Alpine.magic(
+      name
+        .split("-")
+        .map((str, i) => (i === 0 ? str : str.at(0)?.toUpperCase() + str.substring(1).toLowerCase()))
+        .join(""),
+      (el) => (Alpine.$data(el) as any)[api],
+    )
   }
 }
