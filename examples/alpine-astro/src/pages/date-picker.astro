@@ -74,9 +74,9 @@ const state = getControlDefaults(datePickerControls)
               </tr>
             </thead>
             <tbody x-date-picker:table-body="{view: 'day'}">
-              <template x-for="(week, i) in $datePicker.weeks" x-bind:key="i">
+              <template x-for="(week, i) in $datePicker.weeks" x-bind:key="week.toString()">
                 <tr x-date-picker:table-row="{view: 'day'}">
-                  <template x-for="(value, i) in week" x-bind:key="i">
+                  <template x-for="(value, i) in week" x-bind:key="value.toString()">
                     <td x-date-picker:day-table-cell="{value}">
                       <div x-date-picker:day-table-cell-trigger="{value}" x-text="value.day"></div>
                     </td>
