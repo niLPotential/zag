@@ -9,6 +9,7 @@ export function usePlugin<T extends MachineSchema>(
   component: {
     machine: Machine<T>
     connect: (service: Service<T>, normalizeProps: NormalizeProps<PropTypes>) => any
+    collection?: (options: any) => any
   },
 ) {
   const api = `_x_${name.replaceAll("-", "_")}_api` as const
@@ -39,6 +40,20 @@ export function usePlugin<T extends MachineSchema>(
             }
           },
         })
+      } else if (value === "collection") {
+        const evaluateCollection = evaluateLater(expression)
+        const cleanupBinding = Alpine.bind(el, {
+          "x-data"() {
+            return {
+              get collection() {
+                let options: any = {}
+                evaluateCollection((value) => (options = value))
+                return component.collection?.(options)
+              },
+            }
+          },
+        })
+        cleanup(() => cleanupBinding())
       } else {
         const getProps = `get${value
           .split("-")
