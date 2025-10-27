@@ -13,6 +13,7 @@
     "@zag-js/carousel": "workspace:*",
     "@zag-js/checkbox": "workspace:*",
     "@zag-js/core": "workspace:*",
+    "@zag-js/date-picker": "workspace:*",
     "@zag-js/dom-query": "workspace:*",
     "@zag-js/shared": "workspace:*",
     "@zag-js/types": "workspace:*",
