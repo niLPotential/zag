@@ -2,6 +2,7 @@
 import { carouselControls, getControlDefaults } from "@zag-js/shared"
 import Controls from "../components/Controls.astro"
 import Toolbar from "../components/Toolbar.astro"
+import Layout from "../layouts/Layout.astro"
 
 const state = getControlDefaults(carouselControls)
 ---
@@ -17,10 +18,11 @@ const state = getControlDefaults(carouselControls)
   Alpine.plugin(usePlugin("carousel", carousel))
 </script>
 
-<div
-  x-data={JSON.stringify(state)}
-  x-id="['carousel']"
-  x-carousel={`{
+<Layout>
+  <div
+    x-data={JSON.stringify(state)}
+    x-id="['carousel']"
+    x-carousel={`{
     id: $id('carousel'),
     spacing: '20px',
     slidesPerPage: 2,
@@ -28,33 +30,34 @@ const state = getControlDefaults(carouselControls)
     allowMouseDrag: true,
     ${Object.keys(state)}
   }`}
->
-  <main class="carousel">
-    <div x-carousel:root>
-      <button x-on:click="$carousel.scrollToIndex(4)">Scroll to 4</button>
-      <div x-carousel:control>
-        <button x-carousel:autoplay-trigger x-text="$carousel.isPlaying ? 'Stop' : 'Play'"></button>
-        <div class="carousel-spacer"></div>
-        <button x-carousel:prev-trigger>Prev</button>
-        <button x-carousel:next-trigger>Next</button>
-      </div>
+  >
+    <main class="carousel">
+      <div x-carousel:root>
+        <button x-on:click="$carousel.scrollToIndex(4)">Scroll to 4</button>
+        <div x-carousel:control>
+          <button x-carousel:autoplay-trigger x-text="$carousel.isPlaying ? 'Stop' : 'Play'"></button>
+          <div class="carousel-spacer"></div>
+          <button x-carousel:prev-trigger>Prev</button>
+          <button x-carousel:next-trigger>Next</button>
+        </div>
 
-      <div x-carousel:item-group>
-        <template x-for="(image, index) in $carouselData" x-bind:key="index">
-          <div x-carousel:item="{index}">
-            <img x-bind:src="image" alt="" width="188px" />
-          </div>
-        </template>
+        <div x-carousel:item-group>
+          <template x-for="(image, index) in $carouselData" x-bind:key="index">
+            <div x-carousel:item="{index}">
+              <img x-bind:src="image" alt="" width="188px" />
+            </div>
+          </template>
+        </div>
+        <div x-carousel:indicator-group>
+          <template x-for="(_, index) in $carousel.pageSnapPoints" x-bind:key="index">
+            <button x-carousel:indicator="{index}"></button>
+          </template>
+        </div>
       </div>
-      <div x-carousel:indicator-group>
-        <template x-for="(_, index) in $carousel.pageSnapPoints" x-bind:key="index">
-          <button x-carousel:indicator="{index}"></button>
-        </template>
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <Toolbar>
-    <Controls {state} config={carouselControls} slot="controls" />
-  </Toolbar>
-</div>
+    <Toolbar>
+      <Controls {state} config={carouselControls} slot="controls" />
+    </Toolbar>
+  </div>
+</Layout>

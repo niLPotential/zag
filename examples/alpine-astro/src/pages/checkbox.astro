@@ -2,6 +2,7 @@
 import { checkboxControls, getControlDefaults } from "@zag-js/shared"
 import Toolbar from "../components/Toolbar.astro"
 import Controls from "../components/Controls.astro"
+import Layout from "../layouts/Layout.astro"
 
 const state = getControlDefaults(checkboxControls)
 ---
@@ -19,38 +20,40 @@ const state = getControlDefaults(checkboxControls)
   Alpine.plugin(usePlugin("checkbox", checkbox))
 </script>
 
-<div
-  x-data={JSON.stringify(state)}
-  x-id="['checkbox']"
-  x-checkbox={`{id: $id('checkbox'), name: 'checkbox', ${Object.keys(state)}}`}
->
-  <main class="checkbox">
-    <form
-      x-on:change="(e) => {
+<Layout>
+  <div
+    x-data={JSON.stringify(state)}
+    x-id="['checkbox']"
+    x-checkbox={`{id: $id('checkbox'), name: 'checkbox', ${Object.keys(state)}}`}
+  >
+    <main class="checkbox">
+      <form
+        x-on:change="(e) => {
       const result = $serialize(e.currentTarget, { hash: true });
       console.log(result);
     }"
-    >
-      <fieldset>
-        <label x-checkbox:root>
-          <div x-checkbox:control></div>
-          <span x-checkbox:label x-text="'Input' + ($checkbox.checked ? 'Checked' : 'Unchecked')"></span>
-          <input x-checkbox:hidden-input data-testid="hidden-input" />
-          <div x-checkbox:indicator>Indicator</div>
-        </label>
+      >
+        <fieldset>
+          <label x-checkbox:root>
+            <div x-checkbox:control></div>
+            <span x-checkbox:label x-text="'Input' + ($checkbox.checked ? 'Checked' : 'Unchecked')"></span>
+            <input x-checkbox:hidden-input data-testid="hidden-input" />
+            <div x-checkbox:indicator>Indicator</div>
+          </label>
 
-        <button type="button" x-bind:disabled="$checkbox.checked" x-on:click="$checkbox.setChecked(true)">
-          Check
-        </button>
-        <button type="button" x-bind:disabled="! $checkbox.checked" x-on:click="$checkbox.setChecked(false)">
-          Uncheck
-        </button>
-        <button type="reset">Reset Form</button>
-      </fieldset>
-    </form>
-  </main>
+          <button type="button" x-bind:disabled="$checkbox.checked" x-on:click="$checkbox.setChecked(true)">
+            Check
+          </button>
+          <button type="button" x-bind:disabled="! $checkbox.checked" x-on:click="$checkbox.setChecked(false)">
+            Uncheck
+          </button>
+          <button type="reset">Reset Form</button>
+        </fieldset>
+      </form>
+    </main>
 
-  <Toolbar>
-    <Controls {state} config={checkboxControls} slot="controls" />
-  </Toolbar>
-</div>
+    <Toolbar>
+      <Controls {state} config={checkboxControls} slot="controls" />
+    </Toolbar>
+  </div>
+</Layout>
