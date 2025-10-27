@@ -30,11 +30,8 @@ const state = getControlDefaults(accordionControls)
         <template x-for="item in $accordionData" x-bind:key="item.id">
           <div x-accordion:item="{value: item.id}">
             <h3>
-              <button
-                x-bind:data-testid="item.id + ':trigger'"
-                x-accordion:item-trigger="{value: item.id}"
-                x-text="item.label"
-              >
+              <button x-bind:data-testid="item.id + ':trigger'" x-accordion:item-trigger="{value: item.id}">
+                <div x-text="item.label"></div>
                 <div x-accordion:item-indicator="{value: item.id}">
                   <ArrowRight />
                 </div>
