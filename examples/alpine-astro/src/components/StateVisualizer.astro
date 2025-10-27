@@ -1,13 +1,30 @@
 ---
-import type { MachineSchema } from "@zag-js/core"
-
-interface Props<T extends MachineSchema> {
+interface Props {
   label?: string
   omit?: string[]
-  context?: Array<keyof T["context"]>
+  context?: string[]
 }
 const { label = "Visualizer", omit, context } = Astro.props
 ---
+
+<script>
+  import { highlightState } from "@zag-js/stringify-state"
+  import Alpine from "alpinejs"
+
+  Alpine.magic("highlightState", (el) => {
+    const { service } = Alpine.$data(el) as any
+    return ({ omit, context }: { omit?: string[]; context?: string[] }) =>
+      highlightState(
+        {
+          state: service.state.get(),
+          event: service.event.current(),
+          previouseEvent: service.event.previous(),
+          context: context ? Object.fromEntries(context.map((key) => [key, service.context.get(key)])) : undefined,
+        },
+        omit,
+      )
+  })
+</script>
 
 <div class="viz">
   <pre
