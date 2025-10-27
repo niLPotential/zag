@@ -14,14 +14,15 @@ import Layout from "../layouts/Layout.astro"
 
 <Layout>
   <div
+    x-data
     x-async-list="{
       autoReload: true,
       async load({ signal, cursor, filterText }) {
-        if (cursor) cursor = cursor.replace(/^http:\/\//i, 'https://');
+        if (cursor) cursor = cursor.replace('http://', 'https://')
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        let res = await fetch(cursor || `https://swapi.py4e.com/api/people/?search=${filterText}`, { signal });
-        let json = await res.json();
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        let res = await fetch(cursor || `https://swapi.py4e.com/api/people/?search=${filterText}`, { signal })
+        let json = await res.json()
 
         return {
           items: json.results,
@@ -34,14 +35,19 @@ import Layout from "../layouts/Layout.astro"
             items.length > 0
               ? items.slice().sort((a, b) => {
                   if (descriptor.column != null) {
-                    let cmp = a[descriptor.column] < b[descriptor.column] ? -1 : 1;
-                    if (descriptor.direction === 'descending') {cmp *= -1};
-                    return cmp;
+                    let cmp = a[descriptor.column] < b[descriptor.column] ? -1 : 1
+                    if (descriptor.direction === 'descending') {
+                      cmp *= -1
+                    }
+                    return cmp
                   } else {
-                    return 1;
-                  }})
+                    return 1
+                  }
+                })
               : [],
-        }},}"
+        }
+      },
+    }"
   >
     <main class="async-list">
       <span x-text="$asyncList.items.length"></span>
