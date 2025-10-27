@@ -3,6 +3,7 @@ import { checkboxControls, getControlDefaults } from "@zag-js/shared"
 import Toolbar from "../components/Toolbar.astro"
 import Controls from "../components/Controls.astro"
 import Layout from "../layouts/Layout.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
 
 const state = getControlDefaults(checkboxControls)
 ---
@@ -29,14 +30,14 @@ const state = getControlDefaults(checkboxControls)
     <main class="checkbox">
       <form
         x-on:change="(e) => {
-      const result = $serialize(e.currentTarget, { hash: true });
-      console.log(result);
-    }"
+          const result = $serialize(e.currentTarget, { hash: true });
+          console.log(result);
+        }"
       >
         <fieldset>
           <label x-checkbox:root>
             <div x-checkbox:control></div>
-            <span x-checkbox:label x-text="'Input' + ($checkbox.checked ? 'Checked' : 'Unchecked')"></span>
+            <span x-checkbox:label x-text="'Input ' + ($checkbox.checked ? 'Checked' : 'Unchecked')"></span>
             <input x-checkbox:hidden-input data-testid="hidden-input" />
             <div x-checkbox:indicator>Indicator</div>
           </label>
@@ -53,7 +54,8 @@ const state = getControlDefaults(checkboxControls)
     </main>
 
     <Toolbar>
-      <Controls {state} config={checkboxControls} slot="controls" />
+      <Controls config={checkboxControls} {state} slot="controls" />
+      <StateVisualizer />
     </Toolbar>
   </div>
 </Layout>

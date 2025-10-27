@@ -3,6 +3,7 @@ import { carouselControls, getControlDefaults } from "@zag-js/shared"
 import Controls from "../components/Controls.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
 
 const state = getControlDefaults(carouselControls)
 ---
@@ -23,13 +24,13 @@ const state = getControlDefaults(carouselControls)
     x-data={JSON.stringify(state)}
     x-id="['carousel']"
     x-carousel={`{
-    id: $id('carousel'),
-    spacing: '20px',
-    slidesPerPage: 2,
-    slideCount: $carouselData.length,
-    allowMouseDrag: true,
-    ${Object.keys(state)}
-  }`}
+      id: $id('carousel'),
+      spacing: '20px',
+      slidesPerPage: 2,
+      slideCount: $carouselData.length,
+      allowMouseDrag: true,
+      ${Object.keys(state)}
+    }`}
   >
     <main class="carousel">
       <div x-carousel:root>
@@ -57,7 +58,8 @@ const state = getControlDefaults(carouselControls)
     </main>
 
     <Toolbar>
-      <Controls {state} config={carouselControls} slot="controls" />
+      <Controls config={carouselControls} {state} slot="controls" />
+      <StateVisualizer omit={["translations"]} />
     </Toolbar>
   </div>
 </Layout>

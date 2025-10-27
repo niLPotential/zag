@@ -24,6 +24,7 @@ export function usePlugin<T extends MachineSchema>(
         Alpine.bind(el, {
           "x-data"() {
             return {
+              service, // dev only for state visualization
               [api]: component.connect(service, normalizeProps),
               init() {
                 queueMicrotask(() => {
