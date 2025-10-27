@@ -1,21 +1,30 @@
-import { isEqual } from "@zag-js/utils"
+import { isEqual, isFunction } from "@zag-js/utils"
 import Alpine from "alpinejs"
 
+function access(value: any) {
+  if (isFunction(value)) return value()
+  return value
+}
+
 export const track = (deps: any[], effect: VoidFunction) => {
-  // @ts-ignore @types/alpinejs is outdated
-  Alpine.watch(
-    () => [...deps.map((d) => d())],
-    (current: any[], previous: any[]) => {
-      let changed = false
-      for (let i = 0; i < current.length; i++) {
-        if (!isEqual(previous[i], current[i])) {
-          changed = true
-          break
-        }
+  let prevDeps: any[] = []
+  let isFirstRun = true
+  Alpine.effect(() => {
+    if (isFirstRun) {
+      prevDeps = deps.map((d) => access(d))
+      isFirstRun = false
+      return
+    }
+    let changed = false
+    for (let i = 0; i < deps.length; i++) {
+      if (!isEqual(prevDeps[i], access(deps[i]))) {
+        changed = true
+        break
       }
-      if (changed) {
-        effect()
-      }
-    },
-  )
+    }
+    if (changed) {
+      prevDeps = deps.map((d) => access(d))
+      effect()
+    }
+  })
 }
