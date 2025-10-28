@@ -1,6 +1,4 @@
 ---
-import { dataAttr } from "@zag-js/dom-query"
-import { routesData } from "@zag-js/shared"
 import "@zag-js/shared/src/style.css"
 ---
 
@@ -13,20 +11,6 @@ import "@zag-js/shared/src/style.css"
     <title>Astro</title>
   </head>
   <body>
-    <div class="page">
-      <aside class="nav">
-        <header>Zagjs</header>
-        {
-          routesData
-            .sort((a, b) => a.label.localeCompare(b.label))
-            .map((route) => (
-              <a data-active={dataAttr(Astro.url.pathname === route.path)} href={route.path}>
-                {route.label}
-              </a>
-            ))
-        }
-      </aside>
-      <slot />
-    </div>
+    <slot />
   </body>
 </html>
