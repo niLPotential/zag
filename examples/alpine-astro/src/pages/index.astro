@@ -1,19 +1,23 @@
 ---
 import { routesData } from "@zag-js/shared"
 import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
 ---
 
 <Layout>
-  <div class="index-nav">
-    <h2>Zag.js + Alpine.js</h2>
-    <ul>
-      {
-        routesData.map((route) => (
-          <li>
-            <a href={route.path}>{route.label}</a>
-          </li>
-        ))
-      }
-    </ul>
+  <div class="page">
+    <Nav />
+    <div class="index-nav">
+      <h2>Zag.js + Alpine.js</h2>
+      <ul>
+        {
+          routesData.map((route) => (
+            <li>
+              <a href={route.path}>{route.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </Layout>

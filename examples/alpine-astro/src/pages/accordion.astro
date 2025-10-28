@@ -5,6 +5,7 @@ import Toolbar from "../components/Toolbar.astro"
 import Controls from "../components/Controls.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
 import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(accordionControls)
 ---
@@ -21,10 +22,12 @@ const state = getControlDefaults(accordionControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['accordion']"
     x-accordion={`{id: $id('accordion'), ${Object.keys(state)}}`}
   >
+    <Nav />
     <main class="accordion">
       <div x-accordion:root>
         <template x-for="item in $accordionData" x-bind:key="item.id">

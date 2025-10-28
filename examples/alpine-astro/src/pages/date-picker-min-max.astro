@@ -1,4 +1,5 @@
 ---
+import Nav from "../components/Nav.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
 ---
@@ -17,16 +18,18 @@ import Layout from "../layouts/Layout.astro"
 
 <Layout>
   <div
+    class="page"
     x-data
     x-id="['date-picker']"
     x-date-picker="{
-    id: $id('date-picker'),
-    locale: 'en',
-    selectionMode: 'single',
-    min: $parse('2025-07-01'),
-    max: $parse('2025-09-30'),
-  }"
+      id: $id('date-picker'),
+      locale: 'en',
+      selectionMode: 'single',
+      min: $parse('2025-07-01'),
+      max: $parse('2025-09-30'),
+    }"
   >
+    <Nav />
     <main class="date-picker">
       <p x-text="'Visible range: ' + $datePicker.visibleRangeText.formatted"></p>
 

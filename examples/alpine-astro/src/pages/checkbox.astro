@@ -4,6 +4,7 @@ import Toolbar from "../components/Toolbar.astro"
 import Controls from "../components/Controls.astro"
 import Layout from "../layouts/Layout.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(checkboxControls)
 ---
@@ -23,10 +24,12 @@ const state = getControlDefaults(checkboxControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['checkbox']"
     x-checkbox={`{id: $id('checkbox'), name: 'checkbox', ${Object.keys(state)}}`}
   >
+    <Nav />
     <main class="checkbox">
       <form
         x-on:change="(e) => {

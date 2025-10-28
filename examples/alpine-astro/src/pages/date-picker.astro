@@ -3,6 +3,7 @@ import { datePickerControls, getControlDefaults } from "@zag-js/shared"
 import Controls from "../components/Controls.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(datePickerControls)
 ---
@@ -18,15 +19,17 @@ const state = getControlDefaults(datePickerControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['date-picker']"
     x-date-picker={`{
-    id: $id('date-picker'),
-    locale: 'en',
-    selectionMode: 'single',
-    ${Object.keys(state)}
-  }`}
+      id: $id('date-picker'),
+      locale: 'en',
+      selectionMode: 'single',
+      ${Object.keys(state)}
+    }`}
   >
+    <Nav />
     <main class="date-picker">
       <div>
         <button>Outside Element</button>

@@ -4,6 +4,7 @@ import Controls from "../components/Controls.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(carouselControls)
 ---
@@ -21,6 +22,7 @@ const state = getControlDefaults(carouselControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['carousel']"
     x-carousel={`{
@@ -32,6 +34,7 @@ const state = getControlDefaults(carouselControls)
       ${Object.keys(state)}
     }`}
   >
+    <Nav />
     <main class="carousel">
       <div x-carousel:root>
         <button x-on:click="$carousel.scrollToIndex(4)">Scroll to 4</button>

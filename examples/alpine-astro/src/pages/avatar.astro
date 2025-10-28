@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 import Toolbar from "../components/Toolbar.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
+import Nav from "../components/Nav.astro"
 ---
 
 <script>
@@ -20,7 +21,8 @@ import StateVisualizer from "../components/StateVisualizer.astro"
 </script>
 
 <Layout>
-  <div x-data="{src: $images[0], showImage: true}" x-id="['avatar']" x-avatar="{id: $id('avatar')}">
+  <div class="page" x-data="{src: $images[0], showImage: true}" x-id="['avatar']" x-avatar="{id: $id('avatar')}">
+    <Nav />
     <main class="avatar">
       <div x-avatar:root>
         <span x-avatar:fallback>PA</span>

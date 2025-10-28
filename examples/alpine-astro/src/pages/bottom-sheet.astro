@@ -5,6 +5,7 @@ import Toolbar from "../components/Toolbar.astro"
 import Controls from "../components/Controls.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
 import Presence from "../components/Presence.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(bottomSheetControls)
 ---
@@ -21,10 +22,12 @@ const state = getControlDefaults(bottomSheetControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['bottom-sheet']"
     x-bottom-sheet={`{id: $id('bottom-sheet'), ${Object.keys(state)}}`}
   >
+    <Nav />
     <main class="bottom-sheet">
       <button x-bottom-sheet:trigger x-text="$bottomSheet.open">Open</button>
       <Presence x-bottom-sheet:backdrop x-data="{hidden: !$bottomSheet.open}" />

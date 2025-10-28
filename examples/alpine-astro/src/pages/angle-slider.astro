@@ -4,6 +4,7 @@ import Controls from "../components/Controls.astro"
 import StateVisualizer from "../components/StateVisualizer.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
 
 const state = getControlDefaults(angleSliderControls)
 ---
@@ -18,10 +19,12 @@ const state = getControlDefaults(angleSliderControls)
 
 <Layout>
   <div
+    class="page"
     x-data={JSON.stringify(state)}
     x-id="['angle-slider']"
     x-angle-slider={`{id: $id('angle-slider'), ${Object.keys(state)}}`}
   >
+    <Nav />
     <main class="angle-slider">
       <div x-angle-slider:root>
         <label x-angle-slider:label>
