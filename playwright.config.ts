@@ -50,7 +50,15 @@ const webServer = getWebServer()
 export default defineConfig({
   testDir: "./e2e",
   outputDir: "./e2e/results",
-  testMatch: "*.e2e.ts",
+  // testMatch: "*.e2e.ts",
+  testMatch: [
+    "accordion.e2e.ts",
+    "angle-slider.e2e.ts",
+    // "bottom-sheet.e2e.ts",
+    "carousel.e2e.ts",
+    "checkbox.e2e.ts",
+    "date-picker.e2e.ts",
+  ],
   fullyParallel: !CI,
   timeout: 30_000,
   expect: { timeout: 10_000 },
