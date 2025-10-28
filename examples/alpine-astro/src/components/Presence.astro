@@ -1,0 +1,13 @@
+---
+const props = Astro.props
+---
+
+<div
+  data-scope="presence"
+  x-presence="{present: !hidden}"
+  x-bind:data-state="$presence.skip ? undefined : !hidden ? 'open' : 'closed'"
+  x-bind:hidden="!$presence.present"
+  {...props}
+>
+  <slot />
+</div>
