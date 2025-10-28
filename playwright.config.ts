@@ -54,7 +54,7 @@ export default defineConfig({
   testMatch: [
     "accordion.e2e.ts",
     "angle-slider.e2e.ts",
-    // "bottom-sheet.e2e.ts",
+    "bottom-sheet.e2e.ts",
     "carousel.e2e.ts",
     "checkbox.e2e.ts",
     "date-picker.e2e.ts",
