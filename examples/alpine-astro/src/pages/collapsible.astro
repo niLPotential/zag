@@ -1,0 +1,60 @@
+---
+import { collapsibleControls, getControlDefaults } from "@zag-js/shared"
+import ChevronDown from "@lucide/astro/icons/chevron-down"
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Controls from "../components/Controls.astro"
+import Toolbar from "../components/Toolbar.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+
+const state = getControlDefaults(collapsibleControls)
+---
+
+<script>
+  import * as collapsible from "@zag-js/collapsible"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("collapsible", collapsible))
+</script>
+
+<Layout>
+  <div
+    class="page"
+    x-data={JSON.stringify(state)}
+    x-id="['collapsible']"
+    x-collapsible={`{id: $id('collapsible'), ${Object.keys(state)}}`}
+  >
+    <Nav />
+    <main class="collapsible">
+      <div x-collapsible:root>
+        <button x-collapsible:trigger>
+          Collapsible Trigger
+          <div x-collapsible:indicator>
+            <ChevronDown />
+          </div>
+        </button>
+        <div x-collapsible:content>
+          <p>
+            Lorem dfd dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna sfsd. Ut enim ad minimdfd v eniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum. <a href="#">Some Link</a>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div>Toggle Controls</div>
+        <button x-on:click="$collapsible.setOpen(true)">Open</button>
+        <button x-on:click="$collapsible.setOpen(false)">Close</button>
+      </div>
+    </main>
+
+    <Toolbar viz>
+      <Controls config={collapsibleControls} {state} slot="controls" />
+      <StateVisualizer omit={["stylesRef"]} />
+    </Toolbar>
+  </div>
+</Layout>

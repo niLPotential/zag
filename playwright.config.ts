@@ -58,6 +58,7 @@ export default defineConfig({
     "carousel.e2e.ts",
     "checkbox.e2e.ts",
     "clipboard.e2e.ts",
+    "collapsible.e2e.ts",
     "date-picker.e2e.ts",
   ],
   fullyParallel: !CI,

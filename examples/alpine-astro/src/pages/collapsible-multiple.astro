@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+---
+
+<script>
+  import * as collapsible from "@zag-js/collapsible"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("collapsible", collapsible))
+</script>
+
+<Layout>
+  <div class="page" x-data="{list: [1,2,3], open: true}" x-id="['collapsible']">
+    <Nav />
+    <main>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <template x-for="value in list" x-bind:key="value">
+          <div x-collapsible="{id: $id('collapsible'), open}" x-collapsible:root>
+            <div x-collapsible:content>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minWidth: "400px",
+                  height: "64px",
+                  backgroundColor: "lightgray",
+                }}
+                x-text="value"
+              >
+              </div>
+            </div>
+            <div x-text="service.context.get('initial').toString()"></div>
+          </div>
+        </template>
+      </div>
+      <pre x-text="`list:${list.toString()}; open: ${open.toString()}`"></pre>
+
+      <div>
+        <button x-on:click="list = [...list].reverse()]"> reverse </button>
+        <button x-on:click="open = !open">toggle collapse</button>
+      </div>
+    </main>
+  </div>
+</Layout>
