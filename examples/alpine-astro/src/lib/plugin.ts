@@ -72,7 +72,7 @@ export function usePlugin<T extends MachineSchema>(
           cleanupBinding()
         })
       }
-    })
+    }).before("bind")
     Alpine.magic(
       name
         .split("-")
