@@ -12,10 +12,12 @@ const state = getControlDefaults(bottomSheetControls)
 
 <script>
   import * as bottomSheet from "@zag-js/bottom-sheet"
+  import * as presence from "@zag-js/presence"
   import Alpine from "alpinejs"
   import { usePlugin } from "../lib"
 
   Alpine.plugin(usePlugin("bottom-sheet", bottomSheet))
+  Alpine.plugin(usePlugin("presence", presence))
 </script>
 
 <Layout>
