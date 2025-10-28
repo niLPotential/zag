@@ -1,0 +1,48 @@
+---
+import { bottomSheetControls, getControlDefaults } from "@zag-js/shared"
+import Layout from "../layouts/Layout.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+import Presence from "../components/Presence.astro"
+
+const state = getControlDefaults(bottomSheetControls)
+---
+
+<script>
+  import * as bottomSheet from "@zag-js/bottom-sheet"
+  import * as presence from "@zag-js/presence"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("bottom-sheet", bottomSheet))
+  Alpine.plugin(usePlugin("presence", presence))
+</script>
+
+<Layout>
+  <div
+    x-data={JSON.stringify(state)}
+    x-id="['bottom-sheet']"
+    x-bottom-sheet={`{id: $id('bottom-sheet'), ${Object.keys(state)}}`}
+  >
+    <main class="bottom-sheet">
+      <button x-bottom-sheet:trigger x-text="$bottomSheet.open">Open</button>
+      <Presence x-bottom-sheet:backdrop x-data="{hidden: !$bottomSheet.open}" />
+      <Presence x-bottom-sheet:content x-data="{hidden: !$bottomSheet.open}">
+        <div x-bottom-sheet:grabber>
+          <div x-bottom-sheet:grabber-indicator></div>
+        </div>
+        <div x-bottom-sheet:title>Bottom Sheet</div>
+        <div data-no-drag>No drag area</div>
+        <div class="scrollable">
+          {Array.from({ length: 100 }).map((_element, index) => <div>Item {index}</div>)}
+        </div>
+      </Presence>
+    </main>
+
+    <Toolbar>
+      <Controls config={bottomSheetControls} {state} slot="controls" />
+      <StateVisualizer context={["dragOffset", "activeSnapPoint", "resolvedActiveSnapPoint"]} />
+    </Toolbar>
+  </div>
+</Layout>
