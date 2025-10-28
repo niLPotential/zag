@@ -67,7 +67,8 @@
     "@zag-js/utils": "workspace:*",
     "alpinejs": "^3.15.0",
     "astro": "^5.15.1",
-    "form-serialize": "0.7.2"
+    "form-serialize": "0.7.2",
+    "match-sorter": "8.1.0"
   },
   "devDependencies": {
     "@types/alpinejs": "^3.13.11",
