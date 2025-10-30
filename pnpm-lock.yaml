@@ -197,6 +197,9 @@ importers:
       '@zag-js/file-upload':
         specifier: workspace:*
         version: link:../../packages/machines/file-upload
+      '@zag-js/floating-panel':
+        specifier: workspace:*
+        version: link:../../packages/machines/floating-panel
       '@zag-js/hover-card':
         specifier: workspace:*
         version: link:../../packages/machines/hover-card
