@@ -12,7 +12,9 @@ export function usePlugin<T extends MachineSchema>(
     collection?: (options: any) => any
   },
 ) {
-  const api = `_x_${name.replaceAll("-", "_")}_api` as const
+  const underscore = name.replaceAll("-", "_")
+  const serviceName = `_x_${underscore}_service` as const
+  const api = `_x_${underscore}_api` as const
 
   return function (Alpine: Alpine) {
     Alpine.directive(name, (el, { expression, value }, { cleanup, effect, evaluateLater }) => {
@@ -24,7 +26,7 @@ export function usePlugin<T extends MachineSchema>(
         Alpine.bind(el, {
           "x-data"() {
             return {
-              service, // dev only for state visualization
+              [serviceName]: service, // dev only, for state visualization
               [api]: component.connect(service, normalizeProps),
               init() {
                 queueMicrotask(() => {

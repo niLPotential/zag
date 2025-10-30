@@ -1,10 +1,10 @@
 ---
 interface Props {
-  label?: string
+  label: string
   omit?: string[]
   context?: string[]
 }
-const { label = "Visualizer", omit, context } = Astro.props
+const { label, omit, context } = Astro.props
 ---
 
 <script>
@@ -12,9 +12,9 @@ const { label = "Visualizer", omit, context } = Astro.props
   import Alpine from "alpinejs"
 
   Alpine.magic("highlightState", (el) => {
-    const { service } = Alpine.$data(el) as any
-    return ({ omit, context }: { omit?: string[]; context?: string[] }) =>
-      highlightState(
+    return ({ label, omit, context }: { label: string; omit?: string[]; context?: string[] }) => {
+      const { [`_x_${label.replaceAll("-", "_")}_service`]: service } = Alpine.$data(el) as any
+      return highlightState(
         {
           state: service.state.get(),
           event: service.event.current(),
@@ -23,6 +23,7 @@ const { label = "Visualizer", omit, context } = Astro.props
         },
         omit,
       )
+    }
   })
 </script>
 
@@ -30,8 +31,8 @@ const { label = "Visualizer", omit, context } = Astro.props
   <pre
     dir="ltr">
       <details open>
-        <summary>{label}</summary>
-        <div x-html={`$highlightState(${JSON.stringify({omit, context})})`} />
+        <summary>{label} Visualizer</summary>
+        <div x-html={`$highlightState(${JSON.stringify({label, omit, context})})`} />
       </details>
   </pre>
 </div>
