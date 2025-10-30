@@ -76,7 +76,7 @@ export default defineConfig({
     // "navigation-menu.e2e.ts",
     "number-input.e2e.ts",
     // "pagination.e2e.ts",
-    // "password-input.e2e.ts",
+    "password-input.e2e.ts",
     // "pin-input.e2e.ts",
     // "popover.e2e.ts",
     // "radio-group.e2e.ts",
