@@ -66,6 +66,7 @@ export default defineConfig({
     "dialog.e2e.ts",
     "editable.e2e.ts",
     "file-upload.e2e.ts",
+    "hover-card.e2e.ts",
   ],
   fullyParallel: !CI,
   timeout: 30_000,
