@@ -1,0 +1,56 @@
+---
+import { getControlDefaults, ratingControls } from "@zag-js/shared"
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+import HalfStar from "../../public/half-star.svg"
+import Star from "../../public/star.svg"
+
+const state = getControlDefaults(ratingControls)
+---
+
+<script>
+  import * as rating from "@zag-js/rating-group"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("rating", rating))
+</script>
+
+<Layout>
+  <div
+    class="page"
+    x-data={JSON.stringify(state)}
+    x-id="['rating']"
+    x-rating={`{id: $id('rating'), defaultValue: 2.5, ${Object.keys(state)}}`}
+  >
+    <Nav />
+    <main class="rating">
+      <form action="">
+        <div x-rating:root>
+          <label x-rating:label>Rate:</label>
+          <div x-rating:control>
+            <template x-for="index in $rating.items" x-bind:key="index">
+              <span x-rating:item="{ index }">
+                <template x-if="$rating.getItemState({ index }).half">
+                  <HalfStar />
+                </template>
+                <template x-if="! $rating.getItemState({ index }).half">
+                  <Star />
+                </template>
+              </span>
+            </template>
+          </div>
+          <input x-rating:hidden-input data-testid="hidden-input" />
+        </div>
+        <button type="reset">Reset</button>
+      </form>
+    </main>
+    <Toolbar>
+      <Controls config={ratingControls} {state} slot="controls" />
+      <StateVisualizer label="rating" />
+    </Toolbar>
+  </div>
+</Layout>
