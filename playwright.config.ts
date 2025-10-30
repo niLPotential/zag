@@ -67,6 +67,7 @@ export default defineConfig({
     "editable.e2e.ts",
     "file-upload.e2e.ts",
     "hover-card.e2e.ts",
+    "listbox.e2e.ts",
   ],
   fullyParallel: !CI,
   timeout: 30_000,
