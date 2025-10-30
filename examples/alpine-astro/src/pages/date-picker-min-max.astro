@@ -1,5 +1,6 @@
 ---
 import Nav from "../components/Nav.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
 ---
@@ -91,6 +92,8 @@ import Layout from "../layouts/Layout.astro"
       </div>
     </main>
 
-    <Toolbar viz />
+    <Toolbar viz>
+      <StateVisualizer label="date-picker" omit={["weeks"]} />
+    </Toolbar>
   </div>
 </Layout>

@@ -45,7 +45,7 @@ const state = getControlDefaults(bottomSheetControls)
 
     <Toolbar>
       <Controls config={bottomSheetControls} {state} slot="controls" />
-      <StateVisualizer context={["dragOffset", "activeSnapPoint", "resolvedActiveSnapPoint"]} />
+      <StateVisualizer label="bottom-sheet" context={["dragOffset", "activeSnapPoint", "resolvedActiveSnapPoint"]} />
     </Toolbar>
   </div>
 </Layout>

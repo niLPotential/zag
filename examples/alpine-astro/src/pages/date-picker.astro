@@ -4,6 +4,7 @@ import Controls from "../components/Controls.astro"
 import Toolbar from "../components/Toolbar.astro"
 import Layout from "../layouts/Layout.astro"
 import Nav from "../components/Nav.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
 
 const state = getControlDefaults(datePickerControls)
 ---
@@ -147,6 +148,7 @@ const state = getControlDefaults(datePickerControls)
 
     <Toolbar viz>
       <Controls {state} config={datePickerControls} slot="controls" />
+      <StateVisualizer label="date-picker" omit={["weeks"]} />
     </Toolbar>
   </div>
 </Layout>
