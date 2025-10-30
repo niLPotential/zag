@@ -64,6 +64,7 @@ export default defineConfig({
     "context-menu.e2e.ts",
     "date-picker.e2e.ts",
     "dialog.e2e.ts",
+    "editable.e2e.ts",
   ],
   fullyParallel: !CI,
   timeout: 30_000,
