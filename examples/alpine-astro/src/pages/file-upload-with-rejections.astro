@@ -1,0 +1,81 @@
+---
+import { fileUploadControls, getControlDefaults } from "@zag-js/shared"
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+
+const state = getControlDefaults(fileUploadControls)
+---
+
+<script>
+  import * as fileUpload from "@zag-js/file-upload"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("file-upload", fileUpload))
+</script>
+
+<Layout>
+  <div
+    class="page"
+    x-data={JSON.stringify(state)}
+    x-id="['file-upload']"
+    x-file-upload={`{
+      id: $id('file-upload'),
+      maxFiles: 2,
+      onFileReject() {
+        alert('rejected')
+      }
+    }`}
+  >
+    <Nav />
+    <main class="file-upload">
+      <div x-file-upload:root>
+        <div x-file-upload:dropzone>
+          <input data-testid="input" x-file-upload:hidden-input />
+          Drag your files here
+        </div>
+
+        <button x-file-upload:trigger>Choose Files...</button>
+
+        <ul x-file-upload:item-group>
+          <li>Accepted files</li>
+          <template x-for="file in $fileUpload.acceptedFiles" x-bind:key="file.name">
+            <li class="file" x-file-upload:item="{ file }">
+              <div>
+                <b x-text="file.name"></b>
+              </div>
+              <div x-file-upload:item-size-text="{ file }" x-text="$fileUpload.getFileSize(file)"></div>
+              <div x-text="file.type"></div>
+              <button x-file-upload:item-delete-trigger="{ file }">X</button>
+            </li>
+          </template>
+        </ul>
+
+        <ul x-file-upload:item-group="{type: 'rejected'}">
+          <li>Rejected files</li>
+          <template x-for="{file, errors} in $fileUpload.rejectedFiles" x-bind:key="file.name">
+            <li class="file" x-file-upload:item="{file, type: 'rejected'}">
+              <div>
+                <b x-text="file.name"></b>
+                <template x-for="error in errors" x-bind:key="error">
+                  <span x-text="error"></span>
+                </template>
+              </div>
+              <div x-file-upload:item-size-text="{file, type: 'rejected'}" x-text="$fileUpload.getFileSize(file)"></div>
+              <div x-text="file.type"></div>
+              <button x-file-upload:item-delete-trigger="{file, type: 'rejected'}">X</button>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </main>
+
+    <Toolbar>
+      <Controls config={fileUploadControls} {state} slot="controls" />
+      <StateVisualizer />
+    </Toolbar>
+  </div>
+</Layout>

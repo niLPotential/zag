@@ -65,6 +65,7 @@ export default defineConfig({
     "date-picker.e2e.ts",
     "dialog.e2e.ts",
     "editable.e2e.ts",
+    "file-upload.e2e.ts",
   ],
   fullyParallel: !CI,
   timeout: 30_000,
