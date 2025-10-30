@@ -1,0 +1,62 @@
+---
+import { getControlDefaults, pinInputControls } from "@zag-js/shared"
+import Layout from "../layouts/Layout.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+
+const state = getControlDefaults(pinInputControls)
+---
+
+<script>
+  import * as pinInput from "@zag-js/pin-input"
+  import Alpine from "alpinejs"
+  import serialize from "form-serialize"
+  import { usePlugin } from "../lib"
+
+  Alpine.magic("serialize", () => {
+    return (form: HTMLFormElement, options: any) => serialize(form, options)
+  })
+  Alpine.plugin(usePlugin("pin-input", pinInput))
+</script>
+
+<Layout>
+  <div
+    class="page"
+    x-data={JSON.stringify(state)}
+    x-id="['pin-input']"
+    x-pin-input={`{
+      name: 'test',
+      id: $id('pin-input'),
+      count: 3,
+      ${Object.keys(state)}
+    }`}
+  >
+    <main class="pin-input">
+      <form
+        x-on:submit="(e) => {
+          e.preventDefault()
+          const formData = serialize(e.currentTarget, { hash: true })
+          console.log(formData)
+        }"
+      >
+        <div x-pin-input:root>
+          <label x-pin-input:label>Enter code:</label>
+          <div x-pin-input:control>
+            <template x-for="index in $pinInput.items" x-bind:key="index">
+              <input x-bind:data-testid="'input-' + (index+1)" x-pin-input:input="{ index }" />
+            </template>
+          </div>
+          <input x-pin-input:hidden-input />
+        </div>
+        <button data-testid="clear-button" x-on:click="$pinInput.clearValue()"> Clear </button>
+        <button x-on:click="$pinInput.focus">Focus</button>
+      </form>
+    </main>
+
+    <Toolbar>
+      <Controls config={pinInputControls} {state} slot="controls" />
+      <StateVisualizer label="pin-input" context={["value", "focusedIndex"]} />
+    </Toolbar>
+  </div>
+</Layout>
