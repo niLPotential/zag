@@ -79,7 +79,7 @@ export default defineConfig({
     "password-input.e2e.ts",
     "pin-input.e2e.ts",
     "popover.e2e.ts",
-    // "radio-group.e2e.ts",
+    "radio-group.e2e.ts",
     // "rating-group.e2e.ts",
     // "select.e2e.ts",
     // "slider.e2e.ts",

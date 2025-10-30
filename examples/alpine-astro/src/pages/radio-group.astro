@@ -1,0 +1,68 @@
+---
+import { getControlDefaults, radioControls } from "@zag-js/shared"
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Toolbar from "../components/Toolbar.astro"
+import Controls from "../components/Controls.astro"
+import StateVisualizer from "../components/StateVisualizer.astro"
+
+const state = getControlDefaults(radioControls)
+---
+
+<script>
+  import * as radio from "@zag-js/radio-group"
+  import { radioData } from "@zag-js/shared"
+  import Alpine from "alpinejs"
+  import serialize from "form-serialize"
+  import { usePlugin } from "../lib"
+
+  Alpine.magic("serialize", () => {
+    return (form: HTMLFormElement, options: any) => serialize(form, options)
+  })
+  Alpine.magic("radioData", () => radioData)
+  Alpine.plugin(usePlugin("radio", radio))
+</script>
+
+<Layout>
+  <div
+    class="page"
+    x-data={JSON.stringify(state)}
+    x-id="['radio']"
+    x-radio={`{id: $id('radio'), name: 'fruit', ${Object.keys(state)}}`}
+  >
+    <Nav />
+    <main class="radio">
+      <form
+        x-on:change="(e) => {
+          const result = $serialize(e.currentTarget, { hash: true })
+          console.log(result)
+        }"
+      >
+        <fieldset disabled={false}>
+          <div x-radio:root>
+            <h3 x-radio:label>Fruits</h3>
+            <div x-radio:indicator></div>
+            <template x-for="opt in $radioData" x-bind:key="opt.id">
+              <label x-bind:data-testid="'radio-' + opt.id" x-radio:item="{value: opt.id}">
+                <div x-bind:data-testid="'control-' + opt.id" x-radio:item-control="{value: opt.id}"></div>
+                <span x-bind:data-testid="'label-' + opt.id" x-radio:item-text="{value: opt.id}" x-text="opt.label">
+                </span>
+                <input x-bind:data-testid="'input-' + opt.id" x-radio:item-hidden-input="{value: opt.id}" />
+              </label>
+            </template>
+          </div>
+
+          <button type="reset">Reset</button>
+          <button type="button" x-on:click="$radio.clearValue()">Clear</button>
+          <button type="button" x-on:click="$radio.setValue('mango')">Set to Mangoes</button>
+          <button type="button" x-on:click="$radio.focus()">Focus</button>
+        </fieldset>
+      </form>
+    </main>
+
+    <Toolbar>
+      <Controls config={radioControls} {state} slot="controls" />
+      <StateVisualizer label="radio" />
+    </Toolbar>
+  </div>
+</Layout>
