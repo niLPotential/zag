@@ -1,0 +1,37 @@
+---
+import Nav from "../components/Nav.astro"
+import Layout from "../layouts/Layout.astro"
+---
+
+<script>
+  import * as dialog from "@zag-js/dialog"
+  import Alpine from "alpinejs"
+  import { usePlugin } from "../lib"
+
+  Alpine.plugin(usePlugin("dialog", dialog))
+</script>
+
+<Layout>
+  <div class="page" x-data x-id="['dialog']" x-dialog="{id: $id('dialog')}">
+    <Nav />
+    <main>
+      <button x-dialog:trigger>Click me</button>
+      <template x-if="$dialog.open">
+        <div>
+          <div x-dialog:backdrop></div>
+          <div x-dialog:positioner>
+            <div x-dialog:content>
+              <h2 x-dialog:title>Edit profile</h2>
+              <p x-dialog:description>Make changes to your profile here. Click save when you are done.</p>
+              <div>
+                <input placeholder="Enter name..." />
+                <button>Save</button>
+              </div>
+              <button x-dialog:close-trigger>Close</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </main>
+  </div>
+</Layout>
