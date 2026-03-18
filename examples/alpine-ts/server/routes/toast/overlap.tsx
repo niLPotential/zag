@@ -21,7 +21,7 @@ export default defineHandler((event) => {
           x-data="{id: ''}"
           x-data:toaster="overlap"
           x-data:controls="toast"
-          x-toast-group="{id: $id('toast'), store: toaster, ...context}"
+          x-toast-group="{id: $id('toast-group'), store: toaster, ...context}"
         >
           <Nav currentComponent={event.context.currentComponent as string} />
 
@@ -97,6 +97,9 @@ export default defineHandler((event) => {
                       get index() {return index},
                       parent: _x_toast_group_service,
                     }"
+                    x-effect:item="console.log(item.message)"
+                    x-effect:service="console.log($toastService.state.get())"
+                    x-effect:watch="$watch('item', (v) => console.log($toastService.prop('message'), v.message))"
                   />
                 </template>
               </div>

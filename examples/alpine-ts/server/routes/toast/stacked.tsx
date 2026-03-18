@@ -21,7 +21,7 @@ export default defineHandler((event) => {
           x-data="{id: ''}"
           x-data:toaster="stacked"
           x-data:controls="toast"
-          x-toast-group="{id: $id('toast'), store: toaster, ...context}"
+          x-toast-group="{id: $id('toast-group'), store: toaster, ...context}"
         >
           <Nav currentComponent={event.context.currentComponent as string} />
 
