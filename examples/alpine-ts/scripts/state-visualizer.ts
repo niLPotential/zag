@@ -1,9 +1,11 @@
 import { highlightState } from "@zag-js/stringify-state"
 import Alpine from "alpinejs"
+import { joinCamelCase } from "../lib/utils"
 
-Alpine.magic("highlightState", (el) => {
-  return ({ label, omit, context }: { label: string; omit?: string[]; context?: string[] }) => {
-    const { [`_x_${label.replaceAll("-", "_")}_service`]: service } = Alpine.$data(el) as any
+Alpine.magic("highlightState", () => {
+  return function ({ label, omit, context }: { label: string; omit?: string[]; context?: string[] }) {
+    // @ts-ignore this
+    const service = this["$" + joinCamelCase([...label.split("-"), "service"])]
     return highlightState(
       {
         state: service.state.get(),

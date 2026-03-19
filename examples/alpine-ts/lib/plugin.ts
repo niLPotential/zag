@@ -3,6 +3,7 @@ import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import type { Alpine } from "alpinejs"
 import { AlpineMachine } from "./machine"
 import { normalizeProps } from "./normalize-props"
+import { joinCamelCase } from "./utils"
 
 function useEvaluator<T>(evaluator: (callback: (value: T) => void) => void) {
   return <R>(fn: (value: T) => R) => {
@@ -25,7 +26,8 @@ export function usePlugin<T extends MachineSchema>(
 
   return function (Alpine: Alpine) {
     Alpine.directive(name, (el, { expression, value, modifiers }, { effect, evaluateLater }) => {
-      const _modifier = modifiers.at(0) ? "_" + modifiers.at(0) : ""
+      const modifier = modifiers.at(0)
+      const _modifier = modifier ? "_" + modifier : ""
       if (!value) {
         const evaluateProps = evaluateLater<Partial<T["props"]> | (() => Partial<T["props"]>)>(expression)
         const userPropsRef = Alpine.reactive({ value: {} as Partial<T["props"]> | (() => Partial<T["props"]>) })
@@ -33,10 +35,10 @@ export function usePlugin<T extends MachineSchema>(
           evaluateProps((props) => (userPropsRef.value = props))
         })
         const machine = new AlpineMachine(component.machine, userPropsRef)
+        Alpine.magic(joinCamelCase([...name.split("-"), modifier ?? "", "service"]), () => machine.service)
         Alpine.bind(el, {
           "x-data"() {
             return {
-              [_x_snake_case + _modifier + "_service"]: machine.service, // dev only, for state visualization
               [_x_snake_case + _modifier]: component.connect(machine.service, normalizeProps),
               init() {
                 machine.init()

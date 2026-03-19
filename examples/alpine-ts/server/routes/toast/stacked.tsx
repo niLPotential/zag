@@ -95,7 +95,7 @@ export default defineHandler((event) => {
                     x-data="{
                       get actor() {return item},
                       get index() {return index},
-                      parent: _x_toast_group_service,
+                      parent: $toastGroupService,
                     }"
                   />
                 </template>

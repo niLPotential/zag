@@ -44,9 +44,9 @@ export default defineHandler((event) => {
               Zoom:
               <input
                 type="range"
-                x-bind:min="_x_image_cropper_service.prop('minZoom')"
-                x-bind:max="_x_image_cropper_service.prop('maxZoom')"
-                x-bind:step="_x_image_cropper_service.prop('zoomStep')"
+                x-bind:min="$imageCropperService.prop('minZoom')"
+                x-bind:max="$imageCropperService.prop('maxZoom')"
+                x-bind:step="$imageCropperService.prop('zoomStep')"
                 {...{ "x-model.number": "zoom" }}
               />
             </label>

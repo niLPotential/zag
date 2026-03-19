@@ -21,10 +21,10 @@ export default defineHandler((event) => {
             "x-menu.sub2": "{id: $id('menu-sub2')}",
           }}
           x-init="
-            _x_menu_root.setChild(_x_menu_sub_service);
-            _x_menu_sub.setParent(_x_menu_root_service);
-            _x_menu_sub.setChild(_x_menu_sub2_service);
-            _x_menu_sub2.setParent(_x_menu_sub_service);
+            _x_menu_root.setChild($menuSubService);
+            _x_menu_sub.setParent($menuRootService);
+            _x_menu_sub.setChild($menuSub2Service);
+            _x_menu_sub2.setParent($menuSubService);
           "
         >
           <Nav currentComponent={event.context.currentComponent as string} />
