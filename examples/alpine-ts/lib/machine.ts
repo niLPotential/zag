@@ -29,6 +29,7 @@ import { compact, isFunction, isString, runIfFn, toArray, warn } from "@zag-js/u
 import { bindable } from "./bindable"
 import { createRefs } from "./refs"
 import { track } from "./track"
+import Alpine from "alpinejs"
 
 export class AlpineMachine<T extends MachineSchema> {
   scope: Scope
@@ -38,15 +39,15 @@ export class AlpineMachine<T extends MachineSchema> {
   refs: BindableRefs<T>
   computed: ComputedFn<T>
 
-  private event: T["event"] = { type: "" }
+  private eventRef: { value: T["event"] } = Alpine.reactive({ value: { type: "" } })
   private previousEvent: T["event"] = { type: "" }
 
   private effects = new Map<string, VoidFunction>()
   private transition: Transition<T> | null = null
 
   private getEvent = () => ({
-    ...this.event,
-    current: () => this.event,
+    ...this.eventRef.value,
+    current: () => this.eventRef.value,
     previous: () => this.previousEvent,
   })
 
@@ -172,8 +173,8 @@ export class AlpineMachine<T extends MachineSchema> {
 
     if (!event) return
 
-    this.previousEvent = this.event
-    this.event = event
+    this.previousEvent = this.eventRef.value
+    this.eventRef.value = event
 
     this.debug("send", event)
 
