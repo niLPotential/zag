@@ -81,10 +81,7 @@ export function usePlugin<T extends MachineSchema>(
           },
         })
       } else {
-        const getPartProps = `get${value
-          .split("-")
-          .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
-          .join("")}Props`
+        const getPartProps = joinCamelCase(["get", ...value.split("-"), "props"])
 
         const evaluateProps = evaluateLater(expression || "{}")
         const usePartProps = useEvaluator(evaluateProps)
@@ -114,17 +111,11 @@ export function usePlugin<T extends MachineSchema>(
         })
       }
     }).before("bind")
-    Alpine.magic(
-      name
-        .split("-")
-        .map((str, i) => (i === 0 ? str : str.at(0)?.toUpperCase() + str.substring(1).toLowerCase()))
-        .join(""),
-      () => {
-        return function (modifier?: string) {
-          // @ts-ignore
-          return (this as any)[_x_snake_case + (modifier ? "_" + modifier : "")]
-        }
-      },
-    )
+    Alpine.magic(joinCamelCase(name.split("-")), () => {
+      return function (modifier?: string) {
+        // @ts-ignore
+        return (this as any)[_x_snake_case + (modifier ? "_" + modifier : "")]
+      }
+    })
   }
 }
