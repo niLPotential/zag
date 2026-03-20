@@ -92,14 +92,8 @@ export default defineHandler((event) => {
               <div x-toast-group:group>
                 <template x-for="(item, index) in $toastGroup().getToasts()" x-bind:key="item.id">
                   <ToastItem
-                    x-data="{
-                      get actor() {return item},
-                      get index() {return index},
-                      parent: $toastGroupService,
-                    }"
-                    x-effect:item="console.log(item.message)"
-                    x-effect:service="console.log($toastService.state.get())"
-                    x-effect:watch="$watch('item', (v) => console.log($toastService.prop('message'), v.message))"
+                    x-data="{actor: item, parent: $toastGroupService}"
+                    x-init="$watch('item', (value) => (actor = value))"
                   />
                 </template>
               </div>
