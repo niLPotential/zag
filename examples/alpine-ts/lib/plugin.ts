@@ -86,31 +86,31 @@ export function usePlugin<T extends MachineSchema>(
           .map((v) => v.at(0)?.toUpperCase() + v.substring(1).toLowerCase())
           .join("")}Props`
 
-        const usePartProps = useEvaluator(evaluateLater(expression || "{}"))
-        const propsRef = Alpine.reactive(
-          usePartProps((props) => (Alpine.$data(el) as any)[_x_snake_case + _modifier][getPartProps](props)),
-        ) as Record<string, any>
+        const evaluateProps = evaluateLater(expression || "{}")
+        const usePartProps = useEvaluator(evaluateProps)
 
-        Alpine.bind(
-          el,
-          Object.keys(propsRef).reduce((acc: Record<string, any>, prop) => {
-            const { key, value } =
-              prop === "x-html"
-                ? { key: "x-html", value: () => propsRef[prop] }
-                : prop.startsWith("on")
-                  ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsRef[prop]?.(...args) }
-                  : { key: ":" + prop, value: () => propsRef[prop] }
-            acc[key] = value
-            return acc
-          }, {}),
-        )
-        effect(() => {
-          Object.assign(
-            propsRef,
-            usePartProps((props) =>
-              (Alpine.$data(el) as any)[_x_snake_case + _modifier][getPartProps](props),
-            ) as Record<string, any>,
-          )
+        Alpine.bind(el, () => {
+          const propsRef = Alpine.reactive(
+            usePartProps((props) => (Alpine.$data(el) as any)[_x_snake_case + _modifier][getPartProps](props)),
+          ) as Record<string, any>
+
+          return {
+            ...Object.keys(propsRef).reduce((acc: Record<string, any>, prop) => {
+              const { key, value } =
+                prop === "x-html"
+                  ? { key: "x-html", value: () => propsRef[prop] }
+                  : prop.startsWith("on")
+                    ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsRef[prop]?.(...args) }
+                    : { key: ":" + prop, value: () => propsRef[prop] }
+              acc[key] = value
+              return acc
+            }, {}),
+            "x-effect"() {
+              evaluateProps((props) => {
+                Object.assign(propsRef, (this as any)[_x_snake_case + _modifier][getPartProps](props))
+              })
+            },
+          }
         })
       }
     }).before("bind")
