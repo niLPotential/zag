@@ -28,12 +28,12 @@ export default defineHandler((event) => {
             applyResize(direction) {
               const multiplier = direction === 'grow' ? 1 : -1;
               const amount = this.resizeStep * multiplier;
-              $imageCropper().resize(this.selectedHandle, amount);
+              this.$imageCropper().resize(this.selectedHandle, amount);
             },
-            handleExportImage: async (output) => {
+            async handleExportImage(output) {
               this.isExporting = true;
               try {
-                const result = await $imageCropper().getCroppedImage({ output });
+                const result = await this.$imageCropper().getCroppedImage({ output });
                 if (result) {
                   if (output === 'dataUrl') {
                     this.croppedImageUrl = result;
@@ -49,10 +49,10 @@ export default defineHandler((event) => {
                 this.isExporting = false;
               }
             },
-            handleDownloadImage: async () => {
+            async handleDownloadImage() {
               this.isExporting = true
               try {
-                const blob = await $imageCropper().getCroppedImage({ type: 'image/png' });
+                const blob = await this.$imageCropper().getCroppedImage({ type: 'image/png' });
                 if (blob && blob instanceof Blob) {
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
