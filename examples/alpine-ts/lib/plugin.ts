@@ -93,12 +93,9 @@ export function usePlugin<T extends MachineSchema>(
 
           return {
             ...Object.keys(propsRef).reduce((acc: Record<string, any>, prop) => {
-              const { key, value } =
-                prop === "x-html"
-                  ? { key: "x-html", value: () => propsRef[prop] }
-                  : prop.startsWith("on")
-                    ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsRef[prop]?.(...args) }
-                    : { key: ":" + prop, value: () => propsRef[prop] }
+              const { key, value } = prop.startsWith("on")
+                ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsRef[prop](...args) }
+                : { key: (prop === "x-html" ? "" : ":") + prop, value: () => propsRef[prop] }
               acc[key] = value
               return acc
             }, {}),
