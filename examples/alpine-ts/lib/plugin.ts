@@ -119,8 +119,11 @@ export function usePlugin<T extends MachineSchema>(
         .split("-")
         .map((str, i) => (i === 0 ? str : str.at(0)?.toUpperCase() + str.substring(1).toLowerCase()))
         .join(""),
-      (el) => {
-        return (modifier?: string) => (Alpine.$data(el) as any)[_x_snake_case + (modifier ? "_" + modifier : "")]
+      () => {
+        return function (modifier?: string) {
+          // @ts-ignore
+          return (this as any)[_x_snake_case + (modifier ? "_" + modifier : "")]
+        }
       },
     )
   }
