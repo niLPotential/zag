@@ -5,14 +5,6 @@ import { AlpineMachine } from "./machine"
 import { normalizeProps } from "./normalize-props"
 import { joinCamelCase } from "./utils"
 
-function useEvaluator<T>(evaluator: (callback: (value: T) => void) => void) {
-  return <R>(fn: (value: T) => R) => {
-    let result
-    evaluator((value) => (result = fn(value)))
-    return result as R
-  }
-}
-
 export function usePlugin<T extends MachineSchema>(
   name: string,
   component: {
@@ -78,26 +70,36 @@ export function usePlugin<T extends MachineSchema>(
         })
       } else {
         const getPartProps = joinCamelCase(["get", ...value.split("-"), "props"])
-
         const evaluateProps = evaluateLater(expression || "{}")
-        const usePartProps = useEvaluator(evaluateProps)
 
         Alpine.bind(el, () => {
-          const propsRef = Alpine.reactive(
-            usePartProps((props) => (Alpine.$data(el) as any)["$" + apiName][getPartProps](props)),
-          ) as Record<string, any>
+          const propsMap = new Map<string, { value: any }>()
+          evaluateProps((props) => {
+            const partProps = (Alpine.$data(el) as any)["$" + apiName][getPartProps](props)
+            for (const prop in partProps) {
+              propsMap.set(prop, Alpine.reactive({ value: partProps[prop] }))
+            }
+          })
 
           return {
-            ...Object.keys(propsRef).reduce((acc: Record<string, any>, prop) => {
-              const { key, value } = prop.startsWith("on")
-                ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsRef[prop](...args) }
-                : { key: (prop === "x-html" ? "" : ":") + prop, value: () => propsRef[prop] }
-              acc[key] = value
-              return acc
-            }, {}),
+            ...propsMap.keys().reduce(
+              (acc, prop) => {
+                const { key, value } = prop.startsWith("on")
+                  ? { key: "@" + prop.substring(2), value: (...args: any[]) => propsMap.get(prop)?.value(...args) }
+                  : { key: (prop === "x-html" ? "" : ":") + prop, value: () => propsMap.get(prop)?.value }
+                acc[key] = value
+                return acc
+              },
+              {} as Record<string, any>,
+            ),
             "x-effect"() {
               evaluateProps((props) => {
-                Object.assign(propsRef, (this as any)["$" + apiName][getPartProps](props))
+                const partProps = (Alpine.$data(el) as any)["$" + apiName][getPartProps](props)
+                for (const prop in partProps) {
+                  if (prop.startsWith("on") || partProps[prop] !== propsMap.get(prop)?.value) {
+                    propsMap.get(prop)!.value = partProps[prop]
+                  }
+                }
               })
             },
           }
