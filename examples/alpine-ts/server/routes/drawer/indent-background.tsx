@@ -61,9 +61,9 @@ export default defineHandler((event) => {
               </button>
             </div>
 
-            <Presence x-drawer:backdrop class={styles.backdrop} x-data="{get present() {return $drawer().open}}" />
+            <Presence x-drawer:backdrop class={styles.backdrop} x-data="{get present() {return $drawer.open}}" />
             <div x-drawer:positioner class={styles.positioner}>
-              <Presence x-drawer:content class={styles.content} x-data="{get present() {return $drawer().open}}">
+              <Presence x-drawer:content class={styles.content} x-data="{get present() {return $drawer.open}}">
                 <div x-drawer:grabber class={styles.grabber}>
                   <div x-drawer:grabber-indicator class={styles.grabberIndicator} />
                 </div>

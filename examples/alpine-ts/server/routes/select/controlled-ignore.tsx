@@ -30,7 +30,7 @@ export default defineHandler((event) => {
               </div>
               <div data-testid="selected-items" style={{ fontSize: "0.875rem" }}>
                 <strong>Selected items (from api):</strong>
-                <div x-text="$select().selectedItems.map((item) => item.label).join(', ')"></div>
+                <div x-text="$select.selectedItems.map((item) => item.label).join(', ')"></div>
               </div>
 
               <div x-select:root>

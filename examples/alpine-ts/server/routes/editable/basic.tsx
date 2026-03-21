@@ -29,12 +29,12 @@ export default defineHandler((event) => {
                 <span data-testid="preview" x-editable:preview />
               </div>
               <div x-editable:control>
-                <template x-if="! $editable().editing">
+                <template x-if="! $editable.editing">
                   <button data-testid="edit-button" x-editable:edit-trigger>
                     Edit
                   </button>
                 </template>
-                <template x-if="$editable().editing">
+                <template x-if="$editable.editing">
                   <div>
                     <button data-testid="save-button" x-editable:submit-trigger>
                       Save

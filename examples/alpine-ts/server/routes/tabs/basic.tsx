@@ -14,7 +14,7 @@ export default defineHandler((event) => {
       </Head>
 
       <body>
-        <div class="page" x-data="tabs" x-id="['tabs']" x-tabs={`{id: $id('tabs'), defaultValue: 'nils', ...context}`}>
+        <div class="page" x-data="tabs" x-tabs={`{id: $id('tabs'), defaultValue: 'nils', ...context}`}>
           <Nav currentComponent={event.context.currentComponent as string} />
 
           <main class="tabs">

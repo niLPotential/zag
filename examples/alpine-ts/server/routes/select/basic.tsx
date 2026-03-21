@@ -42,7 +42,7 @@ export default defineHandler((event) => {
               {/* control */}
               <div x-select:control>
                 <button x-select:trigger>
-                  <span x-text="$select().valueAsString || 'Select option'"></span>
+                  <span x-text="$select.valueAsString || 'Select option'"></span>
                   <span x-select:indicator>▼</span>
                 </button>
                 <button x-select:clear-trigger>X</button>
@@ -56,7 +56,7 @@ export default defineHandler((event) => {
               >
                 {/* Hidden select */}
                 <select x-select:hidden-select>
-                  <template x-if="$select().empty">
+                  <template x-if="$select.empty">
                     <option value="" />
                   </template>
                   <template x-for="option in $selectData" x-bind:key="option.value">

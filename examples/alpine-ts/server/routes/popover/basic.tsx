@@ -35,7 +35,7 @@ export default defineHandler((event) => {
                     data-testid="popover-content"
                     class="popover-content"
                     x-popover:content
-                    x-data="{get present() {return $popover().open}}"
+                    x-data="{get present() {return $popover.open}}"
                   >
                     <div x-popover:arrow>
                       <div x-popover:arrow-tip />

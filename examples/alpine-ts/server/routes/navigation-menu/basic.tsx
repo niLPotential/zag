@@ -11,7 +11,7 @@ import { Toolbar } from "../../components/toolbar"
 export default defineHandler((event) => {
   const renderLinks = (opts: { value: string; items: string[] }) => {
     const { value, items } = opts
-    return items.map((item, index) => (
+    return items.map((item) => (
       <a href="#" x-navigation-menu:link={`{value: '${value}'}`}>
         {item}
       </a>
@@ -38,9 +38,9 @@ export default defineHandler((event) => {
                   </button>
                   <Presence
                     x-navigation-menu:content="{value: 'products'}"
-                    x-data="{get present() {return $navigationMenu().open}}"
+                    x-data="{get present() {return $navigationMenu.open}}"
                   >
-                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu().open}}">
+                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu.open}}">
                       <div x-navigation-menu:arrow />
                     </Presence>
                     {renderLinks({
@@ -64,9 +64,9 @@ export default defineHandler((event) => {
                   </button>
                   <Presence
                     x-navigation-menu:content="{value: 'company'}"
-                    x-data="{get present() {return $navigationMenu().open}}"
+                    x-data="{get present() {return $navigationMenu.open}}"
                   >
-                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu().open}}">
+                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu.open}}">
                       <div x-navigation-menu:arrow />
                     </Presence>
                     {renderLinks({
@@ -83,9 +83,9 @@ export default defineHandler((event) => {
                   </button>
                   <Presence
                     x-navigation-menu:content="{value: 'developers'}"
-                    x-data="{get present() {return $navigationMenu().open}}"
+                    x-data="{get present() {return $navigationMenu.open}}"
                   >
-                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu().open}}">
+                    <Presence x-navigation-menu:indicator x-data="{get present() {return $navigationMenu.open}}">
                       <div x-navigation-menu:arrow />
                     </Presence>
                     {renderLinks({

@@ -26,7 +26,7 @@ export default defineHandler((event) => {
           <Nav currentComponent={event.context.currentComponent as string} />
 
           <main class="splitter">
-            <pre x-text="JSON.stringify($splitter().getSizes(), null, 2)" />
+            <pre x-text="JSON.stringify($splitter.getSizes(), null, 2)" />
             <div x-splitter:root>
               <div x-splitter:panel="{id: 'a'}">
                 <p>Left</p>

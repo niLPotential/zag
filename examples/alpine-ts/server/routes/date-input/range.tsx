@@ -23,10 +23,7 @@ export default defineHandler((event) => {
 
               <div x-date-input:control>
                 <div x-date-input:segment-group="{ index: 0 }">
-                  <template
-                    x-for="(segment, i) in $dateInput().getSegments({ index: 0 })"
-                    x-bind:key="segment.type + i"
-                  >
+                  <template x-for="(segment, i) in $dateInput.getSegments({ index: 0 })" x-bind:key="segment.type + i">
                     <span x-date-input:segment="{ segment, index: 0 }" x-text="segment.text" />
                   </template>
                 </div>
@@ -34,10 +31,7 @@ export default defineHandler((event) => {
                 <span> &ndash; </span>
 
                 <div x-date-input:segment-group="{ index: 1 }">
-                  <template
-                    x-for="(segment, i) in $dateInput().getSegments({ index: 1 })"
-                    x-bind:key="segment.type + i"
-                  >
+                  <template x-for="(segment, i) in $dateInput.getSegments({ index: 1 })" x-bind:key="segment.type + i">
                     <span x-date-input:segment="{ segment, index: 1 }" x-text="segment.text" />
                   </template>
                 </div>
@@ -48,9 +42,9 @@ export default defineHandler((event) => {
             </div>
 
             <output class="date-output">
-              <div x-text="'Selected: ' + ($dateInput().valueAsString.join(' - ') || '-')" />
-              <div x-text="'Placeholder: ' + $dateInput().placeholderValue.toString()" />
-              <template x-for="(date, index) in $dateInput().displayValues" x-bind:key="index">
+              <div x-text="'Selected: ' + ($dateInput.valueAsString.join(' - ') || '-')" />
+              <div x-text="'Placeholder: ' + $dateInput.placeholderValue.toString()" />
+              <template x-for="(date, index) in $dateInput.displayValues" x-bind:key="index">
                 <div x-text="'Editing input ' + (index+1) + ': ' + (date.toString() ?? '-')" />
               </template>
             </output>

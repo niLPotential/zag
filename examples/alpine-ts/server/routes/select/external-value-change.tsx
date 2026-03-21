@@ -31,14 +31,14 @@ export default defineHandler((event) => {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "320px" }}>
               <div data-testid="selected-items" style={{ fontSize: "0.875rem" }}>
                 <strong>Selected items (from api):</strong>
-                <div x-text="$select().selectedItems.map((item) => item.lable).join(', ')"></div>
+                <div x-text="$select.selectedItems.map((item) => item.lable).join(', ')"></div>
               </div>
 
               <div x-select:root>
                 <label x-select:label>Select framework</label>
                 <div x-select:control style={{ display: "flex", marginTop: "4px" }}>
                   <button data-testid="trigger" x-select:trigger style={{ padding: "8px 12px", flex: 1 }}>
-                    <span x-text="$select().valueAsString || 'Select option'"></span>
+                    <span x-text="$select.valueAsString || 'Select option'"></span>
                     <span style={{ marginLeft: "8px" }}>▼</span>
                   </button>
                 </div>

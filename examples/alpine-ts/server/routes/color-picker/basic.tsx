@@ -53,13 +53,13 @@ export default defineHandler((event) => {
               <input x-color-picker:hidden-input />
               <div x-color-picker:root>
                 <label x-color-picker:label>
-                  Select Color: <span data-testid="value-text" x-text="$colorPicker().valueAsString"></span>
+                  Select Color: <span data-testid="value-text" x-text="$colorPicker.valueAsString"></span>
                 </label>
 
                 <div x-color-picker:control>
                   <button x-color-picker:trigger>
                     <div x-color-picker:transparency-grid="{size: '10px'}" />
-                    <div x-color-picker:swatch="{value: $colorPicker().value}" />
+                    <div x-color-picker:swatch="{value: $colorPicker.value}" />
                   </button>
                   <input x-color-picker:channel-input="{channel: 'hex'}" />
                   <input x-color-picker:channel-input="{channel: 'alpha'}" />
@@ -84,7 +84,7 @@ export default defineHandler((event) => {
                         <div x-color-picker:channel-slider-thumb="{channel: 'alpha'}" />
                       </div>
 
-                      <template x-if="$colorPicker().format.startsWith('hsl')">
+                      <template x-if="$colorPicker.format.startsWith('hsl')">
                         <div style={{ display: "flex", width: "100%" }}>
                           <span>H</span>
                           <input x-color-picker:channel-input="{channel: 'hue'}" />
@@ -97,7 +97,7 @@ export default defineHandler((event) => {
                         </div>
                       </template>
 
-                      <template x-if="$colorPicker().format.startsWith('rgb')">
+                      <template x-if="$colorPicker.format.startsWith('rgb')">
                         <div style={{ display: "flex", width: "100%" }}>
                           <span>R</span>
                           <input x-color-picker:channel-input="{channel: 'red'}" />
@@ -110,7 +110,7 @@ export default defineHandler((event) => {
                         </div>
                       </template>
 
-                      <template x-if="$colorPicker().format.startsWith('hsb')">
+                      <template x-if="$colorPicker.format.startsWith('hsb')">
                         <div style={{ display: "flex", width: "100%" }}>
                           <span>H</span>
                           <input x-color-picker:channel-input="{channel: 'hue'}" />
@@ -126,9 +126,9 @@ export default defineHandler((event) => {
                       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                         <div style={{ position: "relative" }}>
                           <div x-color-picker:transparency-grid="{size: '4px'}" />
-                          <div x-color-picker:swatch="{value: $colorPicker().value}" />
+                          <div x-color-picker:swatch="{value: $colorPicker.value}" />
                         </div>
-                        <p data-testid="value-text" x-text="$colorPicker().valueAsString"></p>
+                        <p data-testid="value-text" x-text="$colorPicker.valueAsString"></p>
                       </div>
 
                       <input x-color-picker:channel-input="{channel: 'hex'}" />

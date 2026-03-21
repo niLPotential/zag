@@ -44,8 +44,8 @@ export default defineHandler((event) => {
 
           <main class="combobox">
             <div>
-              <button x-on:click="$combobox().setValue(['TG'])">Set to Togo</button>
-              <button data-testid="clear-value-button" x-on:click="$combobox().clearValue()">
+              <button x-on:click="$combobox.setValue(['TG'])">Set to Togo</button>
+              <button data-testid="clear-value-button" x-on:click="$combobox.clearValue()">
                 Clear Value
               </button>
               <pre

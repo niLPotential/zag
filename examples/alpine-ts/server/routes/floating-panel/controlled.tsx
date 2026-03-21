@@ -62,14 +62,14 @@ export default defineHandler((event) => {
               <button x-on:click="open = !open" x-text="(open ? 'Close' : 'Open') + ' panel'" />
               <button x-on:click="size = { width: 420, height: 320 }">Set size: 420x320</button>
               <button x-on:click="position = { x: 32, y: 32 }">Set position: (32, 32)</button>
-              <button x-on:click="$floating().setSize({ width: 440, height: 300 })">API set size: 440x300</button>
-              <button x-on:click="$floating().setPosition({ x: 48, y: 48 })">API set position: (48, 48)</button>
+              <button x-on:click="$floating.setSize({ width: 440, height: 300 })">API set size: 440x300</button>
+              <button x-on:click="$floating.setPosition({ x: 48, y: 48 })">API set position: (48, 48)</button>
               <button x-on:click="size = { width: 360, height: 260 }; position = { x: 120, y: 120 }">Reset rect</button>
             </div>
 
             <div
               style={{ marginBottom: "1rem" }}
-              x-text="`size: ${Math.round($floating().size.width)}x${Math.round($floating().size.height)} | position: (${Math.round($floating().position.x)}, ${Math.round($floating().position.y)})`"
+              x-text="`size: ${Math.round($floating.size.width)}x${Math.round($floating.size.height)} | position: (${Math.round($floating.position.x)}, ${Math.round($floating.position.y)})`"
             />
 
             <div>

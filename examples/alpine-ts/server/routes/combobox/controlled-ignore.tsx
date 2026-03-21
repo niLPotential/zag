@@ -37,7 +37,7 @@ export default defineHandler((event) => {
               <div data-testid="selected-items" style={{ fontSize: "0.875rem" }}>
                 <strong>Selected items (from api):</strong>
                 <div
-                  x-text="$combobox().selectedItems.map((item) =>
+                  x-text="$combobox.selectedItems.map((item) =>
                     (typeof item === 'string' ? item : item.label)).join(', ')"
                 ></div>
               </div>

@@ -21,10 +21,10 @@ export default defineHandler((event) => {
             "x-menu.sub2": "{id: $id('menu-sub2')}",
           }}
           x-init="
-            $menu('root').setChild($menuSubService);
-            $menu('sub').setParent($menuRootService);
-            $menu('sub').setChild($menuSub2Service);
-            $menu('sub2').setParent($menuSubService);
+            $menuRoot.setChild($menuSubService);
+            $menuSub.setParent($menuRootService);
+            $menuSub.setChild($menuSub2Service);
+            $menuSub2.setParent($menuSubService);
           "
         >
           <Nav currentComponent={event.context.currentComponent as string} />
@@ -44,8 +44,8 @@ export default defineHandler((event) => {
                         x-data="{
                           get props() {
                             return item.trigger
-                              ? $menu('root').getTriggerItemProps($menu('sub'))
-                              : $menu('root').getItemProps({value: item.value})
+                              ? $menuRoot.getTriggerItemProps($menuSub)
+                              : $menuRoot.getItemProps({value: item.value})
                           },
                         }"
                         x-bind="Object.keys(props).reduce((acc, prop) => {
@@ -72,8 +72,8 @@ export default defineHandler((event) => {
                         x-data="{
                           get props() {
                             return item.trigger
-                              ? $menu('sub').getTriggerItemProps($menu('sub2'))
-                              : $menu('sub').getItemProps({value: item.value})
+                              ? $menuSub.getTriggerItemProps($menuSub2)
+                              : $menuSub.getItemProps({value: item.value})
                           },
                         }"
                         x-bind="Object.keys(props).reduce((acc, prop) => {

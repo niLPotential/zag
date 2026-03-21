@@ -14,8 +14,8 @@ export default defineHandler((event) => {
           class="page"
           x-data
           {...{ "x-menu.root": "{id: 'root'}", "x-menu.sub": "{id: 'sub'}" }}
-          x-init="$menu('root').setChild($menuSubService);
-            $menu('sub').setParent($menuRootService);"
+          x-init="$menuRoot.setChild($menuSubService);
+            $menuSub.setParent($menuRootService);"
         >
           <Nav currentComponent={event.context.currentComponent as string} />
 
@@ -30,7 +30,7 @@ export default defineHandler((event) => {
                   <li {...{ "x-menu:item.root": "{value: 'edit'}" }}>Edit</li>
                   <li {...{ "x-menu:item.root": "{value: 'delete'}" }}>Delete</li>
                   <li {...{ "x-menu:item.root": "{value: 'export'}" }}>Export</li>
-                  <li x-bind="$menu('root').getTriggerItemProps($menu('sub'))">
+                  <li x-bind="$menuRoot.getTriggerItemProps($menuSub)">
                     <div>Appearance ➡️</div>
                   </li>
                   <li {...{ "x-menu:item.root": "{value: 'duplicate'}" }}>Duplicate</li>

@@ -3,7 +3,7 @@ export function Dialog(props: any) {
     <div x-dialog="{id: $id('dialog'), defaultOpen: false, open: false, ...context}" {...props}>
       <button x-dialog:trigger>Open Dialog</button>
       <template x-teleport="body">
-        <template x-if="$dialog().open">
+        <template x-if="$dialog.open">
           <div x-dialog:backdrop />
           <div x-dialog:positioner>
             <div x-dialog:content>

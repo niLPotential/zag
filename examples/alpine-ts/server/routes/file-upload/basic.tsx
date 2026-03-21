@@ -25,12 +25,12 @@ export default defineHandler((event) => {
               <button x-file-upload:trigger>Choose Files...</button>
 
               <ul x-file-upload:item-group>
-                <template x-for="file in $fileUpload().acceptedFiles" x-bind:key="file.name">
+                <template x-for="file in $fileUpload.acceptedFiles" x-bind:key="file.name">
                   <li class="file" x-file-upload:item="{ file }">
                     <div>
                       <b x-text="file.name"></b>
                     </div>
-                    <div x-file-upload:item-size-text="{ file }" x-text="$fileUpload().getFileSize(file)"></div>
+                    <div x-file-upload:item-size-text="{ file }" x-text="$fileUpload.getFileSize(file)"></div>
                     <div x-text="file.type"></div>
                     <button x-file-upload:item-delete-trigger="{ file }">X</button>
                   </li>

@@ -90,7 +90,7 @@ export default defineHandler((event) => {
 
             <template x-teleport="body">
               <div x-toast-group:group>
-                <template x-for="(item, index) in $toastGroup().getToasts()" x-bind:key="item.id">
+                <template x-for="(item, index) in $toastGroup.getToasts()" x-bind:key="item.id">
                   <ToastItem
                     x-data="{actor: item, parent: $toastGroupService}"
                     x-init="$watch('item', (value) => (actor = value))"

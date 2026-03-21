@@ -23,7 +23,7 @@ export default defineHandler((event) => {
               <button x-menu:trigger>
                 Actions <span x-menu:indicator>▾</span>
               </button>
-              <template x-if="$menu().open">
+              <template x-if="$menu.open">
                 <div x-menu:positioner>
                   <ul x-menu:content style={{ maxHeight: "300px", overflowY: "auto" }}>
                     {items.map((item) => (

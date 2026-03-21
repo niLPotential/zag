@@ -26,7 +26,7 @@ export default defineHandler((event) => {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "320px" }}>
               <div data-testid="selected-items" style={{ fontSize: "0.875rem" }}>
                 <strong>Selected items (from api):</strong>
-                <div x-text="$listbox().selectedItems.map((item) => item.label).join(', ')"></div>
+                <div x-text="$listbox.selectedItems.map((item) => item.label).join(', ')"></div>
               </div>
               <div x-listbox:root>
                 <label x-listbox:label>Select framework</label>

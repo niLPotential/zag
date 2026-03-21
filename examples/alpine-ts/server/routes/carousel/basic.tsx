@@ -30,9 +30,9 @@ export default defineHandler((event) => {
 
           <main class="carousel">
             <div x-carousel:root>
-              <button x-on:click="$carousel().scrollToIndex(4)">Scroll to 4</button>
+              <button x-on:click="$carousel.scrollToIndex(4)">Scroll to 4</button>
               <div x-carousel:control>
-                <button x-carousel:autoplay-trigger x-text="$carousel().isPlaying ? 'Stop' : 'Play'"></button>
+                <button x-carousel:autoplay-trigger x-text="$carousel.isPlaying ? 'Stop' : 'Play'"></button>
                 <div class="carousel-spacer" />
                 <button x-carousel:prev-trigger>Prev</button>
                 <button x-carousel:next-trigger>Next</button>
@@ -46,7 +46,7 @@ export default defineHandler((event) => {
                 ))}
               </div>
               <div x-carousel:indicator-group>
-                <template x-for="(_, index) in $carousel().pageSnapPoints" x-bind:key="index">
+                <template x-for="(_, index) in $carousel.pageSnapPoints" x-bind:key="index">
                   <button x-carousel:indicator="{ index }" />
                 </template>
               </div>

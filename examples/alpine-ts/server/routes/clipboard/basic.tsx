@@ -27,7 +27,7 @@ export default defineHandler((event) => {
               <label x-clipboard:label>Copy this link</label>
               <div x-clipboard:control>
                 <input x-clipboard:input />
-                <button x-clipboard:trigger x-html="$clipboard().copied ? $ClipboardCheck : $ClipboardCopy"></button>
+                <button x-clipboard:trigger x-html="$clipboard.copied ? $ClipboardCheck : $ClipboardCopy"></button>
               </div>
               <div x-clipboard:indicator="{copied: true}">Copied!</div>
               <div x-clipboard:indicator="{copied: false}">Copy</div>

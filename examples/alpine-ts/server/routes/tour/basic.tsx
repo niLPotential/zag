@@ -21,7 +21,7 @@ export default defineHandler((event) => {
 
           <main class="tour">
             <div>
-              <button x-on:click="$tour().start()">Start Tour</button>
+              <button x-on:click="$tour.start()">Start Tour</button>
               <div class="steps__container">
                 <h3 id="step-1">Step 1</h3>
                 <div class="overflow__container">
@@ -42,27 +42,27 @@ export default defineHandler((event) => {
             </div>
 
             <template x-teleport="body">
-              <template x-if="$tour().step && $tour().open">
+              <template x-if="$tour.step && $tour.open">
                 <div>
-                  <template x-if="$tour().step.backdrop">
+                  <template x-if="$tour.step.backdrop">
                     <div x-tour:backdrop />
                   </template>
                   <div x-tour:spotlight />
                   <div x-tour:positioner>
                     <div x-tour:content>
-                      <template x-if="$tour().step.arrow">
+                      <template x-if="$tour.step.arrow">
                         <div x-tour:arrow>
                           <div x-tour:arrow-tip />
                         </div>
                       </template>
 
-                      <p x-tour:title x-text="$tour().step.title"></p>
-                      <div x-tour:description x-text="$tour().step.description"></div>
-                      <div x-tour:progress-text x-text="$tour().getProgressText()"></div>
+                      <p x-tour:title x-text="$tour.step.title"></p>
+                      <div x-tour:description x-text="$tour.step.description"></div>
+                      <div x-tour:progress-text x-text="$tour.getProgressText()"></div>
 
-                      <template x-if="$tour().step.actions">
+                      <template x-if="$tour.step.actions">
                         <div class="tour button__group">
-                          <template x-for="action in $tour().step.actions" x-bind:key="action.label">
+                          <template x-for="action in $tour.step.actions" x-bind:key="action.label">
                             <button x-tour:action-trigger="{ action }" x-text="action.label"></button>
                           </template>
                         </div>

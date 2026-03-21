@@ -28,12 +28,12 @@ export default defineHandler((event) => {
             applyResize(direction) {
               const multiplier = direction === 'grow' ? 1 : -1;
               const amount = this.resizeStep * multiplier;
-              this.$imageCropper().resize(this.selectedHandle, amount);
+              this.$imageCropper.resize(this.selectedHandle, amount);
             },
             async handleExportImage(output) {
               this.isExporting = true;
               try {
-                const result = await this.$imageCropper().getCroppedImage({ output });
+                const result = await this.$imageCropper.getCroppedImage({ output });
                 if (result) {
                   if (output === 'dataUrl') {
                     this.croppedImageUrl = result;
@@ -52,7 +52,7 @@ export default defineHandler((event) => {
             async handleDownloadImage() {
               this.isExporting = true
               try {
-                const blob = await this.$imageCropper().getCroppedImage({ type: 'image/png' });
+                const blob = await this.$imageCropper.getCroppedImage({ type: 'image/png' });
                 if (blob && blob instanceof Blob) {
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
@@ -137,13 +137,13 @@ export default defineHandler((event) => {
                 Vertical
               </label>
               <div>
-                <button type="button" x-on:click="$imageCropper().flipHorizontally()">
+                <button type="button" x-on:click="$imageCropper.flipHorizontally()">
                   Toggle horizontal flip
                 </button>
-                <button type="button" x-on:click="$imageCropper().flipVertically()">
+                <button type="button" x-on:click="$imageCropper.flipVertically()">
                   Toggle vertical flip
                 </button>
-                <button type="button" x-on:click="$imageCropper().setFlip({ horizontal: false, vertical: false })">
+                <button type="button" x-on:click="$imageCropper.setFlip({ horizontal: false, vertical: false })">
                   Reset flips
                 </button>
               </div>
@@ -172,7 +172,7 @@ export default defineHandler((event) => {
             </div>
 
             <div>
-              <button type="button" data-testid="reset-button" x-on:click="$imageCropper().reset()">
+              <button type="button" data-testid="reset-button" x-on:click="$imageCropper.reset()">
                 Reset
               </button>
             </div>

@@ -37,8 +37,8 @@ export default defineHandler((event) => {
 
             <div>
               <div>Toggle Controls</div>
-              <button x-on:click="() => $collapsible().setOpen(true)">Open</button>
-              <button x-on:click="() => $collapsible().setOpen(false)">Close</button>
+              <button x-on:click="() => $collapsible.setOpen(true)">Open</button>
+              <button x-on:click="() => $collapsible.setOpen(false)">Close</button>
             </div>
           </main>
 

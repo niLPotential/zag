@@ -23,7 +23,7 @@ export default defineHandler((event) => {
 
               <div x-date-input:control>
                 <div x-date-input:segment-group>
-                  <template x-for="(segment, i) in $dateInput().getSegments()" x-bind:key="segment.type + i">
+                  <template x-for="(segment, i) in $dateInput.getSegments()" x-bind:key="segment.type + i">
                     <span x-date-input:segment="{ segment }" x-text="segment.text" />
                   </template>
                 </div>
@@ -33,9 +33,9 @@ export default defineHandler((event) => {
             </div>
 
             <output class="date-output">
-              <div x-text="'Selected: ' + ($dateInput().valueAsString.join(', ') || '-')" />
-              <div x-text="'Placeholder: ' + $dateInput().placeholderValue.toString()" />
-              <div x-text="'Editing: ' + ($dateInput().displayValues?.[0]?.toString() ?? '-')" />
+              <div x-text="'Selected: ' + ($dateInput.valueAsString.join(', ') || '-')" />
+              <div x-text="'Placeholder: ' + $dateInput.placeholderValue.toString()" />
+              <div x-text="'Editing: ' + ($dateInput.displayValues?.[0]?.toString() ?? '-')" />
             </output>
           </main>
 

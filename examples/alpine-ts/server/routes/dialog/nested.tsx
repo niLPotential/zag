@@ -27,7 +27,7 @@ export default defineHandler((event) => {
 
               <div style={{ minHeight: "1200px" }} />
 
-              <template x-if="$dialog('parent').open">
+              <template x-if="$dialogParent.open">
                 <div>
                   <div {...{ "x-dialog:backdrop.parent": "" }} />
                   <div data-testid="positioner-1" {...{ "x-dialog:positioner.parent": "" }}>
@@ -46,7 +46,7 @@ export default defineHandler((event) => {
                         Open Nested
                       </button>
 
-                      <template x-if="$dialog('child').open">
+                      <template x-if="$dialogChild.open">
                         <div>
                           <div {...{ "x-dialog:backdrop.child": "" }} />
                           <div data-testid="positioner-2" {...{ "x-dialog:positioner.child": "" }}>
@@ -55,7 +55,7 @@ export default defineHandler((event) => {
                               <button {...{ "x-dialog:close-trigger.child": "" }} data-testid="close-2">
                                 X
                               </button>
-                              <button x-on:click="$dialog('parent').setOpen(false)" data-testid="special-close">
+                              <button x-on:click="$dialogParent.setOpen(false)" data-testid="special-close">
                                 Close Dialog 1
                               </button>
                             </div>

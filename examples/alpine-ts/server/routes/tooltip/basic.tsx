@@ -24,7 +24,7 @@ export default defineHandler((event) => {
                 <button data-testid={`${id}-trigger`} {...{ "x-tooltip:trigger.1": "" }}>
                   Hover me
                 </button>
-                <template x-if="$tooltip(1).open">
+                <template x-if="$tooltip1.open">
                   <div {...{ "x-tooltip:positioner.1": "" }}>
                     <div class="tooltip-content" data-testid={`${id}-tooltip`} {...{ "x-tooltip:content.1": "" }}>
                       Tooltip
@@ -35,7 +35,7 @@ export default defineHandler((event) => {
               <button data-testid={`${id2}-trigger`} {...{ "x-tooltip:trigger.2": "" }}>
                 Over me
               </button>
-              <template x-if="$tooltip(2).open">
+              <template x-if="$tooltip2.open">
                 <template x-teleport="body">
                   <div {...{ "x-tooltip:positioner.2": "" }}>
                     <div class="tooltip-content" data-testid={`${id2}-tooltip`} {...{ "x-tooltip:content.2": "" }}>

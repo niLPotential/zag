@@ -57,9 +57,9 @@ export default defineHandler((event) => {
               </template>
 
               <div x-combobox:positioner>
-                <template x-if="$combobox().collection.items.length > 0">
+                <template x-if="$combobox.collection.items.length > 0">
                   <ul data-testid="combobox-content" x-combobox:content style={{ listStyle: "none", padding: "4px" }}>
-                    <template x-for="item in $combobox().collection.items" x-bind:key="item.name">
+                    <template x-for="item in $combobox.collection.items" x-bind:key="item.name">
                       <li
                         x-bind:data-testid="'item-' + item.name"
                         x-combobox:item="{ item }"
