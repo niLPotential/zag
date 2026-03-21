@@ -47,20 +47,15 @@ export default defineHandler((event) => {
                               ? _x_menu_root.getTriggerItemProps(_x_menu_sub)
                               : _x_menu_root.getItemProps({value: item.value})
                           },
-                          get binding() {
-                            return Object.keys(this.props).reduce((acc, prop) => {
-                              const {key, value} =
-                                prop === 'x-html'
-                                  ? {key: 'x-html', value: () => this.props[prop]}
-                                  : prop.startsWith('on')
-                                    ? { key: '@' + prop.substring(2), value: (...args) => this.props[prop](...args) }
-                                    : { key: ':' + prop, value: () => this.props[prop] };
-                              acc[key] = value;
-                              return acc;
-                            }, {});
-                          },
                         }"
-                        x-bind="binding"
+                        x-bind="Object.keys(props).reduce((acc, prop) => {
+                          const {key, value} =
+                            prop.startsWith('on')
+                              ? { key: '@' + prop.substring(2), value: (...args) => props[prop](...args) }
+                              : { key: (prop === 'x-html' ? '' : ':') + prop, value: () => props[prop] };
+                          acc[key] = value;
+                          return acc;
+                        }, {})"
                         x-text="item.label"
                       />
                     </template>
@@ -80,20 +75,15 @@ export default defineHandler((event) => {
                               ? _x_menu_sub.getTriggerItemProps(_x_menu_sub2)
                               : _x_menu_sub.getItemProps({value: item.value})
                           },
-                          get binding() {
-                            return Object.keys(this.props).reduce((acc, prop) => {
-                              const {key, value} =
-                                prop === 'x-html'
-                                  ? {key: 'x-html', value: () => this.props[prop]}
-                                  : prop.startsWith('on')
-                                    ? { key: '@' + prop.substring(2), value: (...args) => this.props[prop](...args) }
-                                    : { key: ':' + prop, value: () => this.props[prop] };
-                              acc[key] = value;
-                              return acc;
-                            }, {});
-                          },
                         }"
-                        x-bind="binding"
+                        x-bind="Object.keys(props).reduce((acc, prop) => {
+                          const {key, value} =
+                            prop.startsWith('on')
+                              ? { key: '@' + prop.substring(2), value: (...args) => props[prop](...args) }
+                              : { key: (prop === 'x-html' ? '' : ':') + prop, value: () => props[prop] };
+                          acc[key] = value;
+                          return acc;
+                        }, {})"
                         x-text="item.label"
                       />
                     </template>
