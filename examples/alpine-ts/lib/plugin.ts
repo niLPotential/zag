@@ -23,14 +23,13 @@ export function usePlugin<T extends MachineSchema>(
   },
 ) {
   return function (Alpine: Alpine) {
-    Alpine.directive(name, (el, { expression, value, modifiers }, { effect, evaluateLater }) => {
+    Alpine.directive(name, (el, { expression, value, modifiers }, { evaluateLater }) => {
       const apiName = joinCamelCase([...name.split("-"), modifiers.at(0) ?? ""])
       if (!value) {
         const evaluateProps = evaluateLater<Partial<T["props"]> | (() => Partial<T["props"]>)>(expression)
         const userPropsRef = Alpine.reactive({ value: {} as Partial<T["props"]> | (() => Partial<T["props"]>) })
-        effect(() => {
-          evaluateProps((props) => (userPropsRef.value = props))
-        })
+        evaluateProps((props) => (userPropsRef.value = props))
+
         const machine = new AlpineMachine(component.machine, userPropsRef)
         Alpine.magic(apiName + "Service", () => machine.service)
         Alpine.magic(apiName, () => component.connect(machine.service, normalizeProps))
@@ -44,6 +43,9 @@ export function usePlugin<T extends MachineSchema>(
                 machine.destroy()
               },
             }
+          },
+          "x-effect"() {
+            evaluateProps((props) => (userPropsRef.value = props))
           },
         })
       } else if (value === "collection") {
