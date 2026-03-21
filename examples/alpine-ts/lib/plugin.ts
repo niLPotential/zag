@@ -24,7 +24,9 @@ export function usePlugin<T extends MachineSchema>(
 
         const machine = new AlpineMachine(component.machine, userPropsRef)
         Alpine.magic(apiName + "Service", () => machine.service)
-        Alpine.magic(apiName, () => component.connect(machine.service, normalizeProps))
+
+        const apiRef = Alpine.reactive({ value: component.connect(machine.service, normalizeProps) })
+        Alpine.magic(apiName, () => apiRef.value)
         Alpine.bind(el, {
           "x-data"() {
             return {
@@ -36,8 +38,11 @@ export function usePlugin<T extends MachineSchema>(
               },
             }
           },
-          "x-effect"() {
+          "x-effect:prop"() {
             evaluateProps((props) => (userPropsRef.value = props))
+          },
+          "x-effect:api"() {
+            apiRef.value = component.connect(machine.service, normalizeProps)
           },
         })
       } else if (value === "collection") {
