@@ -157,10 +157,8 @@ export class AlpineMachine<T extends MachineSchema> {
           if (cleanup) this.effects.set(INIT_STATE, cleanup)
         }
 
-        queueMicrotask(() => {
-          entering.forEach((item) => {
-            this.action(item.state.entry)
-          })
+        entering.forEach((item) => {
+          this.action(item.state.entry)
         })
       },
     }))
@@ -172,35 +170,37 @@ export class AlpineMachine<T extends MachineSchema> {
 
     if (!event) return
 
-    this.previousEvent = this.event
-    this.event = event
+    queueMicrotask(() => {
+      this.previousEvent = this.event
+      this.event = event
 
-    this.debug("send", event)
+      this.debug("send", event)
 
-    let currentState = this.state.get()
+      let currentState = this.state.get()
 
-    const eventType = event.type
-    const { transitions, source } = findTransition(this.machine, currentState, eventType)
-    const transition = this.choose(transitions)
-    if (!transition) return
+      const eventType = event.type
+      const { transitions, source } = findTransition(this.machine, currentState, eventType)
+      const transition = this.choose(transitions)
+      if (!transition) return
 
-    // save current transition
-    this.transition = transition
-    const target = resolveStateValue(this.machine, transition.target ?? currentState, source)
+      // save current transition
+      this.transition = transition
+      const target = resolveStateValue(this.machine, transition.target ?? currentState, source)
 
-    this.debug("transition", transition)
+      this.debug("transition", transition)
 
-    const changed = target !== currentState
-    if (changed) {
-      // state change is high priority
-      this.state.set(target)
-    } else if (transition.reenter) {
-      // reenter will re-invoke the current state
-      this.state.invoke(currentState, currentState)
-    } else {
-      // call transition actions
-      this.action(transition.actions)
-    }
+      const changed = target !== currentState
+      if (changed) {
+        // state change is high priority
+        this.state.set(target)
+      } else if (transition.reenter) {
+        // reenter will re-invoke the current state
+        this.state.invoke(currentState, currentState)
+      } else {
+        // call transition actions
+        this.action(transition.actions)
+      }
+    })
   }
 
   private action = (keys: ActionsOrFn<T> | undefined) => {
