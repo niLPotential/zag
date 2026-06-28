@@ -111,6 +111,8 @@ const presets = ["#f47373", "#697689"]
           </div>
         </div>
       </div>
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
     </form>
   </main>
 
