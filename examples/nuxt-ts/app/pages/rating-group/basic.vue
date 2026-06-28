@@ -25,6 +25,7 @@ const items = computed(() =>
 <template>
   <main class="rating">
     <div v-bind="api.getRootProps()">
+      <label v-bind="api.getLabelProps()">Rate:</label>
       <div v-bind="api.getControlProps()">
         <span v-for="[index, state] in items" :key="index" v-bind="api.getItemProps({ index })">
           <HalfStar v-if="state.half" />
