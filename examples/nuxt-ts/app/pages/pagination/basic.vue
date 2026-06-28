@@ -65,6 +65,11 @@ const data = computed(() => api.value.slice(paginationData))
         </ul>
       </nav>
     </template>
+
+    <div class="output">
+      <p>OpenChange Details</p>
+      <pre data-testid="output">{{ JSON.stringify(details, null, 2) }}</pre>
+    </div>
   </main>
 
   <Toolbar>
