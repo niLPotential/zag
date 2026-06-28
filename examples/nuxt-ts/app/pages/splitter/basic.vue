@@ -9,7 +9,7 @@ const service = useMachine(
   splitter.machine,
   controls.mergeProps<splitter.Props>({
     id: useId(),
-    panels: [{ id: "a" }, { id: "b" }],
+    panels: [{ id: "a" }, { id: "b" }, { id: "c" }],
   }),
 )
 
@@ -18,13 +18,18 @@ const api = computed(() => splitter.connect(service, normalizeProps))
 
 <template>
   <main class="splitter">
+    <pre>{{ JSON.stringify(api.getSizes()) }}</pre>
     <div v-bind="api.getRootProps()">
       <div v-bind="api.getPanelProps({ id: 'a' })">
         <p>A</p>
       </div>
-      <div v-bind="api.getResizeTriggerProps({ id: 'a:b' })"></div>
+      <div data-testid="trigger-a:b" v-bind="api.getResizeTriggerProps({ id: 'a:b' })"></div>
       <div v-bind="api.getPanelProps({ id: 'b' })">
         <p>B</p>
+      </div>
+      <div data-testid="trigger-b:c" v-bind="api.getResizeTriggerProps({ id: 'b:c' })"></div>
+      <div v-bind="api.getPanelProps({ id: 'c' })">
+        <p>C</p>
       </div>
     </div>
   </main>
