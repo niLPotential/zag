@@ -299,7 +299,7 @@ export function connect<T extends PropTypes, V = TreeNode>(
             Enter() {
               send({ type: "CONTENT.ENTER" })
             },
-            " "() {
+            Space() {
               send({ type: "CONTENT.ENTER" })
             },
           }
