@@ -6,7 +6,7 @@ import {
   type ControlRecord,
   type ControlValue,
 } from "@zag-js/shared"
-import { computed, ref, toRaw, toValue, type ComputedRef, type Ref, type UnwrapRef } from "vue"
+import { computed, ref, toValue, type ComputedRef, type Ref, type UnwrapRef } from "vue"
 
 export interface UseControlsReturn<T extends ControlRecord> {
   config: T
@@ -38,7 +38,7 @@ export const useControls = <T extends ControlRecord>(config: T): UseControlsRetu
     keys: Object.keys(config) as (keyof ControlValue<T>)[],
     mergeProps: <P>(props: Partial<P>): ComputedRef<ControlValue<T> & P> => {
       return computed(() => ({
-        ...getTransformedControlValues(config, toRaw(toValue(state))),
+        ...getTransformedControlValues(config, toValue(state)),
         ...props,
       }))
     },
