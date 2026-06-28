@@ -23,8 +23,8 @@ export function getWebServer(): WebServer {
       reuseExistingServer: !CI,
     },
     vue: {
-      cwd: "./examples/vue-ts",
-      command: `pnpm vite --port ${vuePort}`,
+      cwd: "./examples/nuxt-ts",
+      command: `pnpm dev --port ${vuePort}`,
       url: `http://localhost:${vuePort}`,
       reuseExistingServer: !CI,
     },
