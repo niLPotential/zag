@@ -26,7 +26,7 @@ const api = computed(() => datePicker.connect(service, normalizeProps))
     <p>{{ `Visible range: ${api.visibleRangeText.formatted}` }}</p>
 
     <output class="date-output">
-      <div>Selected: {{ api.valueAsString ?? "-" }}</div>
+      <div>Selected: {{ api.valueAsString.at(0) ?? "-" }}</div>
       <div>Focused: {{ api.focusedValueAsString }}</div>
     </output>
 
