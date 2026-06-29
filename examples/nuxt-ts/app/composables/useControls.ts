@@ -38,8 +38,8 @@ export const useControls = <T extends ControlRecord>(config: T): UseControlsRetu
     keys: Object.keys(config) as (keyof ControlValue<T>)[],
     mergeProps: <P>(props: Partial<P>): ComputedRef<ControlValue<T> & P> => {
       return computed(() => ({
-        ...getTransformedControlValues(config, toValue(state)),
         ...props,
+        ...getTransformedControlValues(config, toValue(state)),
       }))
     },
   }
