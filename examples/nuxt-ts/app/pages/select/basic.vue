@@ -26,6 +26,7 @@ const api = computed(() => select.connect(service, normalizeProps))
           <span>{{ api.valueAsString || "Select option" }}</span>
           <span v-bind="api.getIndicatorProps()">▼</span>
         </button>
+        <button v-bind="api.getClearTriggerProps()">X</button>
       </div>
       <form
         @input="
